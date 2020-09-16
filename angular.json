@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "femalert-hva": {
+    "femalert-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "sccs"
+          "style": "scss"
         }
       },
       "root": "",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FemAlert-HvA",
+            "outputPath": "dist/femalert-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FemAlert-HvA:build"
+            "browserTarget": "femalert-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FemAlert-HvA:build:production"
+              "browserTarget": "femalert-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FemAlert-HvA:build"
+            "browserTarget": "femalert-app:build"
           }
         },
         "test": {
@@ -92,7 +92,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -114,16 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FemAlert-HvA:serve"
+            "devServerTarget": "femalert-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FemAlert-HvA:serve:production"
+              "devServerTarget": "femalert-app:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "FemAlert-HvA"
+    }},
+  "defaultProject": "femalert-app"
 }
