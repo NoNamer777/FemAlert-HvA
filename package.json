@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "ci-test": "ng test --no-watch --no-progress --browsers=ChromeHeadLessCI",
+    "ci-e2e": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
