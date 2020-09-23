@@ -46,11 +46,4 @@ describe('AppComponent', () => {
 
     expect(component.title).toEqual('femalert-app');
   });
-
-  // todo should be removed once the application has been expanded on.
-  it('should render text in the HTML element', () => {
-    const { element } = getTestingObjects();
-
-    expect(element.querySelector('p').innerText).toBe('FemAlert app is running');
-  });
 });
