@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="d-flex flex-row-reverse mb-4">
+    <button (click)="onStop()" class="btn btn-light px-4 shadow rounded-pill">
+      <fa-icon class="h4" [icon]="iconQuit"></fa-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="questionsForm">
+    <div class="form-group bg-grey1 rounded-corner p-3">
+      <label class="font-weight-bold">
+        Wanneer vond het incident plaats? <span class="text-danger">*</span>
+      </label>
+      <div class="d-flex">
+        <input type="date" id="date" class="form-control rounded-corner" formControlName="date">
+        <input type="time" id="time" class="form-control rounded-corner" formControlName="time">
+      </div>
+    </div>
+    <div class="form-group bg-grey1 rounded-corner p-3">
+      <label class="pl-3 font-weight-bold">Wat is er gebeurd? <span class="text-danger">*</span></label>
+<!--  todo Get events from database add the form controls to the FormGroup. -->
+    </div>
+    <div class="form-group bg-grey1 rounded-corner p-3">
+      <label for="story" class="pl-3 font-weight-bold">Vertel kort je verhaal?</label>
+      <input type="text" id="story" class="form-control rounded-corner bg-grey2 border-0" formControlName="story">
+    </div>
+    <div class="form-group bg-grey1 rounded-corner p-3">
+      <label for="name" class="pl-3 font-weight-bold">Voornaam</label>
+      <input type="text" id="name" class="form-control rounded-corner bg-grey2 border-0" formControlName="name">
+    </div>
+    <div class="form-group bg-grey1 rounded-corner p-3">
+      <label for="email" class="pl-3 font-weight-bold">E-mailadres <span class="text-danger">*</span></label>
+      <input type="email" id="email" class="form-control rounded-corner bg-grey2 border-0" formControlName="email">
+    </div>
+    <div class="form-check mb-3">
+      <p>Wij bieden slachtofferhulp aan. Wil je via de mail meer informatie hierover?</p>
+      <div class="d-flex justify-content-around">
+        <input type="radio" class="form-check-input" hidden [value]="true" formControlName="victimSupport">
+        <input type="radio" class="form-check-input" hidden [value]="false" formControlName="victimSupport">
+        <button
+          class="btn flex-grow-1 mr-4 rounded-corner"
+          [ngClass]="buttonClass(questionsForm.value.victimSupport)"
+          (click)="toggleRadioValue('victimSupport', true)"
+        >
+          Ja
+        </button>
+        <button
+          class="btn flex-grow-1 rounded-corner"
+          [ngClass]="buttonClass(!questionsForm.value.victimSupport)"
+          (click)="toggleRadioValue('victimSupport', false)"
+        >
+          Nee
+        </button>
+      </div>
+  </div>
+    <div class="form-check mb-3">
+      <p>Mogen wij voor eventuele verder informatie nog contact opnemen?</p>
+      <div class="d-flex justify-content-around">
+        <input type="radio" class="form-check-input" hidden [value]="true" formControlName="extraInfo">
+        <input type="radio" class="form-check-input" hidden [value]="false" formControlName="extraInfo">
+        <button
+          class="btn flex-grow-1 mr-4 rounded-corner"
+          [ngClass]="buttonClass(questionsForm.value.extraInfo)"
+          (click)="toggleRadioValue('extraInfo', true)"
+        >
+          Ja
+        </button>
+        <button
+          class="btn flex-grow-1 rounded-corner"
+          [ngClass]="buttonClass(!questionsForm.value.extraInfo)"
+          (click)="toggleRadioValue('extraInfo', false)"
+        >
+          Nee
+        </button>
+      </div>
+  </div>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="comply-conditions-check" formControlName="condition">
+      <small>
+        Ja, ik ga er mee akkoord dat de plaats, tijd en aard van het door mij gemelde incident zullen worden geregistreerd
+        en verwerkt in rapportages voor uitgaansgelegenheden en de overheid. De ingevulde gegevens zijn niet tot de persoon
+        herleidbaar. Je contactgegevens in dit formulier zullen niet worden gedeeld met derden en enkel worden gebruikt om
+        je op de hoogte te houden van de ontwikkelingen van FemAlert. Het is op elk moment mogelijk om je uit te schrijven
+        voor deze berichten. We zullen jouw gegevens conform de AVG-wet behandelen.
+      </small>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-between mt-4">
+    <button
+      class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      (click)="onPrevious()"
+    >
+      Vorige
+    </button>
+    <button
+      class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      (click)="onNext()"
+    >
+      Volgende
+    </button>
+  </div>
+</div>
