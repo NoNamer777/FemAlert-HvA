@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container px-0">
   <div class="d-flex flex-row-reverse mb-4">
-    <button (click)="onStop()" class="btn btn-light px-4 shadow rounded-pill">
-      <fa-icon class="h4" [icon]="iconQuit"></fa-icon>
+    <button (click)="onStop()" class="btn btn-light px-4 shadow rounded-pill" id="btn-stop-report">
+      <fa-icon class="h5" [icon]="iconQuit"></fa-icon>
     </button>
   </div>
 
@@ -10,32 +10,94 @@
       <label class="font-weight-bold">
         Wanneer vond het incident plaats? <span class="text-danger">*</span>
       </label>
-      <div class="d-flex">
-        <input type="date" id="date" class="form-control rounded-corner" formControlName="date">
-        <input type="time" id="time" class="form-control rounded-corner" formControlName="time">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text border-0 bg-grey2" style="border-radius: 1rem 0 0 1rem;">
+            <fa-icon [icon]="iconCalender"></fa-icon>
+          </div>
+        </div>
+        <label for="date-time-input" class="sr-only">Date Time Input</label>
+        <input
+          type="datetime-local"
+          class="form-control border-0 bg-grey2"
+          id="date-time-input"
+          style="border-radius: 0 1rem 1rem 0;"
+          formControlName="dateTime"
+        >
       </div>
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
-      <label class="pl-3 font-weight-bold">Wat is er gebeurd? <span class="text-danger">*</span></label>
-<!--  todo Get events from database add the form controls to the FormGroup. -->
+      <label class="font-weight-bold">
+        Wat is er gebeurd? <span class="text-danger">*</span>
+      </label>
+      <div class="d-flex flex-wrap justify-content-around align-items-baseline">
+        <button
+          class="btn form-check-inline text-left rounded-corner my-1 event-btn"
+          id="{{ event.toLowerCase() + '-incident-button' }}"
+          *ngFor="let event of incidentTypes"
+          [ngClass]="buttonClass(questionsForm.value.events.includes(event))"
+          (click)="toggleIncidentEvent(event)"
+        >
+          <label for="{{ event.toLowerCase() + '-incident-checkbox' }}" class="sr-only">
+            {{ event + ' incident type' }}
+          </label>
+          <input
+            type="checkbox"
+            id="{{ event.toLowerCase() + '-incident-checkbox' }}"
+            class="form-check-input"
+            [checked]="questionsForm.value.events.includes(event)"
+          >
+          <small class="form-check-label">{{ event }}</small>
+        </button>
+      </div>
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
-      <label for="story" class="pl-3 font-weight-bold">Vertel kort je verhaal?</label>
-      <input type="text" id="story" class="form-control rounded-corner bg-grey2 border-0" formControlName="story">
+      <label for="story" class="font-weight-bold">Vertel kort je verhaal?</label>
+      <input
+        type="text"
+        id="story"
+        class="form-control rounded-corner bg-grey2 border-0"
+        placeholder="Vertel hier wat er is gebeurd"
+        formControlName="story"
+      >
+<!--      <textarea-->
+<!--        type="text"-->
+<!--        id="story"-->
+<!--        class="form-control rounded-corner bg-grey2 border-0"-->
+<!--        placeholder="Vertel hier wat er is gebeurd"-->
+<!--        formControlName="story"-->
+<!--      >-->
+<!--      </textarea>-->
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
-      <label for="name" class="pl-3 font-weight-bold">Voornaam</label>
+      <label for="name" class="font-weight-bold">Voornaam</label>
       <input type="text" id="name" class="form-control rounded-corner bg-grey2 border-0" formControlName="name">
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
-      <label for="email" class="pl-3 font-weight-bold">E-mailadres <span class="text-danger">*</span></label>
+      <label for="email" class="font-weight-bold">E-mailadres <span class="text-danger">*</span></label>
       <input type="email" id="email" class="form-control rounded-corner bg-grey2 border-0" formControlName="email">
     </div>
     <div class="form-check mb-3">
       <p>Wij bieden slachtofferhulp aan. Wil je via de mail meer informatie hierover?</p>
       <div class="d-flex justify-content-around">
-        <input type="radio" class="form-check-input" hidden [value]="true" formControlName="victimSupport">
-        <input type="radio" class="form-check-input" hidden [value]="false" formControlName="victimSupport">
+        <label for="victim-support-true-radio" class="sr-only">Victim support: true</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          id="victim-support-true-radio"
+          hidden
+          formControlName="victimSupport"
+          [value]="true"
+        >
+        <label for="victim-support-false-radio" class="sr-only">Victim support: false</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          id="victim-support-false-radio"
+          hidden
+          formControlName="victimSupport"
+          [value]="false"
+        >
         <button
           class="btn flex-grow-1 mr-4 rounded-corner"
           [ngClass]="buttonClass(questionsForm.value.victimSupport)"
@@ -55,10 +117,25 @@
     <div class="form-check mb-3">
       <p>Mogen wij voor eventuele verder informatie nog contact opnemen?</p>
       <div class="d-flex justify-content-around">
-        <input type="radio" class="form-check-input" hidden [value]="true" formControlName="extraInfo">
-        <input type="radio" class="form-check-input" hidden [value]="false" formControlName="extraInfo">
+        <label for="extra-info-true-radio" class="sr-only">Extra info: true</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          id="extra-info-true-radio"
+          hidden formControlName="extraInfo"
+          [value]="true"
+        >
+        <label for="extra-info-false-radio" class="sr-only">Extra info: false</label>
+        <input
+          type="radio"
+          class="form-check-input"
+          id="extra-info-false-radio"
+          hidden formControlName="extraInfo"
+          [value]="false"
+        >
         <button
           class="btn flex-grow-1 mr-4 rounded-corner"
+          id="extra-info-true-btn"
           [ngClass]="buttonClass(questionsForm.value.extraInfo)"
           (click)="toggleRadioValue('extraInfo', true)"
         >
@@ -66,6 +143,7 @@
         </button>
         <button
           class="btn flex-grow-1 rounded-corner"
+          id="extra-info-false-btn"
           [ngClass]="buttonClass(!questionsForm.value.extraInfo)"
           (click)="toggleRadioValue('extraInfo', false)"
         >
@@ -74,6 +152,9 @@
       </div>
   </div>
     <div class="form-check">
+      <label for="comply-conditions-check" class="sr-only">
+        Accepted conditions: {{ questionsForm.value.condition }}
+      </label>
       <input type="checkbox" class="form-check-input" id="comply-conditions-check" formControlName="condition">
       <small>
         Ja, ik ga er mee akkoord dat de plaats, tijd en aard van het door mij gemelde incident zullen worden geregistreerd
@@ -88,12 +169,15 @@
   <div class="d-flex justify-content-between mt-4">
     <button
       class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      id="btn-previous"
       (click)="onPrevious()"
     >
       Vorige
     </button>
     <button
       class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      id="btn-next"
+      [disabled]="questionsForm.invalid || !questionsForm.value.condition"
       (click)="onNext()"
     >
       Volgende

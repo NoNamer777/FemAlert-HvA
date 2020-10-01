@@ -3,4 +3,10 @@
   height: 1rem;
 }
 
+.event-btn {
+  display: inline-flex !important;
+  width: 45% !important;
+  font-size: 0.9rem !important;
+}
+
 /*# sourceMappingURL=question.component.css.map */
