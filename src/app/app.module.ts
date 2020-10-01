@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/content/homepage/homepage.component';
 import { QuestionComponent } from './components/content/question/question.component';
+import {LocationPickerModule} from './components/content/location-picker/location-picker.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { QuestionComponent } from './components/content/question/question.compon
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    LocationPickerModule
   ],
   providers: [],
   bootstrap: [
