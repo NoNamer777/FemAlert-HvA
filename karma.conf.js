@@ -36,7 +36,8 @@ module.exports = function (config) {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
         flags: [
-          '--no-sandbox'
+          '--no-sandbox',
+          '--disable-gpu'
         ],
       },
     },
