@@ -12,6 +12,7 @@ import { HomepageComponent } from './components/content/homepage/homepage.compon
 import { QuestionComponent } from './components/content/question/question.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
+import { PartnerComponent } from './components/content/partner/partner.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     NavbarComponent,
     HomepageComponent,
     QuestionComponent,
+    PartnerComponent,
   ],
   imports: [
     BrowserModule,
