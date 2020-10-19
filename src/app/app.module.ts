@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/content/homepage/homepage.component';
 import { QuestionComponent } from './components/content/question/question.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { QuestionComponent } from './components/content/question/question.compon
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [
