@@ -18,6 +18,7 @@ import { QuestionComponent } from './components/content/question/question.compon
 import { LocationPickerComponent } from './components/content/location-picker/location-picker.component';
 import { PartnerComponent } from './components/content/partner/partner.component';
 import { LoginComponent } from './components/content/login/login.component';
+import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoginComponent } from './components/content/login/login.component';
     NavbarComponent,
     PartnerComponent,
     QuestionComponent,
+    EmailMoreInfoDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -44,6 +46,6 @@ import { LoginComponent } from './components/content/login/login.component';
   providers: [],
   bootstrap: [
     AppComponent,
-  ]
+  ],
 })
 export class AppModule { }

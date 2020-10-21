@@ -3,11 +3,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import { RapportsService } from '../../../services/rapports.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
-import { Rapport } from '../../../models/Rapport';
-import { Address } from '../../../models/Address';
+import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 
 @Component({
   selector: 'app-question',
@@ -46,12 +47,11 @@ export class QuestionComponent implements OnInit {
   constructor(
     private router: Router,
     private reportsService: RapportsService,
-    private sessionStorageService: SessionStorageService
+    private sessionStorageService: SessionStorageService,
+    private dialog: MatDialog,
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.reportsService.rapport);
-  }
+  ngOnInit(): void {}
 
   /** Handles going back to the Home Page, thus stopping the process of filling in the form. */
   onStop(): void {
@@ -67,6 +67,19 @@ export class QuestionComponent implements OnInit {
   onNext(): void {
     // Todo should go to the next page (TBD)
     console.log('going to next screen');
+  }
+
+  onMIEmail(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.position = {
+      top: '40%',
+      left: '10%',
+    };
+
+    this.dialog.open(EmailMoreInfoDialogComponent, dialogConfig);
   }
 
   /** Provides an element class depending on a form value. */
