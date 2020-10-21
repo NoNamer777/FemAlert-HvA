@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 
-import { ReportsService } from '../../services/reports.service';
+import { RapportsService } from '../../services/rapports.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +10,12 @@ import { ReportsService } from '../../services/reports.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private reportsService: ReportsService) {}
+  constructor(private reportsService: RapportsService) {}
 
   ngOnInit(): void {}
 
   @HostBinding('hidden')
   get hidden(): boolean {
-    return this.reportsService.isCreatingReport;
+    return this.reportsService.isCreatingRapport;
   }
 }

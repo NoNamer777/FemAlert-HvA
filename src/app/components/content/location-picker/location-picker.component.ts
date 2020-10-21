@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { ReportsService } from '../../../services/reports.service';
-import { Report } from '../../../models/Report';
+import { SessionStorageService } from '../../../services/session-storage.service';
+import { RapportsService } from '../../../services/rapports.service';
+import { Rapport } from '../../../models/Rapport';
 import { Address } from '../../../models/Address';
-import Marker = google.maps.Marker;
 
 const addressSetAnimation = trigger('showHide', [
   transition(':enter', [
@@ -36,7 +36,7 @@ export class LocationPickerComponent implements OnInit {
 
   @ViewChild(GoogleMap, { static: true }) map: GoogleMap;
 
-  marker: Marker = new Marker({
+  marker: google.maps.Marker = new google.maps.Marker({
     visible: false,
   });
 
@@ -51,6 +51,7 @@ export class LocationPickerComponent implements OnInit {
     minZoom: 8,
     fullscreenControl: false,
     mapTypeControl: false,
+    streetViewControl: false,
   };
 
   address: string = null;
@@ -61,7 +62,8 @@ export class LocationPickerComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private reportsService: ReportsService,
+    private rapportsService: RapportsService,
+    private sessionStorageService: SessionStorageService,
     private changeDetectionRef: ChangeDetectorRef
   ) {}
 
@@ -71,20 +73,37 @@ export class LocationPickerComponent implements OnInit {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      this.changeDetectionRef.detectChanges();
+      this.changeDetectionRef.markForCheck();
     });
+
+    if (this.rapportsService.rapport != null) {
+      this.address = this.rapportsService.rapport.address.formattedAddress;
+      (document.documentElement.querySelector('input#address-input') as HTMLInputElement).value =
+        this.rapportsService.rapport.address.formattedAddress;
+
+      const geoCoder = new google.maps.Geocoder();
+      const request = { address: this.address } as google.maps.GeocoderRequest;
+
+      geoCoder.geocode(request, (geocoderResults: google.maps.GeocoderResult[]) => {
+        (geocoderResults[0] as any as google.maps.places.PlaceResult).name =
+          this.rapportsService.rapport.address.businessName;
+
+        this.getAddressOnChange(geocoderResults[0] as any as google.maps.places.PlaceResult);
+      });
+    }
   }
 
   onPrevious(): void {
-    this.router.navigate(['/home']).then(() => this.reportsService.isCreatingReport = false);
+    this.router.navigate(['/home']).then(() => this.rapportsService.isCreatingRapport = false);
   }
 
   onNext(): void {
     this.router.navigate(['/questions']).then(() => {
-      const report = new Report();
+      const rapport =  new Rapport();
 
-      report.address = new Address(this.placeResult.formatted_address, this.placeResult.name);
-      this.reportsService.report = report;
+      rapport.address = new Address(this.placeResult.formatted_address, this.placeResult.name);
+
+      this.rapportsService.rapport = rapport;
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ReportsService } from '../../../services/reports.service';
+import { RapportsService } from '../../../services/rapports.service';
 
 @Component({
   selector: 'app-homepage',
@@ -11,11 +11,11 @@ import { ReportsService } from '../../../services/reports.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, private reportsService: ReportsService) {}
+  constructor(private router: Router, private reportsService: RapportsService) {}
 
   ngOnInit(): void {}
 
   onStartReport(): void {
-    this.router.navigate(['/location-picker']).then(() => this.reportsService.isCreatingReport = true);
+    this.router.navigate(['/location-picker']).then(() => this.reportsService.isCreatingRapport = true);
   }
 }

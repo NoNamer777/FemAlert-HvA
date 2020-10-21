@@ -1,6 +1,6 @@
 import { Address } from './Address';
 
-export class Report {
+export class Rapport {
 
   get id(): string {
     return this._id;
@@ -11,7 +11,6 @@ export class Report {
   }
 
   private _id: string = null;
-
 
   get address(): Address {
     return this._address;

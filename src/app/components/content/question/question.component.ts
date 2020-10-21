@@ -1,8 +1,13 @@
+/// <reference types="@types/googlemaps" />
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ReportsService } from '../../../services/reports.service';
+import { RapportsService } from '../../../services/rapports.service';
+import { SessionStorageService } from '../../../services/session-storage.service';
+import { Rapport } from '../../../models/Rapport';
+import { Address } from '../../../models/Address';
 
 @Component({
   selector: 'app-question',
@@ -38,19 +43,24 @@ export class QuestionComponent implements OnInit {
     condition: new FormControl(false, Validators.required)
   });
 
-  constructor(private router: Router, private reportsService: ReportsService) {}
+  constructor(
+    private router: Router,
+    private reportsService: RapportsService,
+    private sessionStorageService: SessionStorageService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.reportsService.rapport);
+  }
 
   /** Handles going back to the Home Page, thus stopping the process of filling in the form. */
   onStop(): void {
-    this.router.navigate(['/home']).then(() => this.reportsService.isCreatingReport = false);
+    this.router.navigate(['/home']).then(() => this.reportsService.isCreatingRapport = false);
   }
 
   /** Handles going the previous page. */
   onPrevious(): void {
-    // Todo should go back to the location picker page once implemented.
-    this.onStop();
+    this.router.navigate(['/location-picker']);
   }
 
   /** Handles going to the next page. */

@@ -1,4 +1,4 @@
-import { Directive, HostListener, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Directive, Output, EventEmitter, ElementRef } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Directive({
@@ -20,9 +20,7 @@ export class AddressInputDirective {
     this._element = element.nativeElement;
     this.modelValue = this.model;
 
-    const input = this._element;
-
-    this.autocomplete = new google.maps.places.Autocomplete(input);
+    this.autocomplete = new google.maps.places.Autocomplete(this._element);
 
     google.maps.event.addListener(
       this.autocomplete,

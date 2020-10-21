@@ -5,23 +5,38 @@ import { Injectable } from '@angular/core';
 })
 export class SessionStorageService {
 
-  constructor() { }
-
-  updateSessionData(key: string, value: any): void {
-    let data = this.getSessionData();
-
-    if (data == null) data = {};
-
-    if (value != null) data[key] = value;
-    else delete data[key];
-
-    sessionStorage.setItem('fem-alert', JSON.stringify(data));
+  get getData(): any {
+    return this._data;
   }
 
-  getSessionData(): any {
-    const data: string = sessionStorage.getItem('fem-alert');
+  private readonly _data: any = null;
 
-    return data == null || data === '{}' ?
-      null : JSON.parse(data);
+  constructor() {
+    const dataRaw: string = sessionStorage.getItem('fem-alert');
+
+    if (dataRaw == null || dataRaw === '{}') this._data = {};
+    else this._data = JSON.parse(dataRaw);
+  }
+
+  updateSessionData(key: string, value: any): void {
+    if (value != null) this._data[key] = value;
+    else delete this._data[key];
+
+    sessionStorage.setItem('fem-alert', JSON.stringify(this.serializeData(this._data)));
+  }
+
+  private serializeData(data): any {
+    const serialized = {};
+
+    for (const key in data) {
+
+      if (data.hasOwnProperty(key)) {
+        const serializedKey = key.replace('_', '');
+
+        if (typeof data[key] === 'object' && data[key] != null) serialized[serializedKey] = this.serializeData(data[key]);
+        else serialized[serializedKey] = data[key];
+      }
+    }
+    return serialized;
   }
 }
