@@ -9,14 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomepageComponent } from './components/content/homepage/homepage.component';
+import { HomeComponent } from './components/content/home/home.component';
 import { QuestionComponent } from './components/content/question/question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomepageComponent,
+    HomeComponent,
     QuestionComponent,
   ],
   imports: [
