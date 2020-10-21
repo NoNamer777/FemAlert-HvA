@@ -6,6 +6,10 @@ html, body {
   padding: 0;
 }
 
+body{
+  font-family:'Open Sans', sans-serif !important;
+}
+
 .rounded-corner {
   border-radius: 1rem !important;
 }
@@ -21,3 +25,6 @@ html, body {
 .w-40 {
   width: 40% !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

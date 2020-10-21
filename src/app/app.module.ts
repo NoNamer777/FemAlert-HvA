@@ -14,6 +14,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/content/home/home.component';
 import { QuestionComponent } from './components/content/question/question.component';
 import { LocationPickerComponent } from './components/content/location-picker/location-picker.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PartnerComponent } from './components/content/partner/partner.component';
+import { LoginComponent } from './components/content/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { LocationPickerComponent } from './components/content/location-picker/lo
     HomeComponent,
     QuestionComponent,
     LocationPickerComponent,
+    PartnerComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +38,8 @@ import { LocationPickerComponent } from './components/content/location-picker/lo
     FontAwesomeModule,
     ReactiveFormsModule,
     GoogleMapsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [
