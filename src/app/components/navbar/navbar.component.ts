@@ -1,4 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+
 import { ReportsService } from '../../services/reports.service';
 
 @Component({
