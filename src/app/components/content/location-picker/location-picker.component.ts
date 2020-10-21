@@ -3,12 +3,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { Router } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import Marker = google.maps.Marker;
 
 import { ReportsService } from '../../../services/reports.service';
 import { Report } from '../../../models/Report';
 import { Address } from '../../../models/Address';
+import Marker = google.maps.Marker;
+
+const addressSetAnimation = trigger('showHide', [
+  transition(':enter', [
+    style({ height: 0, opacity: 0 }),
+    animate('0.3s ease-in', style({ height: '*', opacity: 1 }))
+  ]),
+  transition(':leave', [
+    style({ height: '*', opacity: 1 }),
+    animate('0.2s ease-out', style({ height: 0, opacity: 0 }))
+  ])
+]);
 
 @Component({
   selector: 'app-location-picker',
@@ -16,6 +28,9 @@ import { Address } from '../../../models/Address';
   styleUrls: ['./location-picker.component.scss'],
   providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    addressSetAnimation,
+  ],
 })
 export class LocationPickerComponent implements OnInit {
 
@@ -82,8 +97,15 @@ export class LocationPickerComponent implements OnInit {
   }
 
   getAddressOnChange(placeResult: google.maps.places.PlaceResult): void {
-    if (placeResult.address_components == null) return;
 
+    if (placeResult.address_components == null) {
+      this.placeResult = null;
+      this.marker.setOptions({
+        visible: false
+      });
+
+      return;
+    }
     this.placeResult = placeResult;
     this.address = placeResult.formatted_address;
 

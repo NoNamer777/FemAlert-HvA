@@ -68,15 +68,30 @@
 </google-map>
 <div class="position-absolute" id="address-view">
   <div class="d-flex flex-column justify-content-center align-items-center">
-    <div class="rounded-pill w-25 mt-4 mb-3" style="border: 0.2em lightgray solid !important;"></div>
+    <div
+      class="rounded-pill w-25 mt-4 mb-3"
+      style="background-color: lightgray; border: 0.2em lightgray solid !important;"
+    >
+    </div>
   </div>
-  <div class="text-center w-100" *ngIf="placeResult != null">
+  <div class="text-center w-100" @showHide *ngIf="placeResult != null">
     <p class="h4 font-weight-bold">{{ placeResult.name }}</p>
-    <p class="h5 font-weight-normal">{{ addressStreetAndNumber }}</p>
+    <p class="h5 font-weight-normal mb-0">{{ addressStreetAndNumber }}</p>
     <p class="h5 font-weight-normal">{{ addressPostalCodeAndCity }}</p>
   </div>
   <div class="d-flex justify-content-around align-items-center">
-    <button class="btn btn-lg btn-light border border-dark shadow rounded-pill my-4 w-40" (click)="onPrevious()">Vorige</button>
-    <button class="btn btn-lg btn-light border border-dark shadow rounded-pill my-4 w-40" (click)="onNext()">Volgende</button>
+    <button
+      class="btn btn-lg btn-light border border-dark shadow rounded-pill my-4 w-40"
+      (click)="onPrevious()"
+    >
+      Vorige
+    </button>
+    <button
+      class="btn btn-lg btn-light border border-dark shadow rounded-pill my-4 w-40"
+      [disabled]="placeResult == null"
+      (click)="onNext()"
+    >
+      Volgende
+    </button>
   </div>
 </div>

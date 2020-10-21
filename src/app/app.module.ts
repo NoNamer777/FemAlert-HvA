@@ -21,25 +21,25 @@ import { LoginComponent } from './components/content/login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     AddressInputDirective,
-    NavbarComponent,
+    AppComponent,
     HomeComponent,
-    QuestionComponent,
     LocationPickerComponent,
-    PartnerComponent,
     LoginComponent,
+    NavbarComponent,
+    PartnerComponent,
+    QuestionComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    CommonModule,
-    FormsModule,
-    FontAwesomeModule,
-    ReactiveFormsModule,
-    GoogleMapsModule,
     BrowserAnimationsModule,
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    GoogleMapsModule,
     MatDialogModule,
-    AppRoutingModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [
