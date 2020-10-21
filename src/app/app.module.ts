@@ -7,6 +7,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { AddressInputDirective } from './directives/address-input.directive';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/content/home/home.component';
@@ -15,6 +17,7 @@ import { QuestionComponent } from './components/content/question/question.compon
 @NgModule({
   declarations: [
     AppComponent,
+    AddressInputDirective,
     NavbarComponent,
     HomeComponent,
     QuestionComponent,
