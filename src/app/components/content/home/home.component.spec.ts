@@ -3,25 +3,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { HomepageComponent } from './homepage.component';
+import { HomeComponent } from './home.component';
 
-describe('HomepageComponent', () => {
-  let component: HomepageComponent;
+describe('HomeComponent', () => {
+  let component: HomeComponent;
   let element: HTMLElement;
-  let fixture: ComponentFixture<HomepageComponent>;
+  let fixture: ComponentFixture<HomeComponent>;
   let testRouter: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule.withRoutes([]) ],
-      declarations: [ HomepageComponent ],
+      declarations: [ HomeComponent ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomepageComponent);
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     element = fixture.debugElement.nativeElement;
 
@@ -40,7 +40,7 @@ describe('HomepageComponent', () => {
 
     button.click();
 
-    expect(navigationSpy).toHaveBeenCalledWith([ '/questions' ]);
+    expect(navigationSpy).toHaveBeenCalledWith([ '/location-picker' ]);
   });
 
 });
