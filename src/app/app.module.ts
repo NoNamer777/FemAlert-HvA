@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/content/home/home.component';
 import { QuestionComponent } from './components/content/question/question.component';
+import { LocationPickerComponent } from './components/content/location-picker/location-picker.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { QuestionComponent } from './components/content/question/question.compon
     NavbarComponent,
     HomeComponent,
     QuestionComponent,
+    LocationPickerComponent,
   ],
   imports: [
     BrowserModule,
