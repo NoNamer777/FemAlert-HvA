@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PartnerComponent } from './components/content/partner/partner.component';
 import { LoginComponent } from './components/content/login/login.component';
+import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LoginComponent } from './components/content/login/login.component';
     QuestionComponent,
     PartnerComponent,
     LoginComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,
