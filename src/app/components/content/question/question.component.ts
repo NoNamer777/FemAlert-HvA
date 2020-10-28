@@ -55,7 +55,9 @@ export class QuestionComponent implements OnInit {
 
   /** Handles going back to the Home Page, thus stopping the process of filling in the form. */
   onStop(): void {
-    this.router.navigate(['/home']).then(() => this.reportsService.isCreatingRapport = false);
+    this.router.navigate(['/home']);
+
+    this.reportsService.isCreatingRapport = false;
   }
 
   /** Handles going the previous page. */
