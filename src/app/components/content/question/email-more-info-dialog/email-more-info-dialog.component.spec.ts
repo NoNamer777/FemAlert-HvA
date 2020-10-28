@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('EmailMoreInfoDialogComponent', () => {
   let component: EmailMoreInfoDialogComponent;
@@ -8,7 +9,14 @@ describe('EmailMoreInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmailMoreInfoDialogComponent ]
+      imports: [
+      ],
+      declarations: [
+        EmailMoreInfoDialogComponent,
+      ],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+      ],
     })
     .compileComponents();
   });
