@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'questions', component: QuestionComponent },
   { path: 'partner', component: PartnerComponent },
   { path: 'login', component: LoginComponent },
-   { path: 'confirmation', component: ConfirmationComponent },
+  { path: 'bevestiging-melding', component: ConfirmationComponent },
 ];
 
 @NgModule({

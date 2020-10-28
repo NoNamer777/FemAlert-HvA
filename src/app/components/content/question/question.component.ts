@@ -54,8 +54,7 @@ export class QuestionComponent implements OnInit {
 
   /** Handles going to the next page. */
   onNext(): void {
-    // Todo should go to the next page (TBD)
-    console.log('going to next screen');
+    this.router.navigate(['/bevestiging-melding'])
   }
 
   /** Provides an element class depending on a form value. */
