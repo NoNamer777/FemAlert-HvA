@@ -52,17 +52,17 @@ describe('QuestionComponent', () => {
   // Todo change when the next page is implemented.
   it('should navigate to the next page', () => {
     const button: HTMLButtonElement = element.querySelector('#btn-next');
-    const logSpy = spyOn(console, 'log');
+    const navigationSpy = spyOn(router, 'navigate');
 
     component.questionsForm.controls.condition.setValue(true);
     component.questionsForm.controls.email.setValue('o.wellner@telfort.nl');
     component.questionsForm.controls.dateTime.setValue(new Date());
-
     fixture.detectChanges();
 
     button.click();
+    fixture.detectChanges();
 
-    expect(logSpy).toHaveBeenCalledWith('going to next screen');
+    expect(navigationSpy).toHaveBeenCalledWith(['/bevestiging-melding']);
   });
 
   it('should toggle button colors correctly', () => {
