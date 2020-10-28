@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   onStartReport(): void {
-    this.router.navigate(['/location-picker']).then(() => this.reportsService.isCreatingRapport = true);
+    this.router.navigate(['/location-picker']);
+
+    this.reportsService.isCreatingRapport = true;
   }
 }
