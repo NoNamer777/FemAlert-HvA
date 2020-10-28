@@ -43,7 +43,7 @@ export class RapportsService {
     if (sessionData != null && sessionData.isCreatingRapport != null) {
       this.isCreatingRapport = sessionData.isCreatingRapport;
 
-      if (this.isCreatingRapport) {
+      if (this.isCreatingRapport && sessionData.rapport != null) {
         const sessionRapport = new Rapport();
 
         sessionRapport.address =
