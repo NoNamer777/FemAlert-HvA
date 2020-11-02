@@ -19,6 +19,7 @@ import { LocationPickerComponent } from './components/content/location-picker/lo
 import { PartnerComponent } from './components/content/partner/partner.component';
 import { LoginComponent } from './components/content/login/login.component';
 import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
+import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { EmailMoreInfoDialogComponent } from './components/content/question/emai
     PartnerComponent,
     QuestionComponent,
     EmailMoreInfoDialogComponent,
+    LoginComponent,
+    ConfirmationComponent,
   ],
   imports: [
     AppRoutingModule,

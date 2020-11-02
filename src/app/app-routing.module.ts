@@ -6,6 +6,7 @@ import { QuestionComponent } from './components/content/question/question.compon
 import { LocationPickerComponent } from './components/content/location-picker/location-picker.component';
 import { PartnerComponent } from './components/content/partner/partner.component';
 import { LoginComponent } from './components/content/login/login.component';
+import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'questions', component: QuestionComponent },
   { path: 'partner', component: PartnerComponent },
   { path: 'login', component: LoginComponent },
+   { path: 'confirmation', component: ConfirmationComponent },
 ];
 
 @NgModule({
