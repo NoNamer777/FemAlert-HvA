@@ -29,13 +29,10 @@ export class SessionStorageService {
     const serialized = {};
 
     for (const key in data) {
+      const serializedKey = key.replace('_', '');
 
-      if (data.hasOwnProperty(key)) {
-        const serializedKey = key.replace('_', '');
-
-        if (typeof data[key] === 'object' && data[key] != null) serialized[serializedKey] = this.serializeData(data[key]);
-        else serialized[serializedKey] = data[key];
-      }
+      if (typeof data[key] === 'object' && data[key] != null) serialized[serializedKey] = this.serializeData(data[key]);
+      else serialized[serializedKey] = data[key];
     }
     return serialized;
   }
