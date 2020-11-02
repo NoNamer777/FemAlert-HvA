@@ -1,16 +1,29 @@
 <div class="header fixed-top">
-  <nav class="navbar bg-red fixed-top navbar-white navbar-expand-md navbar-dark">
-    <div class="container">
+  <nav class="navbar bg-light navbar-light fixed-top navbar-expand-md">
+    <div class="container d-flex justify-content-end">
       <!--Navbar menu when device is small-->
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-              data-target="#navbarCollapse" aria-controls="navbarCollapse"
-              aria-expanded="false" aria-label="Toggle navigation">
-        <span class="custom-toggle navbar-toggler-icon"></span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        (click)="toggleCollapsed()"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <!--Title-->
-        <a class="navbar-brand" data-toggle="collapse" data-target="#navbarCollapse" routerLink="/home">Femalert</a>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarCollapse"
+        #collapsableContent
+        [@collapseShow]="collapsed ? 'collapse' : 'show'"
+      >
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" data-target="#navbarCollapse" routerLink="/home">Home</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" data-target="#navbarCollapse" href="#">Over ons</a>
           </li>
