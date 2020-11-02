@@ -7,7 +7,7 @@
     "ci-e2e": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
     "start": "ng serve",
     "build": "ng build",
-    "deploy": "ng build --prod --base-href=/femalert-hva/",
+    "deploy": "ng build --prod --base-href=https://NoNamer777.github.io/FemAlert-HvA/",
     "test": "ng test",
     "test-dev": "ng test --watch --browsers=ChromeHeadless",
     "lint": "ng lint",
