@@ -90,6 +90,11 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "codeCoverage": true,
+            "codeCoverageExclude": [
+              "**/node_modules/**",
+              "**/src/app/models/**",
+              "**/src/app/components/content/location-picker/**"
+            ],
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
