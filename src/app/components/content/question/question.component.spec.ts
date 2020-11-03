@@ -5,6 +5,9 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { QuestionComponent } from './question.component';
 import { By } from '@angular/platform-browser';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
@@ -14,9 +17,18 @@ describe('QuestionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule.withRoutes([]) ],
-      declarations: [ QuestionComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        FontAwesomeTestingModule,
+        MatDialogModule,
+        NoopAnimationsModule,
+      ],
+      declarations: [
+        QuestionComponent,
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA,
+      ],
     })
     .compileComponents();
   });
@@ -46,7 +58,7 @@ describe('QuestionComponent', () => {
 
     button.click();
 
-    expect(navigationSpy).toHaveBeenCalledWith([ '/home' ]);
+    expect(navigationSpy).toHaveBeenCalledWith([ '/location-picker' ]);
   });
 
   // Todo change when the next page is implemented.
@@ -130,5 +142,18 @@ describe('QuestionComponent', () => {
 
     clickEventButton(eventButtons.item(2).id, 2);
     checkEventsValue(2, false);
+  });
+
+  it('should show pop up when email information was clicked', () => {
+    const emailInformationLink: HTMLElement = element.querySelector(`label[for='email'] small`);
+
+    expect(emailInformationLink).not.toBe(null);
+
+    emailInformationLink.click();
+
+    fixture.detectChanges();
+
+    const popupDialogContainer = document.documentElement.querySelector('app-email-more-info-dialog');
+    expect(popupDialogContainer).not.toBe(null);
   });
 });

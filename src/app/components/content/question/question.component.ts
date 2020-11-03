@@ -1,7 +1,14 @@
+/// <reference types="@types/googlemaps" />
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import { RapportsService } from '../../../services/rapports.service';
+import { SessionStorageService } from '../../../services/session-storage.service';
+import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 
 @Component({
   selector: 'app-question',
@@ -37,24 +44,43 @@ export class QuestionComponent implements OnInit {
     condition: new FormControl(false, Validators.required)
   });
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private reportsService: RapportsService,
+    private sessionStorageService: SessionStorageService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {}
 
   /** Handles going back to the Home Page, thus stopping the process of filling in the form. */
   onStop(): void {
     this.router.navigate(['/home']);
+
+    this.reportsService.isCreatingRapport = false;
   }
 
   /** Handles going the previous page. */
   onPrevious(): void {
-    // Todo should go back to the location picker page once implemented.
-    this.onStop();
+    this.router.navigate(['/location-picker']);
   }
 
   /** Handles going to the next page. */
   onNext(): void {
     this.router.navigate(['/bevestiging-melding'])
+  }
+
+  onMIEmail(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.position = {
+      top: '40%',
+      left: '10%',
+    };
+
+    this.dialog.open(EmailMoreInfoDialogComponent, dialogConfig);
   }
 
   /** Provides an element class depending on a form value. */
