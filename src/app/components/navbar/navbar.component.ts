@@ -1,7 +1,10 @@
-import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { RapportsService } from '../../services/rapports.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const collapsedShowAnimation = trigger('collapseShow', [
   state('show', style({
@@ -32,16 +35,27 @@ const collapsedShowAnimation = trigger('collapseShow', [
     collapsedShowAnimation,
   ],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   @ViewChild('collapsableContent', { static: true }) collapsableContent: ElementRef;
 
   collapsed: boolean = null;
 
-  constructor(private reportsService: RapportsService) {}
+  destroyed$ = new Subject<void>();
+
+  constructor(private reportsService: RapportsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.collapsed = this.collapsableContent.nativeElement.classList.contains('collapse');
+    this.collapsed = this.collapseState;
+
+    this.router.events.pipe(takeUntil(this.destroyed$)).subscribe( (event) => {
+      if (event instanceof NavigationEnd) this.collapsed = this.collapseState;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   @HostBinding('hidden')
@@ -51,5 +65,9 @@ export class NavbarComponent implements OnInit {
 
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
+  }
+
+  private get collapseState(): boolean {
+    return this.collapsableContent.nativeElement.classList.contains('collapse');
   }
 }

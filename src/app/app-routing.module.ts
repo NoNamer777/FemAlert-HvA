@@ -7,6 +7,8 @@ import { LocationPickerComponent } from './components/content/location-picker/lo
 import { PartnerComponent } from './components/content/partner/partner.component';
 import { LoginComponent } from './components/content/login/login.component';
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
+import { FaqComponent } from './components/content/faq/faq.component';
+import { NotFoundComponent } from './components/content/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +18,9 @@ const routes: Routes = [
   { path: 'partner', component: PartnerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'bevestiging-melding', component: ConfirmationComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: 'not-found' },
 ];
 
 @NgModule({
