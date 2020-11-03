@@ -6,7 +6,7 @@ import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testi
 
 import { ConfirmationComponent } from './confirmation.component';
 
-fdescribe('ConfirmationComponent', () => {
+describe('ConfirmationComponent', () => {
   let fixture: ComponentFixture<ConfirmationComponent>;
   let component: ConfirmationComponent;
   let element: HTMLElement;
