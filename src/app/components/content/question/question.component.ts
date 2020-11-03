@@ -67,8 +67,7 @@ export class QuestionComponent implements OnInit {
 
   /** Handles going to the next page. */
   onNext(): void {
-    // Todo should go to the next page (TBD)
-    console.log('going to next screen');
+    this.router.navigate(['/bevestiging-melding'])
   }
 
   onMIEmail(): void {

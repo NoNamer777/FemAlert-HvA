@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-confirmation',
@@ -9,9 +9,13 @@ import { Router } from '@angular/router';
 })
 export class ConfirmationComponent implements OnInit {
 
-  constructor() { }
+  iconQuit = faTimes;
 
-  ngOnInit(): void {
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  onStop(): void {
+    this.router.navigate(['/home']);
   }
-
 }
