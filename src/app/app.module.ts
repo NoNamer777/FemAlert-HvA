@@ -20,6 +20,9 @@ import { PartnerComponent } from './components/content/partner/partner.component
 import { LoginComponent } from './components/content/login/login.component';
 import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
+import { FaqComponent } from './components/content/faq/faq.component';
+import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { ConfirmationComponent } from './components/content/confirmation/confirm
     EmailMoreInfoDialogComponent,
     LoginComponent,
     ConfirmationComponent,
+    FaqComponent,
+    NotFoundComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -45,6 +50,7 @@ import { ConfirmationComponent } from './components/content/confirmation/confirm
     GoogleMapsModule,
     MatDialogModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [
