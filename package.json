@@ -7,7 +7,7 @@
     "build": "ng build",
     "deploy": "ng build --prod --base-href=https://NoNamer777.github.io/FemAlert-HvA/",
     "test": "ng test",
-    "test:ci": "ng test --browsers=ChromeHeadlessCI",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI",
     "test-dev": "ng test --watch --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
