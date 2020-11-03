@@ -7,16 +7,15 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss']
 })
-
-
 export class ConfirmationComponent implements OnInit {
- iconQuit = faTimes;
+
+  iconQuit = faTimes;
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   onStop(): void {
-      this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
-
 }
