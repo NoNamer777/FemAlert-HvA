@@ -25,7 +25,17 @@ export class RapportsService {
       this.isCreatingRapport = sessionData.isCreatingRapport;
 
       if (this.isCreatingRapport && sessionData.rapport != null) {
-        const sessionRapport = new Rapport();
+        const sessionRapport = new Rapport(
+          sessionData.rapport.id,
+          null,
+          sessionData.rapport.emailAddress,
+          sessionData.rapport.name,
+          sessionData.rapport.events,
+          sessionData.rapport.dateTime,
+          sessionData.rapport.story,
+          sessionData.rapport.requiresSupport,
+          sessionData.rapport.wantsExtraInfo
+        );
 
         sessionRapport.address =
           new Address(sessionData.rapport.address.formattedAddress, sessionData.rapport.address.businessName);
@@ -36,7 +46,6 @@ export class RapportsService {
   }
 
   sendRapport(rapport: object): Observable<Rapport> {
-    console.log(rapport);
     return this.httpClient.post<any>(`${BACK_END_URL}/rapport`, rapport)
       .pipe(map((result: any) => new Rapport(
         result.id,
@@ -44,7 +53,7 @@ export class RapportsService {
         result.emailAddress,
         result.name,
         result.events,
-        result.date,
+        result.dateTime,
         result.story,
         result.requiresSupport,
         result.wantsExtraInfo
