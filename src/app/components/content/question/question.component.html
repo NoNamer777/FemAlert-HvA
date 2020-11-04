@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div class="container py-5" *ngIf="dataReady">
   <div class="d-flex flex-row-reverse mb-4">
     <button (click)="onStop()" class="btn btn-light px-4 shadow rounded-pill" id="btn-stop-report">
       <fa-icon class="h5" [icon]="iconQuit"></fa-icon>
@@ -36,21 +36,21 @@
       <div class="d-flex flex-wrap justify-content-around align-items-baseline">
         <button
           class="btn form-check-inline text-left rounded-corner my-1 event-btn"
-          id="{{ event.toLowerCase() + '-incident-button' }}"
+          id="{{ event.name.toLowerCase() + '-incident-button' }}"
           *ngFor="let event of incidentTypes"
           [ngClass]="buttonClass(questionsForm.value.events.includes(event))"
           (click)="toggleIncidentEvent(event)"
         >
-          <label for="{{ event.toLowerCase() + '-incident-checkbox' }}" class="sr-only">
+          <label for="{{ event.name.toLowerCase() + '-incident-checkbox' }}" class="sr-only">
             {{ event + ' incident type' }}
           </label>
           <input
             type="checkbox"
-            id="{{ event.toLowerCase() + '-incident-checkbox' }}"
+            id="{{ event.name.toLowerCase() + '-incident-checkbox' }}"
             class="form-check-input"
             [checked]="questionsForm.value.events.includes(event)"
           >
-          <small class="form-check-label">{{ event }}</small>
+          <small class="form-check-label">{{ event.name }}</small>
         </button>
       </div>
     </div>
@@ -59,7 +59,7 @@
       <textarea
         type="text"
         id="story"
-        class="form-control rounded-corner bg-grey2 border-0"
+        class="form-control"
         placeholder="Vertel hier wat er is gebeurd"
         formControlName="story"
       >
@@ -67,7 +67,7 @@
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
       <label for="name" class="font-weight-bold">Voornaam</label>
-      <input type="text" id="name" class="form-control rounded-corner bg-grey2 border-0" formControlName="name">
+      <input type="text" id="name" class="form-control" formControlName="name">
     </div>
     <div class="form-group bg-grey1 rounded-corner p-3">
       <label for="email" class="font-weight-bold d-flex">
@@ -75,9 +75,9 @@
         <span class="text-danger px-1">*</span>
         <small style="transform: translate(0, -3px); text-decoration: underline" (click)="onMIEmail()">Meer info</small>
       </label>
-      <input type="email" id="email" class="form-control rounded-corner bg-grey2 border-0" formControlName="email">
+      <input type="email" id="email" class="form-control" formControlName="email">
     </div>
-    <div class="form-check mb-3">
+    <div class="form-check mb-3 pl-0">
       <p>Wij bieden slachtofferhulp aan. Wil je via de mail meer informatie hierover?</p>
       <div class="d-flex justify-content-around">
         <label for="victim-support-true-radio" class="sr-only">Victim support: true</label>
@@ -114,7 +114,7 @@
         </button>
       </div>
   </div>
-    <div class="form-check mb-3">
+    <div class="form-check mb-3 pl-0">
       <p>Mogen wij voor eventuele verder informatie nog contact opnemen?</p>
       <div class="d-flex justify-content-around">
         <label for="extra-info-true-radio" class="sr-only">Extra info: true</label>
@@ -122,7 +122,8 @@
           type="radio"
           class="form-check-input"
           id="extra-info-true-radio"
-          hidden formControlName="extraInfo"
+          hidden
+          formControlName="extraInfo"
           [value]="true"
         >
         <label for="extra-info-false-radio" class="sr-only">Extra info: false</label>
@@ -130,7 +131,8 @@
           type="radio"
           class="form-check-input"
           id="extra-info-false-radio"
-          hidden formControlName="extraInfo"
+          hidden
+          formControlName="extraInfo"
           [value]="false"
         >
         <button
@@ -152,10 +154,10 @@
       </div>
   </div>
     <div class="form-check">
-      <label for="comply-conditions-check" class="sr-only">
-        Accepted conditions: {{ questionsForm.value.condition }}
+      <label for="comply-terms-check" class="sr-only">
+        Accepted terms: {{ questionsForm.value.acceptedTerms }}
       </label>
-      <input type="checkbox" class="form-check-input" id="comply-conditions-check" formControlName="condition">
+      <input type="checkbox" class="form-check-input" id="comply-terms-check" formControlName="acceptedTerms">
       <small>
         Ja, ik ga er mee akkoord dat de plaats, tijd en aard van het door mij gemelde incident zullen worden geregistreerd
         en verwerkt in rapportages voor uitgaansgelegenheden en de overheid. De ingevulde gegevens zijn niet tot de persoon
@@ -168,19 +170,23 @@
 
   <div class="d-flex justify-content-between mt-4">
     <button
-      class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      class="btn btn-light btn-lg rounded-pill font-weight-bold border border-dark"
       id="btn-previous"
       (click)="onPrevious()"
     >
       Vorige
     </button>
     <button
-      class="btn btn-light btn-lg rounded-pill w-40 font-weight-bold border border-dark"
+      class="btn btn-light btn-lg rounded-pill font-weight-bold border border-dark"
       id="btn-next"
-      [disabled]="questionsForm.invalid || !questionsForm.value.condition"
-      (click)="onNext()"
+      [disabled]="questionsForm.invalid || !questionsForm.value.acceptedTerms || questionsForm.value.events.length < 1"
+      (click)="onSendRapport()"
     >
-      Volgende
+      Verstuur melding
     </button>
   </div>
+</div>
+<div class="container py-5 d-flex justify-content-center align-items-center" *ngIf="!dataReady">
+  <div class="spinner-border mr-3"></div>
+  <span>Even geduld AUB...</span>
 </div>

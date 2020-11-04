@@ -23,6 +23,7 @@ import { ConfirmationComponent } from './components/content/confirmation/confirm
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     ConfirmationComponent,
     FaqComponent,
     NotFoundComponent,
+    ConfirmSendDialogComponent,
   ],
   imports: [
     AppRoutingModule,

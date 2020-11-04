@@ -66,7 +66,7 @@ describe('QuestionComponent', () => {
     const button: HTMLButtonElement = element.querySelector('#btn-next');
     const navigationSpy = spyOn(router, 'navigate');
 
-    component.questionsForm.controls.condition.setValue(true);
+    component.questionsForm.controls.acceptedTerms.setValue(true);
     component.questionsForm.controls.email.setValue('o.wellner@telfort.nl');
     component.questionsForm.controls.dateTime.setValue(new Date());
     fixture.detectChanges();

@@ -11,6 +11,10 @@ body{
 
 .rounded-corner {
   border-radius: 1rem !important;
+
+  mat-dialog-container {
+    border-radius: 2rem !important;
+  }
 }
 
 .bg-grey1 {
