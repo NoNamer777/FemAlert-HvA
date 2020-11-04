@@ -10,6 +10,7 @@ import { RapportsService } from '../../../services/rapports.service';
 import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { Event } from '../../../models/Event';
+import { Rapport } from '../../../models/Rapport';
 
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmSendDialogComponent } from './confirm-send-dialog/confirm-send-dialog.component';
@@ -144,6 +145,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
   setRapportData(): void {
+    if (this.rapportsService.rapport == null) this.rapportsService.rapport = new Rapport();
+
     this.rapportsService.rapport.wantsExtraInfo = this.questionsForm.value.extraInfo;
     this.rapportsService.rapport.requiresSupport = this.questionsForm.value.victimSupport;
     this.rapportsService.rapport.dateTime = this.questionsForm.value.dateTime;
