@@ -9,8 +9,6 @@ describe('EmailMoreInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-      ],
       declarations: [
         EmailMoreInfoDialogComponent,
       ],

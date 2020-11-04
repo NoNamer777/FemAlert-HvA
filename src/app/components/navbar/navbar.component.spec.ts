@@ -2,6 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -11,6 +12,7 @@ describe('NavbarComponent', () => {
   let element: HTMLElement;
 
   let router: Router;
+  let mockHttpClient: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,6 +20,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'faq', redirectTo: '' }
         ]),
+        HttpClientTestingModule,
         NoopAnimationsModule,
       ],
       declarations: [
@@ -33,6 +36,7 @@ describe('NavbarComponent', () => {
     element = fixture.debugElement.nativeElement;
 
     router = TestBed.inject(Router);
+    mockHttpClient = TestBed.inject(HttpTestingController);
 
     fixture.detectChanges();
   });
