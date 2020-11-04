@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { HomeComponent } from './home.component';
 import { RapportsService } from '../../../services/rapports.service';
@@ -13,6 +14,7 @@ describe('HomeComponent', () => {
 
   let rapportsService: RapportsService;
   let testRouter: Router;
+  let mockHttpClient: HttpTestingController;
   let store: any;
 
   const mockSessionStorage = {
@@ -26,6 +28,7 @@ describe('HomeComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule,
       ],
       declarations: [
         HomeComponent,
@@ -44,6 +47,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     rapportsService = TestBed.inject(RapportsService);
     testRouter = TestBed.inject(Router);
+    mockHttpClient = TestBed.inject(HttpTestingController);
 
     component = fixture.componentInstance;
     element = fixture.debugElement.nativeElement;

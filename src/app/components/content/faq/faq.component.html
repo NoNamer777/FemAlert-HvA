@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="dataReady">
   <h3 class="border-bottom pb-3 mb-4">Veel gestelde vragen</h3>
   <div class="accordion" id="accordionExample" *ngIf="questions != null">
     <div class="card" *ngFor="let question of questions">
@@ -27,4 +27,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container d-flex align-items-center justify-content-center" *ngIf="!dataReady">
+  <div class="spinner-border mr-3"></div>
+  <span>Even geduld AUB...</span>
 </div>

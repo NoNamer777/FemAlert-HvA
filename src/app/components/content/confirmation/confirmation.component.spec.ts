@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 import { ConfirmationComponent } from './confirmation.component';
@@ -12,12 +13,14 @@ describe('ConfirmationComponent', () => {
   let element: HTMLElement;
 
   let router: Router;
+  let mockHttpClient: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         FontAwesomeTestingModule,
         RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule,
       ],
       declarations: [
         ConfirmationComponent,
@@ -35,6 +38,7 @@ describe('ConfirmationComponent', () => {
     element = fixture.debugElement.nativeElement;
 
     router = TestBed.inject(Router);
+    mockHttpClient = TestBed.inject(HttpTestingController);
 
     fixture.detectChanges();
   });
