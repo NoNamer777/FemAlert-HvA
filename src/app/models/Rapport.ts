@@ -88,7 +88,7 @@ export class Rapport {
   }
 
   set dateTime(dateTime: string) {
-    this._dateTime = dateTime?.replace('T', ' ');
+    this._dateTime = dateTime?.toString().replace('T', ' ');
   }
 
   get story(): string {
