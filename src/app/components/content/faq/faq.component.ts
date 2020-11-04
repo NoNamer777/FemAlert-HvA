@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionsService } from '../../../services/questions.service';
+import { MOCK_FAQ, QuestionsService } from '../../../services/questions.service';
 import { Question } from '../../../models/Question';
 
 @Component({
@@ -9,11 +9,26 @@ import { Question } from '../../../models/Question';
 })
 export class FaqComponent implements OnInit {
 
-  questions: Question[] = null;
+  private _questions: Question[] = null;
+
+  dataReady = false;
 
   constructor(public questionsService: QuestionsService) {}
 
   ngOnInit(): void {
-    this.questionsService.getQuestions().subscribe(questions => this.questions = questions);
+    this.questionsService.getQuestions().subscribe(
+      questions => this.questions = questions,
+      () => this.questions = MOCK_FAQ)
+    ;
+  }
+
+  get questions(): Question[] {
+    return this._questions;
+  }
+
+  set questions(questions: Question[]) {
+    this._questions = questions;
+
+    this.dataReady = true;
   }
 }
