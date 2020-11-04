@@ -20,5 +20,6 @@ export class ConfirmationComponent implements OnInit {
   onStop(): void {
     this.router.navigate(['/home']);
     this.rapportsService.isCreatingRapport = false;
+    this.rapportsService.rapport = null;
   }
 }
