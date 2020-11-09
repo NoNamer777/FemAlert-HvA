@@ -28,7 +28,7 @@ export class SessionStorageService {
   getSessionData(key: string): any{
     let storageData = JSON.parse(sessionStorage.getItem('fem-alert'));
     storageData = storageData[key];
-    return storageData.toString();
+    return storageData;
   }
 
   public serializeData(data): any {
