@@ -1,15 +1,15 @@
 <h1 class="modal-title text-center">Welcome Back!</h1>
 
-<form>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="form-login">
     <div class="form-group input-login">
       <fa-icon [icon]="iconEmail"></fa-icon>
-      <input type="email" placeholder="Email"/>
+      <input type="email" placeholder="Email" formControlName="email"/>
     </div>
 
     <div class="form-group input-login">
       <fa-icon [icon]="iconPassword"></fa-icon>
-      <input type="password" placeholder="Wachtwoord"/>
+      <input type="password" placeholder="Wachtwoord" formControlName="password"/>
     </div>
 
     <button class="btn btn-primary btn-block">Log in</button>
