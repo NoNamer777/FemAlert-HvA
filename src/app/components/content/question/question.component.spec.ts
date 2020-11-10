@@ -1,24 +1,33 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 
 import { QuestionComponent } from './question.component';
-import { By } from '@angular/platform-browser';
-import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
-import { MatDialogModule } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BACK_END_URL } from '../../../services/questions.service';
+import { MOCK_EVENTS } from '../../../services/events.service';
+import { Event } from '../../../models/Event';
+import { Rapport } from '../../../models/Rapport';
+import { Address } from '../../../models/Address';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
   let fixture: ComponentFixture<QuestionComponent>;
-  let router: Router;
   let element: HTMLElement;
+
+  let router: Router;
+  let mockHttpClient: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
+        HttpClientTestingModule,
         FontAwesomeTestingModule,
         MatDialogModule,
         NoopAnimationsModule,
@@ -38,12 +47,26 @@ describe('QuestionComponent', () => {
     component = fixture.componentInstance;
     element = fixture.debugElement.nativeElement;
 
-    fixture.detectChanges();
-
     router = TestBed.inject(Router);
+    mockHttpClient = TestBed.inject(HttpTestingController);
+
+    fixture.detectChanges();
   });
 
-  it('should stop button send to home page ', () => {
+  afterEach(() => mockHttpClient.verify());
+
+  async function getEvents(): Promise<void> {
+    const eventsRequest = mockHttpClient.expectOne(`${BACK_END_URL}/event`);
+
+    eventsRequest.flush(MOCK_EVENTS);
+    fixture.detectChanges();
+
+    expect(eventsRequest.request.method).toBe('GET');
+  }
+
+  it('should stop button send to home page ', async () => {
+    await getEvents();
+
     const button: HTMLButtonElement = element.querySelector('#btn-stop-report');
     const navigationSpy = spyOn(router, 'navigate');
 
@@ -52,7 +75,19 @@ describe('QuestionComponent', () => {
     expect(navigationSpy).toHaveBeenCalledWith([ '/home' ]);
   });
 
-  it('should previous button send to previous page ', () => {
+  it('should use the mock events when error on getting events from the back-end', async () => {
+    const getEventsRequest = mockHttpClient.expectOne(`${BACK_END_URL}/event`);
+
+    getEventsRequest.error(new ErrorEvent('NO_NETWORK_ERROR'), { statusText: 'Unknown error', status: 0 });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.incidentTypes).toEqual(MOCK_EVENTS);
+  });
+
+  it('should previous button send to previous page ', async () => {
+    await getEvents();
+
     const button: HTMLButtonElement = element.querySelector('#btn-previous');
     const navigationSpy = spyOn(router, 'navigate');
 
@@ -61,23 +96,119 @@ describe('QuestionComponent', () => {
     expect(navigationSpy).toHaveBeenCalledWith([ '/location-picker' ]);
   });
 
-  // Todo change when the next page is implemented.
-  it('should navigate to the next page', () => {
+  it('should not navigate to the next page on cancel', async () => {
+    await getEvents();
+
     const button: HTMLButtonElement = element.querySelector('#btn-next');
-    const logSpy = spyOn(console, 'log');
+    const navigationSpy = spyOn(router, 'navigate');
+    const date = new Date();
 
-    component.questionsForm.controls.condition.setValue(true);
-    component.questionsForm.controls.email.setValue('o.wellner@telfort.nl');
-    component.questionsForm.controls.dateTime.setValue(new Date());
-
+    component.questionsForm.controls.acceptedTerms.setValue(true);
+    component.questionsForm.controls.email.setValue('dummy@gmail.com');
+    component.questionsForm.controls.dateTime.setValue(date);
+    component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
+    component.questionsForm.controls.extraInfo.setValue(false);
+    component.questionsForm.controls.victimSupport.setValue(false);
     fixture.detectChanges();
 
-    button.click();
+    expect(button.disabled).toBe(false);
 
-    expect(logSpy).toHaveBeenCalledWith('going to next screen');
+    button.click();
+    fixture.detectChanges();
+
+    const cancelBtnElement: HTMLButtonElement =
+      document.documentElement.querySelector('app-confirm-send-dialog button.btn-light');
+
+    cancelBtnElement.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    mockHttpClient.expectNone(`${BACK_END_URL}/rapport`);
+    expect(navigationSpy).not.toHaveBeenCalled();
   });
 
-  it('should toggle button colors correctly', () => {
+  it('should navigate to the next page on accept', async () => {
+    await getEvents();
+
+    const button: HTMLButtonElement = element.querySelector('#btn-next');
+    const navigationSpy = spyOn(router, 'navigate');
+    const date = new Date();
+
+    component.questionsForm.controls.acceptedTerms.setValue(true);
+    component.questionsForm.controls.email.setValue('dummy@gmail.com');
+    component.questionsForm.controls.dateTime.setValue(date);
+    component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
+    component.questionsForm.controls.extraInfo.setValue(false);
+    component.questionsForm.controls.victimSupport.setValue(false);
+    fixture.detectChanges();
+
+    expect(button.disabled).toBe(false);
+
+    button.click();
+    fixture.detectChanges();
+
+    const confirmBtnElement: HTMLButtonElement =
+      document.documentElement.querySelector('app-confirm-send-dialog button.bg-grey2');
+
+    confirmBtnElement.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const saveRapportRequest = mockHttpClient.expectOne(`${BACK_END_URL}/rapport`);
+
+    saveRapportRequest.flush(new Rapport(
+      null,
+      new Address('important address details', 'optional business name'),
+      'dummy@gmail.com',
+      null,
+      [],
+      date.toString().replace('T', ' '),
+      null,
+      false,
+      false
+    ));
+
+    expect(navigationSpy).toHaveBeenCalledWith(['/bevestiging-melding']);
+    expect(saveRapportRequest.request.method).toBe('POST');
+  });
+
+  it('should still navigate to the next page on accept while error', async () => {
+    await getEvents();
+
+    const button: HTMLButtonElement = element.querySelector('#btn-next');
+    const navigationSpy = spyOn(router, 'navigate');
+    const date = new Date();
+
+    component.questionsForm.controls.acceptedTerms.setValue(true);
+    component.questionsForm.controls.email.setValue('dummy@gmail.com');
+    component.questionsForm.controls.dateTime.setValue(date);
+    component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
+    component.questionsForm.controls.extraInfo.setValue(false);
+    component.questionsForm.controls.victimSupport.setValue(false);
+    fixture.detectChanges();
+
+    expect(button.disabled).toBe(false);
+
+    button.click();
+    fixture.detectChanges();
+
+    const confirmBtnElement: HTMLButtonElement =
+      document.documentElement.querySelector('app-confirm-send-dialog button.bg-grey2');
+
+    confirmBtnElement.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const saveRapportRequest = mockHttpClient.expectOne(`${BACK_END_URL}/rapport`);
+
+    saveRapportRequest.error(new ErrorEvent('NO_NETWORK_ERROR'), { status: 0, statusText: 'unknown error' });
+
+    expect(navigationSpy).toHaveBeenCalledWith(['/bevestiging-melding']);
+  });
+
+  it('should toggle button colors correctly', async () => {
+    await getEvents();
+
     const trueBtn: DebugElement = fixture.debugElement.query(By.css('#extra-info-true-btn'));
     const falseBtn: DebugElement = fixture.debugElement.query(By.css('#extra-info-false-btn'));
 
@@ -111,7 +242,9 @@ describe('QuestionComponent', () => {
     toggleButtonColor('#extra-info-true-btn', true);
   });
 
-  it('should add or remove events on click', () => {
+  it('should add or remove events on click', async () => {
+    await getEvents();
+
     const eventButtons: HTMLCollectionOf<Element> = element.getElementsByClassName('event-btn');
 
     // Clicks a specific incident type button.
@@ -127,11 +260,17 @@ describe('QuestionComponent', () => {
     // Checks if an incident type is added / removed from the form value.
     function checkEventsValue(buttonIdx: number, shouldContain: boolean): void {
       const eventCheckbox: HTMLElement = eventButtons.item(buttonIdx).querySelector('small');
+      const events: Event[] = component.questionsForm.value.events;
+      let contains = false;
 
+      for (const event of events) {
+        if (event.name === eventCheckbox.innerText) {
+          contains = true;
+          break;
+        }
+      }
       expect(eventButtons.item(buttonIdx).classList.contains('btn-success')).toBe(shouldContain);
-
-      if (shouldContain) expect(component.questionsForm.value.events).toContain(eventCheckbox.innerText);
-      else expect(component.questionsForm.value.events).not.toContain(eventCheckbox.innerText);
+      expect(shouldContain).toBe(contains);
     }
 
     clickEventButton(eventButtons.item(2).id, 2);
@@ -144,7 +283,9 @@ describe('QuestionComponent', () => {
     checkEventsValue(2, false);
   });
 
-  it('should show pop up when email information was clicked', () => {
+  it('should show pop up when email information was clicked', async () => {
+    await getEvents();
+
     const emailInformationLink: HTMLElement = element.querySelector(`label[for='email'] small`);
 
     expect(emailInformationLink).not.toBe(null);

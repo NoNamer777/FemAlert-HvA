@@ -25,13 +25,21 @@ export class SessionStorageService {
     sessionStorage.setItem('fem-alert', JSON.stringify(this.serializeData(this._data)));
   }
 
-  private serializeData(data): any {
+  public serializeData(data): any {
     const serialized = {};
 
     for (const key in data) {
       const serializedKey = key.replace('_', '');
 
-      if (typeof data[key] === 'object' && data[key] != null) serialized[serializedKey] = this.serializeData(data[key]);
+      if (data[key] instanceof Array) {
+        const array = [];
+
+        for (const entry of data[key]) array.push(this.serializeData(entry));
+        serialized[serializedKey] = array;
+      }
+      else if (typeof data[key] === 'object' && data[key] != null) {
+        serialized[serializedKey] = this.serializeData(data[key]);
+      }
       else serialized[serializedKey] = data[key];
     }
     return serialized;

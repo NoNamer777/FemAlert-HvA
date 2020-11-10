@@ -21,6 +21,10 @@ import { LoginComponent } from './components/content/login/login.component';
 import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 import { AboutComponent } from './components/content/about/about.component';
+import { FaqComponent } from './components/content/faq/faq.component';
+import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,9 @@ import { AboutComponent } from './components/content/about/about.component';
     LoginComponent,
     ConfirmationComponent,
     AboutComponent,
+    FaqComponent,
+    NotFoundComponent,
+    ConfirmSendDialogComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -47,6 +54,7 @@ import { AboutComponent } from './components/content/about/about.component';
     GoogleMapsModule,
     MatDialogModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [

@@ -1,0 +1,15 @@
+<div class="container px-0 d-flex flex-column">
+  <button
+    class="btn btn-lg rounded-pill btn-light shadow px-4 align-self-end mb-5"
+    (click)="onDialogClose(false)"
+  >
+    <fa-icon [icon]="closeDialogIcon"></fa-icon>
+  </button>
+  <p class="my-4 text-center font-weight-bold h5 px-0">Wil je de melding versturen?</p>
+  <button
+    class="btn btn-lg bg-grey2 border border-dark shadow rounded-pill px-4 align-self-center my-5 font-weight-bold"
+    (click)="onDialogClose(true)"
+  >
+    Verstuur melding
+  </button>
+</div>
