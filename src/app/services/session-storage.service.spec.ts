@@ -60,4 +60,14 @@ describe('SessionStorageService', () => {
 
     expect(service.getData).toEqual({ test2: 1, test3: { deepTest: { extraDeep: true } } });
   });
+
+  it('should get a specific storage data', () => {
+    const EXPECTED_VALUE = 101;
+
+    service = TestBed.inject(SessionStorageService);
+    service.updateSessionData('Test', EXPECTED_VALUE);
+
+    const FINAL_VALUE = service.getSessionData('Test');
+    expect(FINAL_VALUE).toEqual(EXPECTED_VALUE);
+  });
 });
