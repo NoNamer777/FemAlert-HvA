@@ -37,6 +37,7 @@ describe('NavbarComponent', () => {
 
     router = TestBed.inject(Router);
     mockHttpClient = TestBed.inject(HttpTestingController);
+    document.documentElement.style.width = '700px';
 
     fixture.detectChanges();
   });
@@ -80,5 +81,24 @@ describe('NavbarComponent', () => {
     await fixture.whenRenderingDone();
 
     expect(collapsableContent.classList.contains('show')).toBe(false);
+  });
+
+  it('should not toggle collapsed when document is to wide to be toggleable.', () => {
+    const collapseBtn: HTMLButtonElement = element.querySelector('button.navbar-toggler');
+    const faqLink: HTMLAnchorElement = element.querySelector(`a[routerLink='/faq']`);
+    const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
+    const toggleCollapsedSpy = spyOn(component, 'toggleCollapsed');
+
+    document.documentElement.style.width = '800px';
+    fixture.detectChanges();
+
+    expect(toggleCollapsedSpy).not.toHaveBeenCalled();
+    expect(collapsableContent.classList.contains('collapse')).toBe(true);
+
+    faqLink.click();
+    fixture.detectChanges();
+
+    expect(toggleCollapsedSpy).toHaveBeenCalled();
+    expect(collapsableContent.classList.contains('collapse')).toBe(true);
   });
 });
