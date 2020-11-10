@@ -4,6 +4,7 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/User';
 import { UserService } from '../../../services/user.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,11 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  showInvalidCredentials = false;
 
   /** Login Icons */
   iconEmail = faEnvelope;
   iconPassword = faLock;
-
-  user: User;
 
   /** Login Form */
   loginForm = new FormGroup({
@@ -29,13 +29,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void{
-    this.user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+    if (this.loginForm.controls.email.value == null || this.loginForm.controls.password.value == null) return;
+    const user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
 
-    console.log(this.user);
-
-    this.userService.login(this.user).subscribe(
-      result => console.log(result),
-      error => console.log(error)
+    this.userService.login(user).subscribe(
+      (response: HttpResponse<User>) => {
+        // if good
+        this.showInvalidCredentials = false;
+      }, error => this.showInvalidCredentials = true
     );
   }
 
