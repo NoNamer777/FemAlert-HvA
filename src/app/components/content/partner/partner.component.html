@@ -1,5 +1,35 @@
-<p>partner works!</p>
+<div class="text-center">
+  <p fa-icon class="font-weight-bold h5">Log in als partner</p>
+  <br>
+  <p> Voor partners maken wij het mogelijk om inzicht te krijgen in de veiligheid
+    van het uitgaansgebied</p>
+</div>
+
+<form [formGroup]="partnersform">
+  <div id="loginform" class="form-group bg-grey1 rounded-corner p-3">
+    <label for="email" class="font-weight-bold">E-mailadres</label>
+    <fa-icon [icon]="iconEmail"></fa-icon>
+   <input type="text" id="email" class="form-control bg-grey1 border-0" formControlName="name">
+    <br>
+    <label for="password" class="font-weight-bold">Wachtwoord</label>
+    <fa-icon [icon]="iconPassword"></fa-icon>
+    <input type="text" id="password" class="form-control bg-grey1 border-0" formControlName="password">
 
 
-<button class="btn btn-lg btn-primary m-1" routerLink="/login">Log in</button>
-<button class="btn btn-lg btn-primary m-1">Partner worden</button>
+
+    <p class="text-right text-secondary" font-size="8px"> Wachtwoord vergeten?</p>
+  </div>
+</form>
+
+<button id="buttonlogin" class="btn bg-grey2 rounded-corner p-1 " routerLink="/login">Log in &#8594;</button>
+<br>
+<br>
+
+<div  class="text-center text-right font-weight-bold ">
+  <p>Nog geen partner?</p>
+  <p>Kom met ons in <A href="" style="color: black; text-decoration: underline;">contact</A></p>
+</div>
+
+
+<!--<button class="btn btn-lg btn-primary m-1" routerLink="/login">Log in</button>-->
+<!--<button class="btn btn-lg btn-primary m-1">Partner worden</button>-->
