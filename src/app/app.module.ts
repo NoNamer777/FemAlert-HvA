@@ -20,6 +20,7 @@ import { PartnerComponent } from './components/content/partner/partner.component
 import { LoginComponent } from './components/content/login/login.component';
 import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
+import { AboutComponent } from './components/content/about/about.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,6 +39,7 @@ import { ConfirmSendDialogComponent } from './components/content/question/confir
     EmailMoreInfoDialogComponent,
     LoginComponent,
     ConfirmationComponent,
+    AboutComponent,
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
