@@ -22,8 +22,9 @@ import { EmailMoreInfoDialogComponent } from './components/content/question/emai
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
+import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,9 @@ import { ConfirmSendDialogComponent } from './components/content/question/confir
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptorService, multi: true}
+  ],
   bootstrap: [
     AppComponent,
   ],
