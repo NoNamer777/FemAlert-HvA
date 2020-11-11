@@ -1,22 +1,18 @@
-import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { RapportsService } from '../../services/rapports.service';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
-const collapsedShowAnimation = trigger('collapseShow', [
+/** Animations that make the link font-size larger and centers the links a bit more. */
+const COLLAPSED_SHOW_ANIMATION = trigger('collapseShow', [
   state('show', style({
     height: '100vh',
     padding: '3rem 0rem',
     paddingLeft: '6rem',
-    opacity: 1,
   })),
   state('collapse', style({
     height: '',
     padding: '',
-    opacity: '',
   })),
   transition('collapse => show', [
     animate('0.4s')
@@ -32,48 +28,49 @@ const collapsedShowAnimation = trigger('collapseShow', [
   styleUrls: ['./navbar.component.scss'],
   providers: [],
   animations: [
-    collapsedShowAnimation,
+    COLLAPSED_SHOW_ANIMATION,
   ],
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
 
+  /** A reference to the collapsable navbar. */
   @ViewChild('collapsableContent', { static: true }) collapsableContent: ElementRef;
 
+  /** The internal collapsed state of the component. */
   collapsed: boolean = null;
 
-  destroyed$ = new Subject<void>();
-
-  constructor(private reportsService: RapportsService, private router: Router) {}
+  constructor(private reportsService: RapportsService) {}
 
   ngOnInit(): void {
+    // Initializes the collapsed state based on the classes of the element.
     this.collapsed = this.collapseState;
-
-    this.router.events.pipe(takeUntil(this.destroyed$)).subscribe( (event) => {
-      if (event instanceof NavigationEnd) this.collapsed = this.collapseState;
-    });
   }
 
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
+  /** Hides the Header component when an User is creating a Rapport. */
   @HostBinding('hidden')
   get hidden(): boolean {
     return this.reportsService.isCreatingRapport;
   }
 
+  /** Toggles the component collapsed state. */
   toggleCollapsed(): void {
-    const documentWithStyle = window.getComputedStyle(document.documentElement).width;
-    const documentWith = parseInt(documentWithStyle.replace('px', ''));
-
-    if (documentWith >= 768) {
+    // Only toggle the the collapsed state if the collapsable navbar should be able to collapse.
+    if (!this.shouldCollapse) {
       this.collapsed = true;
       return;
     }
     this.collapsed = !this.collapsed;
   }
 
+  /** Checks whether the collapsable navbar needs to be able to collapse. */
+  get shouldCollapse(): boolean {
+    const documentWithStyle = window.getComputedStyle(document.documentElement).width;
+    const documentWith = parseInt(documentWithStyle.replace('px', ''));
+
+    return documentWith < 768;
+  }
+
+  /** Checks whether the collapsable navbar is collapsed by element class. */
   private get collapseState(): boolean {
     return this.collapsableContent.nativeElement.classList.contains('collapse');
   }

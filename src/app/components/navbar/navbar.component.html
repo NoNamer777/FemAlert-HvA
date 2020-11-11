@@ -5,11 +5,11 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-toggle="collapse"
         data-target="#navbarCollapse"
         aria-controls="navbarCollapse"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
         (click)="toggleCollapsed()"
       >
         <span class="navbar-toggler-icon"></span>
@@ -22,16 +22,48 @@
       >
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" (click)="toggleCollapsed()" routerLink="/home">Home</a>
+            <a
+              class="nav-link"
+              data-target="#navbarCollapse"
+              routerLink="/home"
+              [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
+              (click)="toggleCollapsed()"
+            >
+              Home
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" data-target="#navbarCollapse" routerLink="/over-ons">Over ons</a>
+            <a
+              class="nav-link"
+              data-target="#navbarCollapse"
+              routerLink="/over-ons"
+              [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
+              (click)="toggleCollapsed()"
+            >
+              Over ons
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="toggleCollapsed()" routerLink="/faq">FAQ</a>
+            <a
+              class="nav-link"
+              data-target="#navbarCollapse"
+              routerLink="/faq"
+              [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
+              (click)="toggleCollapsed()"
+            >
+              FAQ
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="toggleCollapsed()" routerLink="/partner">Partners</a>
+            <a
+              class="nav-link"
+              data-target="#navbarCollapse"
+              routerLink="/partner"
+              [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
+              (click)="toggleCollapsed()"
+            >
+              Partners
+            </a>
           </li>
         </ul>
       </div>
