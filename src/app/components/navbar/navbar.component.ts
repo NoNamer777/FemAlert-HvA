@@ -64,6 +64,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleCollapsed(): void {
+    const documentWithStyle = window.getComputedStyle(document.documentElement).width;
+    const documentWith = parseInt(documentWithStyle.replace('px', ''));
+
+    if (documentWith >= 768) {
+      this.collapsed = true;
+      return;
+    }
     this.collapsed = !this.collapsed;
   }
 
