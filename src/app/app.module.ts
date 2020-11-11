@@ -14,7 +14,6 @@ import { HomeComponent } from './components/content/home/home.component';
 import { QuestionComponent } from './components/content/question/question.component';
 import { LocationPickerComponent } from './components/content/location-picker/location-picker.component';
 import { PartnerComponent } from './components/content/partner/partner.component';
-import { LoginComponent } from './components/content/login/login.component';
 import { EmailMoreInfoDialogComponent } from './components/content/question/email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmationComponent } from './components/content/confirmation/confirmation.component';
 import { FaqComponent } from './components/content/faq/faq.component';
@@ -29,12 +28,10 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
     AppComponent,
     HomeComponent,
     LocationPickerComponent,
-    LoginComponent,
     NavbarComponent,
     PartnerComponent,
     QuestionComponent,
     EmailMoreInfoDialogComponent,
-    LoginComponent,
     ConfirmationComponent,
     FaqComponent,
     NotFoundComponent,

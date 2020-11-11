@@ -2,7 +2,9 @@ import { Component, InjectionToken, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { MatPrefix } from '@angular/material/form-field';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/User';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-partner',
@@ -11,21 +13,35 @@ import { MatPrefix } from '@angular/material/form-field';
 })
 
 export class PartnerComponent implements OnInit {
-  /** The partners form */
-  partnersform = new FormGroup({
-    email : new FormControl(null, [ Validators.required]),
-    password: new FormControl(null, [ Validators.required])
-  });
+  showInvalidCredentials = false;
 
-  /** Partner Icons */
+  /** Login Icons */
   iconEmail = faEnvelope;
   iconPassword = faLock;
-  MAT_PREFIX: InjectionToken<MatPrefix>;
 
-  constructor() { }
+  /** Login Form */
+  loginForm = new FormGroup({
+    email: new FormControl(null, [Validators.email, Validators.required]),
+    password: new FormControl(null, Validators.required)
+  });
 
-  ngOnInit(): void {
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {}
+
+  onSubmit(): void{
+    if (this.loginForm.invalid === true) {
+      this.showInvalidCredentials = true;
+      return;
+    }
+
+    const user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+
+    this.userService.login(user).subscribe(
+      (response: HttpResponse<User>) => {
+        // if good
+        this.showInvalidCredentials = false;
+      }, error => this.showInvalidCredentials = true
+    );
   }
-
-
 }
