@@ -9,6 +9,29 @@
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+
+  span {
+
+  }
+
+  a {
+    color: darkgrey;
+    text-underline: none;
+  }
+
+  a:hover {
+    color: grey;
+    text-underline: none;
+    cursor: pointer;
+  }
+
+  button{
+    float: right;
+  }
+
+  .no-partner-information{
+    margin-top: 40px;
+  }
 }
 
 .input-login {

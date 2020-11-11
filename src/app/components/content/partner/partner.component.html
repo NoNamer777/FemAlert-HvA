@@ -17,16 +17,17 @@
       <input type="password" placeholder="Wachtwoord" formControlName="password" name="password"/>
     </div>
 
-    <span class="text-danger" *ngIf="showInvalidCredentials">Invalid Credentials</span>
+    <span class="text-danger" *ngIf="showInvalidCredentials">Invalid Credentials<br><br></span>
 
-    <button class="btn btn-primary btn-block">Log in</button>
+    <a>Wachtwoord vergeten?</a>
+    <button class="btn btn-primary">Log in</button>
+
+    <div  class="text-center font-weight-bold no-partner-information">
+      <p>Nog geen partner?</p>
+      <p>Kom met ons in <A href="" style="color: black; text-decoration: underline;">contact</A></p>
+    </div>
   </div>
 
 </form>
 
-<!--<button id="buttonlogin" class="btn bg-grey2 rounded-corner p-1 " routerLink="/login">Log in &#8594;</button>-->
 
-<div  class="text-center text-right font-weight-bold ">
-  <p>Nog geen partner?</p>
-  <p>Kom met ons in <A href="" style="color: black; text-decoration: underline;">contact</A></p>
-</div>
