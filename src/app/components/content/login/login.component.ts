@@ -29,7 +29,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void{
-    if (this.loginForm.controls.email.value == null || this.loginForm.controls.password.value == null) return;
+    if (this.loginForm.invalid === true) {
+      this.showInvalidCredentials = true;
+      return;
+    }
+
     const user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
 
     this.userService.login(user).subscribe(
