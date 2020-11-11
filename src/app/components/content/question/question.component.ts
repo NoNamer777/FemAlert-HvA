@@ -81,7 +81,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   /** Handles going the previous page. */
   onPrevious(): void {
-    this.router.navigate(['/location-picker']);
+    this.router.navigate(['/locatie']);
   }
 
   /** Opens the dialog that provides information about why we need the email address of an User. */

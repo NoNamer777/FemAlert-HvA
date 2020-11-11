@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-email-more-info-dialog',
@@ -8,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class EmailMoreInfoDialogComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<EmailMoreInfoDialogComponent>) {}
+  constructor() {}
 
   ngOnInit(): void {}
 

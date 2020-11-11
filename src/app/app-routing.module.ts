@@ -14,8 +14,8 @@ import { NotFoundComponent } from './components/content/not-found/not-found.comp
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'location-picker', component: LocationPickerComponent },
-  { path: 'questions', component: QuestionComponent },
+  { path: 'locatie', component: LocationPickerComponent },
+  { path: 'formulier', component: QuestionComponent },
   { path: 'partner', component: PartnerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'bevestiging-melding', component: ConfirmationComponent },

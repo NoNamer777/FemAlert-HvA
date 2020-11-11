@@ -126,7 +126,7 @@ describe('QuestionComponent', () => {
 
     button.click();
 
-    expect(navigationSpy).toHaveBeenCalledWith([ '/location-picker' ]);
+    expect(navigationSpy).toHaveBeenCalledWith([ '/locatie' ]);
   });
 
   it('should not navigate to the next page on cancel', async () => {
