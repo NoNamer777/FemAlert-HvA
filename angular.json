@@ -143,5 +143,8 @@
       }
     }
   },
-  "defaultProject": "femalert-app"
+  "defaultProject": "femalert-app",
+  "cli": {
+    "analytics": "18d6313d-45fb-493a-8f9c-20afa5be4d79"
+  }
 }
