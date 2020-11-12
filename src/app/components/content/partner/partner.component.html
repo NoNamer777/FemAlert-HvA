@@ -1,5 +1,33 @@
-<p>partner works!</p>
+<div class="text-center">
+  <p fa-icon class="font-weight-bold h5">Log in als partner</p>
+  <br>
+  <p> Voor partners maken wij het mogelijk om inzicht te krijgen in de veiligheid
+    van het uitgaansgebied</p>
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-login">
+    <div class="form-group input-login">
+      <fa-icon [icon]="iconEmail"></fa-icon>
+      <input type="email" placeholder="Email" formControlName="email" name="email"/>
+    </div>
+
+    <div class="form-group input-login">
+      <fa-icon [icon]="iconPassword"></fa-icon>
+      <input type="password" placeholder="Wachtwoord" formControlName="password" name="password"/>
+    </div>
+
+    <span class="text-danger" *ngIf="showInvalidCredentials">Invalid Credentials<br><br></span>
+
+    <a>Wachtwoord vergeten?</a>
+    <button class="btn btn-primary">Log in</button>
+
+    <div  class="text-center font-weight-bold no-partner-information">
+      <p>Nog geen partner?</p>
+      <p>Kom met ons in <A href="" style="color: black; text-decoration: underline;">contact</A></p>
+    </div>
+  </div>
+
+</form>
 
 
-<button class="btn btn-lg btn-primary m-1" routerLink="/login">Log in</button>
-<button class="btn btn-lg btn-primary m-1">Partner worden</button>
