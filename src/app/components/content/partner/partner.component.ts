@@ -1,4 +1,4 @@
-import { Component, InjectionToken, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +22,7 @@ export class PartnerComponent implements OnInit {
   /** Login Form */
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.email, Validators.required]),
-    password: new FormControl(null, Validators.required)
+    password: new FormControl(null, [Validators.required]),
   });
 
   constructor(private userService: UserService) { }

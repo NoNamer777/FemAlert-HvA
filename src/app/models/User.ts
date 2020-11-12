@@ -26,6 +26,10 @@ export class User {
     this._password = value;
   }
 
+  get password(): string {
+    return this._password;
+  }
+
   get admin(): boolean {
     return this._admin;
   }
