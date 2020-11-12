@@ -157,6 +157,7 @@
       "app",
       "kebab-case"
     ],
-    "forin": false
+    "forin": false,
+    "radix": false
   }
 }

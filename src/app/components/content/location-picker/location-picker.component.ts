@@ -98,7 +98,7 @@ export class LocationPickerComponent implements OnInit {
   }
 
   onNext(): void {
-    this.router.navigate(['/questions']).then(() => {
+    this.router.navigate(['/formulier']).then(() => {
       const rapport =  new Rapport();
 
       rapport.address = new Address(this.placeResult.formatted_address, this.placeResult.name);

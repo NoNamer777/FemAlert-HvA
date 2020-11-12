@@ -10,18 +10,30 @@ import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testi
 
 import { QuestionComponent } from './question.component';
 import { BACK_END_URL } from '../../../services/questions.service';
-import { MOCK_EVENTS } from '../../../services/events.service';
+import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { Event } from '../../../models/Event';
 import { Rapport } from '../../../models/Rapport';
 import { Address } from '../../../models/Address';
+import { RapportsService } from '../../../services/rapports.service';
+import { SessionStorageService } from '../../../services/session-storage.service';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
   let fixture: ComponentFixture<QuestionComponent>;
   let element: HTMLElement;
 
+  let rapportsService: RapportsService;
+
   let router: Router;
   let mockHttpClient: HttpTestingController;
+  let store: any;
+
+  const mockSessionStorage = {
+    getItem: (key: string): string => key in store ? store[key] : null,
+    setItem: (key: string, value: string) => store[key] = `${value}`,
+    removeItem: (key: string) => delete store[key],
+    clear: () => store = {},
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,12 +55,33 @@ describe('QuestionComponent', () => {
   });
 
   beforeEach(() => {
+    store = {};
+
+    spyOn(sessionStorage, 'getItem').and.callFake(mockSessionStorage.getItem);
+    spyOn(sessionStorage, 'setItem').and.callFake(mockSessionStorage.setItem);
+    spyOn(sessionStorage, 'removeItem').and.callFake(mockSessionStorage.removeItem);
+    spyOn(sessionStorage, 'clear').and.callFake(mockSessionStorage.clear);
+
+    sessionStorage.setItem('fem-alert', JSON.stringify({
+      isCreatingRapport: true,
+      rapport: {
+        address: {
+          businessName: '',
+          formattedAddress: 'Amsterdam, Amsterdam'
+        }
+      }
+    }));
+
     fixture = TestBed.createComponent(QuestionComponent);
     component = fixture.componentInstance;
     element = fixture.debugElement.nativeElement;
 
     router = TestBed.inject(Router);
     mockHttpClient = TestBed.inject(HttpTestingController);
+
+    rapportsService = TestBed.inject(RapportsService);
+    TestBed.inject(SessionStorageService);
+    TestBed.inject(EventsService);
 
     fixture.detectChanges();
   });
@@ -93,7 +126,7 @@ describe('QuestionComponent', () => {
 
     button.click();
 
-    expect(navigationSpy).toHaveBeenCalledWith([ '/location-picker' ]);
+    expect(navigationSpy).toHaveBeenCalledWith([ '/locatie' ]);
   });
 
   it('should not navigate to the next page on cancel', async () => {
