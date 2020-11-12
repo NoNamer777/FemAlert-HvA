@@ -1,8 +1,6 @@
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -11,15 +9,11 @@ describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let element: HTMLElement;
 
-  let router: Router;
   let mockHttpClient: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'faq', redirectTo: '' }
-        ]),
         HttpClientTestingModule,
         NoopAnimationsModule,
       ],
@@ -35,7 +29,6 @@ describe('NavbarComponent', () => {
     component = fixture.debugElement.componentInstance;
     element = fixture.debugElement.nativeElement;
 
-    router = TestBed.inject(Router);
     mockHttpClient = TestBed.inject(HttpTestingController);
     document.documentElement.style.width = '700px';
 
@@ -61,7 +54,7 @@ describe('NavbarComponent', () => {
     expect(collapsableContent.classList.contains('collapse')).toBe(false);
   });
 
-  it('should toggle collapsed on navigation', async () => {
+  it('should toggle collapsed on anchor click', async () => {
     const collapseBtn: HTMLButtonElement = element.querySelector('button.navbar-toggler');
     const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
     const anchorElement: HTMLElement = element.querySelector(`a[routerlink='/faq']`);
@@ -84,21 +77,17 @@ describe('NavbarComponent', () => {
   });
 
   it('should not toggle collapsed when document is to wide to be toggleable.', () => {
-    const collapseBtn: HTMLButtonElement = element.querySelector('button.navbar-toggler');
     const faqLink: HTMLAnchorElement = element.querySelector(`a[routerLink='/faq']`);
     const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
-    const toggleCollapsedSpy = spyOn(component, 'toggleCollapsed');
 
     document.documentElement.style.width = '800px';
     fixture.detectChanges();
 
-    expect(toggleCollapsedSpy).not.toHaveBeenCalled();
     expect(collapsableContent.classList.contains('collapse')).toBe(true);
 
     faqLink.click();
     fixture.detectChanges();
 
-    expect(toggleCollapsedSpy).toHaveBeenCalled();
     expect(collapsableContent.classList.contains('collapse')).toBe(true);
   });
 });

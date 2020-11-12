@@ -10,7 +10,6 @@ import { RapportsService } from '../../../services/rapports.service';
 import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { Event } from '../../../models/Event';
-import { Rapport } from '../../../models/Rapport';
 
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmSendDialogComponent } from './confirm-send-dialog/confirm-send-dialog.component';
@@ -28,8 +27,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
   /** Icon for the `Stop` button. */
   iconQuit = faTimes;
 
+  /** Icon for the date time input */
   iconCalender = faCalendarAlt;
 
+  /**
+   * Keeps track when all the necessary data has been retrieved from the back-end server
+   * before creating the rest of a Rapport.
+   */
   dataReady = false;
 
   /** The questions form */
@@ -44,6 +48,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     acceptedTerms: new FormControl(false, Validators.required)
   });
 
+  /** Subject that notifies when this component is destroyed. */
   dialogClosed$ = new Subject<void>();
 
   constructor(
@@ -55,6 +60,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Get the incident types from the back-end server.
     this.eventsService.getEvents().subscribe(
       events => this.incidentTypes = events,
       () => this.incidentTypes = MOCK_EVENTS
@@ -75,9 +81,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   /** Handles going the previous page. */
   onPrevious(): void {
-    this.router.navigate(['/location-picker']);
+    this.router.navigate(['/locatie']);
   }
 
+  /** Opens the dialog that provides information about why we need the email address of an User. */
   onMIEmail(): void {
     this.dialog.open(EmailMoreInfoDialogComponent, {
       hasBackdrop: true,
@@ -91,6 +98,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   /** Handles going to the next page. */
   onSendRapport(): void {
+    // Open the confirmation dialog.
     const dialogReference = this.dialog.open(ConfirmSendDialogComponent, {
       hasBackdrop: true,
       disableClose: true,
@@ -104,12 +112,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
       },
     });
 
+    // Listen to when the dialog has closed.
     dialogReference.afterClosed().pipe(takeUntil(this.dialogClosed$)).subscribe(accepted => {
       this.dialogClosed$.next();
 
+      // Don't send a rapport when the User has not confirmed it.
       if (!accepted) return;
 
       this.setRapportData();
+      // Request the rapport to be send to the back-end server to be stored in the database.
       this.rapportsService.sendRapport(this.sessionStorageService.serializeData(this.rapportsService.rapport)).subscribe(
         () => this.router.navigate(['/bevestiging-melding']),
         () => this.router.navigate(['/bevestiging-melding'])
@@ -144,9 +155,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.questionsForm.controls.events.setValue(incidents);
   }
 
+  /** Gets the values from the form and pass it through to the rapport object. */
   setRapportData(): void {
-    if (this.rapportsService.rapport == null) this.rapportsService.rapport = new Rapport();
-
     this.rapportsService.rapport.wantsExtraInfo = this.questionsForm.value.extraInfo;
     this.rapportsService.rapport.requiresSupport = this.questionsForm.value.victimSupport;
     this.rapportsService.rapport.dateTime = this.questionsForm.value.dateTime;
@@ -163,6 +173,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   set incidentTypes(events: Event[]) {
     this._incidentTypes = events;
 
+    // Acknowledge that the data is ready.
     this.dataReady = true;
   }
 }
