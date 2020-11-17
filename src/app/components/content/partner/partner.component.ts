@@ -41,6 +41,8 @@ export class PartnerComponent implements OnInit {
       (response: HttpResponse<User>) => {
         // if good
         this.showInvalidCredentials = false;
+        
+        alert(`Login was successfull, ${ response.body.emailAddress }`);
       }, error => this.showInvalidCredentials = true
     );
   }
