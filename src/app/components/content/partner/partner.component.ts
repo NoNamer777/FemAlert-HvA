@@ -42,7 +42,7 @@ export class PartnerComponent implements OnInit {
         // if good
         this.showInvalidCredentials = false;
         
-        alert(`Login was successfull, ${ response.body.emailAddress }`);
+        alert(`Login was successfull, ${ (response.body as any)._emailAddress }`);
       }, error => this.showInvalidCredentials = true
     );
   }
