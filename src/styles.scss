@@ -28,3 +28,10 @@ body{
 .w-40 {
   width: 40% !important;
 }
+
+//Theme variables
+:root{
+  --primary-bg-color: #750C00;
+  --primary-txt-color: white;
+  --primary-hover-txt-color: lightgrey;
+}
