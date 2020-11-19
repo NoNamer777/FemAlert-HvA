@@ -23,6 +23,12 @@
 
   button{
     float: right;
+    background-color: var(--secondary-bg-color);
+    border: none;
+  }
+
+  button:hover{
+    background-color: var(--secondary-bg-hover-color);
   }
 
   .no-partner-information{
