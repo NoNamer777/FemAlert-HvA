@@ -4,10 +4,15 @@
   .header {
     height: 100px;
     width: 100%;
-    background-color: #f8f9fa;
+    background-color: var(--primary-bg-color);
 
     nav {
       padding-top: 1rem;
+      background-color: var(--primary-bg-color);
+
+      .navbar-toggler-icon {
+        background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=FFFFFF');
+      }
 
       .navbar-toggler {
         border: none;
@@ -20,6 +25,11 @@
 
       .nav-link {
         font-weight: 700;
+        color: var(--primary-txt-color);
+      }
+
+      .nav-link:hover {
+        color: var(--primary-hover-txt-color);
       }
     }
 

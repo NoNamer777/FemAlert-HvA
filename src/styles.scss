@@ -28,3 +28,12 @@ body{
 .w-40 {
   width: 40% !important;
 }
+
+//Theme variables
+:root{
+  --primary-bg-color: #750C00;
+  --secondary-bg-color: #a01101;
+  --secondary-bg-hover-color: #881103;
+  --primary-txt-color: #ffff;
+  --primary-hover-txt-color: #D3D3D3;
+}
