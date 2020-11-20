@@ -24,6 +24,7 @@ import { ConfirmSendDialogComponent } from './components/content/question/confir
 import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
 import { AdminComponent } from './components/content/admin/admin.component';
 import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
+import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SidebarComponent } from './components/content/admin/sidebar/sidebar.com
     ConfirmSendDialogComponent,
     AdminComponent,
     SidebarComponent,
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,

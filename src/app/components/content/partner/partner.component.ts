@@ -43,8 +43,7 @@ export class PartnerComponent implements OnInit {
       (response: HttpResponse<User>) => {
         // if good
         this.showInvalidCredentials = false;
-        this.router.navigate(['/partner']);
-        alert(`Login was successfull, ${ (response.body as any)._emailAddress }`);
+        this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );
   }

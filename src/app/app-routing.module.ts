@@ -17,7 +17,9 @@ const routes: Routes = [
   { path: 'locatie', component: LocationPickerComponent },
   { path: 'formulier', component: QuestionComponent },
   { path: 'login', component: PartnerComponent },
-  { path: 'partner', component: AdminComponent },
+  { path: 'partner', component: AdminComponent, children: [
+      { path: 'dashboard', component: DashboardComponent },
+    ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
   { path: 'faq', component: FaqComponent },

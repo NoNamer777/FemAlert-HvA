@@ -1,7 +1,7 @@
 <div class="sidebar" [style.width.vw]="sidebarWidth">
   <ul class="list-unstyled">
-    <li class="nav-item active">
-      <a href="#" class="nav-link font-weight-bold">
+    <li class="nav-item">
+      <a routerLink="/partner/dashboard" class="nav-link font-weight-bold" routerLinkActive="active">
         <fa-icon [icon]="iconDashboard"></fa-icon>
         <p *ngIf="IsOpen">Dashboard</p>
       </a>
