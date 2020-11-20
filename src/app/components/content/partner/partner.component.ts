@@ -5,6 +5,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/User';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-partner',
@@ -25,7 +26,8 @@ export class PartnerComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -41,7 +43,7 @@ export class PartnerComponent implements OnInit {
       (response: HttpResponse<User>) => {
         // if good
         this.showInvalidCredentials = false;
-        
+        this.router.navigate(['/partner']);
         alert(`Login was successfull, ${ (response.body as any)._emailAddress }`);
       }, error => this.showInvalidCredentials = true
     );

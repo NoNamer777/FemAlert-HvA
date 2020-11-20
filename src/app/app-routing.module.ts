@@ -9,13 +9,15 @@ import { ConfirmationComponent } from './components/content/confirmation/confirm
 import { AboutComponent } from './components/content/about/about.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { AdminComponent } from './components/content/admin/admin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'locatie', component: LocationPickerComponent },
   { path: 'formulier', component: QuestionComponent },
-  { path: 'partner', component: PartnerComponent },
+  { path: 'login', component: PartnerComponent },
+  { path: 'partner', component: AdminComponent },
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
   { path: 'faq', component: FaqComponent },

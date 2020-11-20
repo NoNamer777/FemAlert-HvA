@@ -22,6 +22,8 @@ import { NotFoundComponent } from './components/content/not-found/not-found.comp
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
 import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
+import { AdminComponent } from './components/content/admin/admin.component';
+import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
+    AdminComponent,
+    SidebarComponent,
   ],
   imports: [
     AppRoutingModule,

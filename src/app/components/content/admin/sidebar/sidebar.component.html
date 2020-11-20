@@ -1,0 +1,45 @@
+<div class="sidebar" [style.width.vw]="sidebarWidth">
+  <ul class="list-unstyled">
+    <li class="nav-item active">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconDashboard"></fa-icon>
+        <p *ngIf="IsOpen">Dashboard</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconStatistics"></fa-icon>
+        <p *ngIf="IsOpen">Statistieken</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconMembers"></fa-icon>
+        <p *ngIf="IsOpen">Leden</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconEditRapport"></fa-icon>
+        <p *ngIf="IsOpen">Wijzig Rapport</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconFAQ"></fa-icon>
+        <p *ngIf="IsOpen">FAQ</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link font-weight-bold">
+        <fa-icon [icon]="iconSignOut"></fa-icon>
+        <p *ngIf="IsOpen">Log uit</p>
+      </a>
+    </li>
+  </ul>
+
+  <button class="btn" (click)="toggleSidebar()" *ngIf="toggleButtonIsVisible">
+    <fa-icon [icon]="iconClose" *ngIf="IsOpen"></fa-icon>
+    <fa-icon [icon]="iconOpen" *ngIf="!IsOpen"></fa-icon>
+  </button>
+</div>
