@@ -26,6 +26,7 @@ import { AdminComponent } from './components/content/admin/admin.component';
 import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
+import { MembersComponent } from './components/content/admin/members/members.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { StatisticsComponent } from './components/content/admin/statistics/stati
     SidebarComponent,
     DashboardComponent,
     StatisticsComponent,
+    MembersComponent,
   ],
   imports: [
     AppRoutingModule,

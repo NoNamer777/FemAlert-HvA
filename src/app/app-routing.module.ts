@@ -10,6 +10,9 @@ import { AboutComponent } from './components/content/about/about.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { AdminComponent } from './components/content/admin/admin.component';
+import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
+import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
+import { MembersComponent } from './components/content/admin/members/members.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +23,7 @@ const routes: Routes = [
   { path: 'partner', component: AdminComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
+      { path: 'members', component: MembersComponent },
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
