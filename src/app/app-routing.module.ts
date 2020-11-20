@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'statistics', component: StatisticsComponent },
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },

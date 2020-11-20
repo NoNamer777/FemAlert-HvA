@@ -25,6 +25,7 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
 import { AdminComponent } from './components/content/admin/admin.component';
 import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
+import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { DashboardComponent } from './components/content/admin/dashboard/dashboa
     AdminComponent,
     SidebarComponent,
     DashboardComponent,
+    StatisticsComponent,
   ],
   imports: [
     AppRoutingModule,
