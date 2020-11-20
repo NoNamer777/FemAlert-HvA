@@ -13,6 +13,7 @@ import { AdminComponent } from './components/content/admin/admin.component';
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
+import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'members', component: MembersComponent },
+      { path: 'edit-rapport', component: EditRapportComponent }
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },

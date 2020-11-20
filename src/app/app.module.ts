@@ -27,6 +27,7 @@ import { SidebarComponent } from './components/content/admin/sidebar/sidebar.com
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
+import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MembersComponent } from './components/content/admin/members/members.com
     DashboardComponent,
     StatisticsComponent,
     MembersComponent,
+    EditRapportComponent,
   ],
   imports: [
     AppRoutingModule,
