@@ -18,6 +18,9 @@ export class SessionStorageService {
     else this._data = JSON.parse(dataRaw);
   }
 
+  /**
+   * Updates sessions storage
+   */
   updateSessionData(key: string, value: any): void {
     if (value != null) this._data[key] = value;
     else delete this._data[key];

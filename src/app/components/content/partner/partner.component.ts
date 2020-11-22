@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 })
 
 export class PartnerComponent implements OnInit {
-  showInvalidCredentials = false;
+  /** Boolean for showing text */
+  showInvalidCredentials: boolean;
 
   /** Login Icons */
   iconEmail = faEnvelope;
@@ -29,20 +30,30 @@ export class PartnerComponent implements OnInit {
   constructor(private userService: UserService,
               private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.showInvalidCredentials = false;
+  }
 
+  /**
+   * On submitting form check if form is valid and send request to login
+   */
   onSubmit(): void{
+    // Check if form is valid if not show invalid credentials text
     if (this.loginForm.invalid === true) {
       this.showInvalidCredentials = true;
       return;
     }
 
+    // Create user with email and password
     const user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
 
+    /**
+     * Request login to backend
+     * If login is successful navigate to Dashboard component
+     * If login is unsuccessful show invalid credentials text
+     */
     this.userService.login(user).subscribe(
       (response: HttpResponse<User>) => {
-        // if good
-        this.showInvalidCredentials = false;
         this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );

@@ -6,18 +6,32 @@ import { SessionStorageService } from './session-storage.service';
   providedIn: 'root'
 })
 export class AuthenticateService{
+  /** Bearer token from backend */
   private _token: string;
+
+  /** Constant key for saving in storage */
   private KEY_TOKEN = 'token';
 
   constructor(private httpClient: HttpClient,
               private sessionStorageService: SessionStorageService) { }
 
+  /**
+   * Sets token and saves token in storage
+   * @param value is token to add to storage and service
+   */
   set token(value: string) {
     this._token = value;
     this.sessionStorageService.updateSessionData(this.KEY_TOKEN, value);
   }
 
+  /**
+   * Gets token
+   * @return _token if not null
+   * @return _token from storage if null in service
+   */
   get token(): string{
+    if (this._token != null) return this._token;
+
     return this.sessionStorageService.getSessionData(this.KEY_TOKEN);
   }
 }

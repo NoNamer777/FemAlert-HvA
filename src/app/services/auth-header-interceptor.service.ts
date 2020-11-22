@@ -11,6 +11,12 @@ export class AuthHeaderInterceptorService implements HttpInterceptor{
 
   constructor(private  authenticateService: AuthenticateService) { }
 
+  /**
+   * Intercepts login request to get Authentication token
+   * Intercepts Todo
+   * @param req is request to intercept
+   * @param next is http handler
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(map((response: HttpEvent<any>) => {
       if (response instanceof HttpResponse) {
