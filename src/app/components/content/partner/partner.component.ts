@@ -54,6 +54,7 @@ export class PartnerComponent implements OnInit {
      */
     this.userService.login(user).subscribe(
       (response: HttpResponse<User>) => {
+        this.userService.isAuthenticated = true;
         this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );

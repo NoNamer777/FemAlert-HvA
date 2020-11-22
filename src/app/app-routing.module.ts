@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/content/admin/dashboard/dashboa
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
 import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'locatie', component: LocationPickerComponent },
   { path: 'formulier', component: QuestionComponent },
   { path: 'login', component: PartnerComponent },
-  { path: 'partner', component: AdminComponent, children: [
+  { path: 'partner', component: AdminComponent, canActivate: [AuthGuardService], children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'members', component: MembersComponent },

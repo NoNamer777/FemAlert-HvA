@@ -13,10 +13,10 @@ export class UserService {
   private LOGIN_URL = '/login';
   private REGISTER_URL = '/register';
 
-  public currentUser: User;
+  isAuthenticated = false;
 
   constructor(private httpClient: HttpClient,
-              private serializer: SessionStorageService) { }
+              private serializer: SessionStorageService) {}
 
   /**
    * Sends request to backend for logging in
