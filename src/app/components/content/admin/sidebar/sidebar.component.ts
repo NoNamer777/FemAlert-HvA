@@ -41,6 +41,10 @@ export class SidebarComponent implements OnInit {
     this.detectMobile();
   }
 
+  /**
+   * If sidebar is open close sidebar
+   * If sidebar is closed open sidebar
+   */
   toggleSidebar(): void{
     if (this.IsOpen === true) {
       this.IsOpen = false;
@@ -51,6 +55,9 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * If window resize smaller than 760 pixels than sidebar will stay small
+   */
   @HostListener('window:resize')
   detectMobile(): void {
     if (window.innerWidth <= 760) {
