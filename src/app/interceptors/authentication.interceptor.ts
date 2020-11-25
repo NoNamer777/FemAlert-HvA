@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { AuthenticateService } from './authenticate.service';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor, HttpResponse
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthenticateService } from '../services/authenticate.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthHeaderInterceptorService implements HttpInterceptor{
+@Injectable()
+export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor(private  authenticateService: AuthenticateService) { }
+  constructor(private  authenticateService: AuthenticateService) {}
 
   /**
    * Intercepts login request to get Authentication token
    * Intercepts Todo
-   * @param req is request to intercept
+   * @param request is request to intercept
    * @param next is http handler
    */
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(map((response: HttpEvent<any>) => {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(map((response: HttpEvent<any>) => {
       if (response instanceof HttpResponse) {
         if (response.headers.get('Authorization') != null){
           let token = response.headers.get('Authorization');
