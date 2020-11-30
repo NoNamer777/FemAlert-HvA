@@ -9,6 +9,7 @@ import { ConfirmationComponent } from './components/content/confirmation/confirm
 import { AboutComponent } from './components/content/about/about.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { ContactComponent } from './components/content/contact/contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'over-ons', component: AboutComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'not-found', component: NotFoundComponent },
+  { path: 'contact', component: ContactComponent },
   { path: '**', redirectTo: 'not-found' },
 ];
 

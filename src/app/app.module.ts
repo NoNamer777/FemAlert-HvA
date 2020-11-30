@@ -21,7 +21,11 @@ import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
+
 import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
+
+import { ContactComponent } from './components/content/contact/contact.component';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +42,7 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
+    ContactComponent,
   ],
   imports: [
     AppRoutingModule,
