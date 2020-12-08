@@ -121,7 +121,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
       this.setRapportData();
       // Request the rapport to be send to the back-end server to be stored in the database.
-      this.rapportsService.sendRapport(this.sessionStorageService.serializeData(this.rapportsService.rapport)).subscribe(
+      this.rapportsService.sendRapport(this.sessionStorageService.serialize(this.rapportsService.rapport)).subscribe(
         () => this.router.navigate(['/bevestiging-melding']),
         () => this.router.navigate(['/bevestiging-melding'])
       );
@@ -161,9 +161,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.rapportsService.rapport.requiresSupport = this.questionsForm.value.victimSupport;
     this.rapportsService.rapport.dateTime = this.questionsForm.value.dateTime;
     this.rapportsService.rapport.emailAddress = this.questionsForm.value.email;
-    this.rapportsService.rapport.events = this.questionsForm.value.events;
     this.rapportsService.rapport.story = this.questionsForm.value.story;
     this.rapportsService.rapport.name = this.questionsForm.value.name;
+
+    for (const event of this.questionsForm.value.events) this.rapportsService.rapport.addEvent(event);
   }
 
   get incidentTypes(): Event[] {
