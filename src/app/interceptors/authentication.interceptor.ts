@@ -3,7 +3,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse
+  HttpInterceptor, HttpResponse, HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,11 +22,21 @@ export class AuthenticationInterceptor implements HttpInterceptor {
    * @param next is http handler
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    let authToken: string;
+    let newRequest: HttpRequest<any>;
+
     if (this.authenticateService.token != null){
-      request.headers.append(this.AUTH_KEY, this.authenticateService.token);
+      authToken = 'Bearer ' + this.authenticateService.token;
+      const headers = new HttpHeaders({
+        Authorization : authToken
+      });
+      newRequest = request.clone({headers});
+    }
+    else {
+      newRequest = request;
     }
 
-    return next.handle(request).pipe(map((response: HttpEvent<any>) => {
+    return next.handle(newRequest).pipe(map((response: HttpEvent<any>) => {
       if (response instanceof HttpResponse) {
         if (response.headers.get(this.AUTH_KEY) != null){
           let token = response.headers.get(this.AUTH_KEY);
