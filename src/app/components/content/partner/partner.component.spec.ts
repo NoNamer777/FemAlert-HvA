@@ -7,6 +7,8 @@ import { User } from '../../../models/User';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BACK_END_URL } from '../../../services/questions.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('PartnerComponent', () => {
   let component: PartnerComponent;
@@ -24,8 +26,16 @@ describe('PartnerComponent', () => {
         HttpClientTestingModule,
         FontAwesomeTestingModule,
         ReactiveFormsModule,
-        FormsModule
-      ]
+        FormsModule,
+        RouterTestingModule.withRoutes(
+          [{path: 'partner', children: [
+              {path: 'dashboard', redirectTo: ''}
+            ]}]
+        )
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA,
+      ],
     })
     .compileComponents();
   });
