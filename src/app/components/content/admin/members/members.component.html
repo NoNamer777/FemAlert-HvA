@@ -1,1 +1,49 @@
-<p>members works!</p>
+<div class="container">
+  <form>
+    <input type="text" placeholder="Search" class="form-control m-2 w-25 float-right"/>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Place</th>
+        <th>Admin</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <td>Bonaire</td>
+        <td>Den Helder</td>
+        <td>false</td>
+        <td>
+          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
+          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
+        </td>
+      </tr>
+      <tr>
+        <td>Odeklonje</td>
+        <td>Den Helder</td>
+        <td>false</td>
+        <td><fa-icon [icon]="editIcon"></fa-icon><fa-icon [icon]="deleteIcon"></fa-icon></td>
+      </tr>
+      <tr>
+        <td>Klein kras</td>
+        <td>Den Helder</td>
+        <td>false</td>
+        <td><fa-icon [icon]="editIcon"></fa-icon><fa-icon [icon]="deleteIcon"></fa-icon></td>
+      </tr>
+      <tr>
+        <td>Oude gast</td>
+        <td>Den Helder</td>
+        <td>false</td>
+        <td><fa-icon [icon]="editIcon"></fa-icon><fa-icon [icon]="deleteIcon"></fa-icon></td>
+      </tr>
+      <tr>
+        <td>Loetje</td>
+        <td>Den Helder</td>
+        <td>false</td>
+        <td><fa-icon [icon]="editIcon"></fa-icon><fa-icon [icon]="deleteIcon"></fa-icon></td>
+      </tr>
+    </table>
+  </div>
+</div>
