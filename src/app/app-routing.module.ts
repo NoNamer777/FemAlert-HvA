@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'locatie', component: LocationPickerComponent },
   { path: 'formulier', component: QuestionComponent },
   { path: 'login', component: PartnerComponent },
-  { path: 'partner', component: AdminComponent, canActivate: [AuthenticationGuard], children: [
+  { path: 'partner', component: AdminComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'members', component: MembersComponent },
