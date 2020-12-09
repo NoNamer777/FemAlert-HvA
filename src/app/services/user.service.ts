@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { BACK_END_URL } from './questions.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from './session-storage.service';
 
 @Injectable({
@@ -11,6 +11,8 @@ import { SessionStorageService } from './session-storage.service';
 export class UserService {
 
   public currentUser: User;
+
+  public isAuthenticated = true;
 
   constructor(private _httpClient: HttpClient, private _sessionStorageService: SessionStorageService) {}
 
