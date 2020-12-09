@@ -15,12 +15,8 @@ table {
     color: var(--primary-txt-color);
   }
 
-  tr:hover {
-    background-color: lightgray;
-  }
-
   td fa-icon:hover{
-    color: red;
+    color: darkgrey;
     cursor: pointer;
   }
 }
