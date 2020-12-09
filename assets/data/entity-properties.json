@@ -1,0 +1,41 @@
+{
+  "Address": [
+    "businessName",
+    "formattedAddress"
+  ],
+  "Event": [
+    "id",
+    "name",
+    "active",
+    "removable"
+  ],
+  "Question": [
+    "id",
+    "question",
+    "answer"
+  ],
+  "Rapport": [
+    "id",
+    {
+      "name": "address",
+      "type": "Address"
+    },
+    "emailAddress",
+    "name",
+    {
+      "name": "events",
+      "type": "Event"
+    },
+    "dateTime",
+    "story",
+    "requiresSupport",
+    "wantsExtraInfo"
+  ],
+  "User": [
+    "id",
+    "name",
+    "emailAddress",
+    "password",
+    "admin"
+  ]
+}
