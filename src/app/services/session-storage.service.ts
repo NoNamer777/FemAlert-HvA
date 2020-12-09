@@ -30,6 +30,11 @@ export class SessionStorageService {
 
   getSessionData(key: string): any{
     let storageData = JSON.parse(sessionStorage.getItem('fem-alert'));
+
+    if (storageData == null){
+      return null;
+    }
+
     storageData = storageData[key];
     return storageData;
   }
