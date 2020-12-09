@@ -9,19 +9,15 @@ import { SessionStorageService } from './session-storage.service';
   providedIn: 'root'
 })
 export class UserService {
-  private AUTHENTICATE_URL = '/authenticate';
-  private LOGIN_URL = '/login';
-  private REGISTER_URL = '/register';
 
   public currentUser: User;
 
-  constructor(private httpClient: HttpClient,
-              private serializer: SessionStorageService) { }
+  constructor(private _httpClient: HttpClient, private _sessionStorageService: SessionStorageService) {}
 
-  login(user: User): Observable<HttpResponse<User>> {
-    return this.httpClient.post<HttpResponse<User>>(
-      BACK_END_URL + this.AUTHENTICATE_URL + this.LOGIN_URL,
-      this.serializer.serializeData(user)
+  login(user: User): Observable<User> {
+    return this._httpClient.post<User>(
+      `${BACK_END_URL}/authenticate/login`,
+      this._sessionStorageService.serialize(user)
     );
   }
 }

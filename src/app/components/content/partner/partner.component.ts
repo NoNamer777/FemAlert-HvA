@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/User';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-partner',
@@ -35,14 +35,16 @@ export class PartnerComponent implements OnInit {
       return;
     }
 
-    const user = new User(this.loginForm.controls.email.value, this.loginForm.controls.password.value);
+    const user = new User();
 
-    this.userService.login(user).subscribe(
-      (response: HttpResponse<User>) => {
+    user.emailAddress = this.loginForm.controls.email.value;
+    user.password = this.loginForm.controls.password.value;
+
+    this.userService.login(user).subscribe((loggedInUser: User) => {
         // if good
         this.showInvalidCredentials = false;
-        
-        alert(`Login was successfull, ${ (response.body as any)._emailAddress }`);
+
+        alert(`Welcome back ${loggedInUser.name}`);
       }, error => this.showInvalidCredentials = true
     );
   }

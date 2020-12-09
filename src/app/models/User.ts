@@ -1,36 +1,56 @@
 export class User {
-  private _id: string = null;
-  private _name: string = null;
-  private _emailAddress: string;
-  private _password: string;
-  private _admin: boolean = null;
-
-  constructor(emailAddress?: string, password?: string){
-    this._emailAddress = emailAddress;
-    this._password = password;
-  }
 
   get id(): string {
     return this._id;
   }
 
+  set id(id: string) {
+    this._id = id;
+  }
+
+  private _id: string;
+
   get name(): string {
     return this._name;
   }
 
+  set name(value: string) {
+    this._name = value;
+  }
+
+  private _name: string = null;
+
   get emailAddress(): string {
     return this._emailAddress;
+  }
+
+  set emailAddress(value: string) {
+    this._emailAddress = value;
+  }
+
+  private _emailAddress: string;
+
+  get password(): string {
+    return this._password;
   }
 
   set password(value: string) {
     this._password = value;
   }
 
-  get password(): string {
-    return this._password;
-  }
+  private _password: string;
 
   get admin(): boolean {
     return this._admin;
+  }
+
+  set admin(value: boolean) {
+    this._admin = value;
+  }
+
+  private _admin: boolean = null;
+
+  constructor(id?: string) {
+    this.id = id;
   }
 }

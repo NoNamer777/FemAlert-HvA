@@ -12,7 +12,9 @@ describe('AuthHeaderInterceptorService', () => {
   let authenticateService: AuthenticateService;
   let mockHttpClient: HttpTestingController;
 
-  const TEST_USER = new User('bradbuur@hotmail.com', 'Test123');
+  const TEST_USER = new User();
+  TEST_USER.emailAddress = 'bradbuur@hotmail.com';
+  TEST_USER.password = 'Test123';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
