@@ -5,7 +5,40 @@
     </button>
   </div>
   <div class="px-4 mb-5">
-    <p class="font-weight-bold mb-3 h5">Kom met on in contact.</p>
-    <p class="h6 font-weight-normal">Bekijk de FAQ voor de veelgestelde vragen.</p>
+    <p class="font-weight-bold mb-3 h5">Kom met ons in contact.</p>
+    <p class="h6 font-weight-normal">Bekijk eerst de FAQ voor de veelgestelde vragen.</p>
+  </div>
+  <div>
+  <form [formGroup]="contactForm">
+  <div class="form-group bg-grey1 rounded-corner p-3">
+    <label for="name" class="font-weight-bold">Naam</label>
+    <input type="text" id="name" class="form-control" formControlName="name">
+    <label for="subject" class="font-weight-bold">Onderwerp</label>
+    <input type="text" id="subject" class="form-control" formControlName="subject">
+    <label for="email" class="font-weight-bold d-flex">
+        <span>E-mailadres</span>
+        <span class="text-danger px-1">*</span>
+        <small style="transform: translate(0, -3px); text-decoration: underline" (click)="onMIEmail()">Meer info</small>
+      </label>
+      <input type="email" id="email" class="form-control" formControlName="email">
+    <label for="question" class="font-weight-bold">Wat is je vraag?</label>
+    <textarea
+      type="text"
+      id="question"
+      class="form-control"
+      placeholder="Stel je vraag hier"
+      formControlName="question"
+    >
+    </textarea>
+  </div>
+  </form></div>
+  <div class="d-flex flex-row-reverse mb-4">
+  <button
+    class=" btn btn-light btn-lg rounded-pill font-weight-bold border border-dark"
+    id="btn-send"
+    [disabled]="contactForm.invalid"
+  >
+    Verstuur
+  </button>
   </div>
 </div>
