@@ -8,7 +8,9 @@ describe('UserService', () => {
   let service: UserService;
   let mockHttpClient: HttpTestingController;
 
-  const EXPECTED_USER = new User('tester1@hotmail.com', 'Test123');
+  const EXPECTED_USER = new User();
+  EXPECTED_USER.emailAddress = 'tester1@hotmail.com';
+  EXPECTED_USER.password = 'Test123';
 
   beforeEach(() => {
     TestBed.configureTestingModule({

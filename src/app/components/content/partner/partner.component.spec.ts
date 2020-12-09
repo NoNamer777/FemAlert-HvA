@@ -17,7 +17,10 @@ describe('PartnerComponent', () => {
   let service: UserService;
   let element: HTMLElement;
 
-  const TEST_USER = new User('testEmail@hotmail.com', 'Test123');
+  const TEST_USER = new User();
+
+  TEST_USER.emailAddress = 'testEmail@hotmail.com';
+  TEST_USER.password = 'Test123';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
