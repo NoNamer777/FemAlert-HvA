@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from './session-storage.service';
+import { User } from '../models/User';
+import { Observable } from 'rxjs';
+import { BACK_END_URL } from './questions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +15,12 @@ export class AuthenticateService{
   /** Constant key for saving in storage */
   private KEY_TOKEN = 'token';
 
-  constructor(private httpClient: HttpClient,
-              private sessionStorageService: SessionStorageService) { }
+  /** Boolean to see if user is authenticated */
+  public isAuthenticated = true;
+
+
+  constructor(private _httpClient: HttpClient,
+              private _sessionStorageService: SessionStorageService) { }
 
   /**
    * Sets token and saves token in storage
@@ -21,7 +28,7 @@ export class AuthenticateService{
    */
   set token(value: string) {
     this._token = value;
-    this.sessionStorageService.updateSessionData(this.KEY_TOKEN, value);
+    this._sessionStorageService.updateSessionData(this.KEY_TOKEN, value);
   }
 
   /**
@@ -32,6 +39,17 @@ export class AuthenticateService{
   get token(): string{
     if (this._token != null) return this._token;
 
-    return this.sessionStorageService.getSessionData(this.KEY_TOKEN);
+    return this._sessionStorageService.getSessionData(this.KEY_TOKEN);
+  }
+
+  /**
+   * Sends login request to backend retuns User object
+   * @param user is user to request login
+   */
+  login(user: User): Observable<User> {
+    return this._httpClient.post<User>(
+      `${BACK_END_URL}/authenticate/login`,
+      this._sessionStorageService.serialize(user)
+    );
   }
 }
