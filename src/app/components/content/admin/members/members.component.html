@@ -11,46 +11,10 @@
         <th>Admin</th>
         <th>Actions</th>
       </tr>
-      <tr>
-        <td>Bonaire</td>
-        <td>Den Helder</td>
-        <td>false</td>
-        <td>
-          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
-          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>Odeklonje</td>
-        <td>Den Helder</td>
-        <td>false</td>
-        <td>
-          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
-          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>Klein kras</td>
-        <td>Den Helder</td>
-        <td>false</td>
-        <td>
-          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
-          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>Oude gast</td>
-        <td>Den Helder</td>
-        <td>false</td>
-        <td>
-          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
-          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
-        </td>
-      </tr>
-      <tr>
-        <td>Loetje</td>
-        <td>Den Helder</td>
-        <td>false</td>
+      <tr *ngFor="let u of users; let i = index">
+        <td>{{u.name}}</td>
+        <td>den Helder</td>
+        <td>{{u.admin}}</td>
         <td>
           <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
           <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
