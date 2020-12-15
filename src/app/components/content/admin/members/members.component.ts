@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../services/user.service';
-import { Observable } from 'rxjs';
 import { User } from '../../../../models/User';
 
 @Component({
@@ -14,11 +13,19 @@ export class MembersComponent implements OnInit {
   deleteIcon = faTrashAlt;
   editIcon = faPencilAlt;
 
-  users: Observable<User[]>;
+  users: User[];
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
+    this.userService.getUsers().subscribe(
+      (users: User[]) => {
+        console.log(users);
+        this.users = users;
+        console.log(this.users);
+      },
+      error => console.log(error)
+    );
   }
 
 }
