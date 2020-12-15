@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-
-import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/User';
 import { AuthenticateService } from '../../../services/authenticate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-partner',
@@ -26,7 +25,8 @@ export class PartnerComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private authenticateService: AuthenticateService) { }
+  constructor(private authenticateService: AuthenticateService,
+              private router: Router) { }
 
   ngOnInit(): void {}
 
@@ -46,6 +46,7 @@ export class PartnerComponent implements OnInit {
         this.showInvalidCredentials = false;
 
         alert(`Welcome back ${loggedInUser.name}`);
+        this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );
   }
