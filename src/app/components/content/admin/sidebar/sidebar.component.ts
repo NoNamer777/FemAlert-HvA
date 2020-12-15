@@ -1,13 +1,13 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {
   faAddressCard,
   faAngleLeft,
   faAngleRight,
   faChartBar,
-  faComments,
   faEdit,
   faHome,
-  faSignOutAlt
+  faSignOutAlt,
+  faUserPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
   iconStatistics = faChartBar;
   iconMembers = faAddressCard;
   iconEditRapport = faEdit;
-  iconFAQ = faComments;
+  iconAddUser = faUserPlus;
   iconSignOut = faSignOutAlt;
   iconOpen = faAngleRight;
   iconClose = faAngleLeft;
