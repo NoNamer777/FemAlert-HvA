@@ -2,6 +2,8 @@ import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { RapportsService } from '../../services/rapports.service';
+import { AuthenticateService } from '../../services/authenticate.service';
+import { Router } from '@angular/router';
 
 /** Animations that make the link font-size larger and centers the links a bit more. */
 const COLLAPSED_SHOW_ANIMATION = trigger('collapseShow', [
@@ -39,7 +41,9 @@ export class NavbarComponent implements OnInit {
   /** The internal collapsed state of the component. */
   collapsed: boolean = null;
 
-  constructor(private reportsService: RapportsService) {}
+  constructor(private reportsService: RapportsService,
+              private authenticateService: AuthenticateService,
+              private router: Router) {}
 
   ngOnInit(): void {
     // Initializes the collapsed state based on the classes of the element.
@@ -49,7 +53,15 @@ export class NavbarComponent implements OnInit {
   /** Hides the Header component when an User is creating a Rapport. */
   @HostBinding('hidden')
   get hidden(): boolean {
-    return this.reportsService.isCreatingRapport;
+    if (this.reportsService.isCreatingRapport === true || this.checkPartner()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private checkPartner(): boolean {
+    return this.router.url.includes('/partner');
   }
 
   /** Toggles the component collapsed state. */
