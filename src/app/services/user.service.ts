@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/User';
 import { Observable } from 'rxjs';
-import { BACK_END_URL } from './questions.service';
+import { User } from '../models/User';
 import { HttpClient } from '@angular/common/http';
-import { SessionStorageService } from './session-storage.service';
+import { BACK_END_URL } from './questions.service';
+import { AuthenticateService } from './authenticate.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  public currentUser: User;
+  constructor(private _httpClient: HttpClient,
+              private _autenticateService: AuthenticateService) {}
 
-  public isAuthenticated = true;
-
-  constructor(private _httpClient: HttpClient, private _sessionStorageService: SessionStorageService) {}
-
-  login(user: User): Observable<User> {
-    return this._httpClient.post<User>(
-      `${BACK_END_URL}/authenticate/login`,
-      this._sessionStorageService.serialize(user)
+  /**
+   * Sends get request to get all users in database
+   */
+  getUsers(): Observable<User[]> {
+    return this._httpClient.get<User[]>(
+      `${BACK_END_URL}/user`
     );
   }
 }
