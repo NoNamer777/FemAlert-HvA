@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticateService } from '../../../../services/authenticate.service';
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'app-add-partner',
@@ -7,9 +10,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPartnerComponent implements OnInit {
 
-  constructor() { }
+  // todo: add [ based: new FormControl(null, [Validators.required]) ]
+  addMemberFrom = new FormGroup({
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [Validators.required]),
+    confirmPassword: new FormControl(null, [Validators.required]),
+    companyName: new FormControl(null, [Validators.required]),
+    admin: new FormControl(false),
+  });
+
+  constructor(private authenticateService: AuthenticateService) { }
 
   ngOnInit(): void {
+  }
+
+  /** Toggles a form value between true <=> false. */
+  toggleCheckboxValue(value: boolean): void {
+    const control = this.addMemberFrom.controls.admin;
+
+    if (control.value === value) return;
+
+    // Updates the form value.
+    control.setValue(!control.value);
+  }
+
+  /** Provides an element class depending on a form value. */
+  buttonClass(formValue: boolean): string {
+    return !!formValue ? 'btn-success' : 'bg-darkgrey';
+  }
+
+  onSubmit(): void {
+    if (this.addMemberFrom.invalid) {
+      console.log(this.addMemberFrom);
+      return;
+    }
+
+    const newUser = new User();
+    newUser.emailAddress = this.addMemberFrom.controls.email.value;
+    newUser.password = this.addMemberFrom.controls.password.value;
+    newUser.name = this.addMemberFrom.controls.companyName.value;
+    newUser.admin = this.addMemberFrom.controls.admin.value;
+
+    this.authenticateService.register(newUser).subscribe(
+      response => {
+        console.log(response);
+        alert(`User ${response.id} successfully registered`);
+        this.addMemberFrom.reset();
+      },
+      error => console.log(error)
+    );
   }
 
 }

@@ -1,1 +1,61 @@
-<p>add-partner works!</p>
+<form [formGroup]="addMemberFrom" class="formContainer">
+  <div class="form-group">
+    <label class="font-weight-bold">E-mailadres</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Email"
+      formControlName="email" >
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Wachtwoord</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Wachtwoord"
+      formControlName="password">
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Herhaal wachtwoord</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Herhaal wachtwoord"
+      formControlName="confirmPassword">
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Bedrijf naam</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bedrijf naam"
+      formControlName="companyName">
+  </div>
+
+  <div class="form-group">
+    <label class="mr-3 font-weight-bold">Admin:</label>
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      formControlName="admin">
+
+    <button
+      class="btn rounded-corner mr-2 toggleButton"
+      (click)="toggleCheckboxValue(true)"
+      [ngClass]="buttonClass(addMemberFrom.value.admin)">
+      Aan
+    </button>
+
+    <button
+      class="btn rounded-corner toggleButton"
+      (click)="toggleCheckboxValue(false)"
+      [ngClass]="buttonClass(!addMemberFrom.value.admin)">
+      Uit
+    </button>
+  </div>
+
+  <input type="button" class="btn confirmButton w-40 mt-5" value="Toevoegen" (click)="onSubmit()">
+</form>
