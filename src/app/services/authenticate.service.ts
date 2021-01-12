@@ -52,4 +52,11 @@ export class AuthenticateService{
       this._sessionStorageService.serialize(user)
     );
   }
+
+  register(user: User): Observable<User> {
+    return this._httpClient.post<User>(
+      `${BACK_END_URL}/authenticate/register`,
+      this._sessionStorageService.serialize(user)
+    );
+  }
 }

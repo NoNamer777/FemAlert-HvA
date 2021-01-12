@@ -28,6 +28,7 @@ import { StatisticsComponent } from './components/content/admin/statistics/stati
 import { MembersComponent } from './components/content/admin/members/members.component';
 import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
     StatisticsComponent,
     MembersComponent,
     EditRapportComponent,
+    AddPartnerComponent,
   ],
   imports: [
     AppRoutingModule,

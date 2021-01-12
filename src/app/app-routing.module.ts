@@ -15,6 +15,7 @@ import { StatisticsComponent } from './components/content/admin/statistics/stati
 import { MembersComponent } from './components/content/admin/members/members.component';
 import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'members', component: MembersComponent },
+      { path: 'add-member', component: AddPartnerComponent },
       { path: 'edit-rapport', component: EditRapportComponent }
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
