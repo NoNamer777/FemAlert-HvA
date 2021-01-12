@@ -21,5 +21,11 @@
         </td>
       </tr>
     </table>
+    <span class="text-danger" *ngIf="getUserError">Er is een fout opgetreden</span>
+    <span *ngIf="noUserFound">Geen leden gevonden</span>
+    <div class="container py-5 d-flex justify-content-center align-items-center" *ngIf="isLoading">
+      <div class="spinner-border mr-3"></div>
+      <span>Even geduld AUB...</span>
+    </div>
   </div>
 </div>
