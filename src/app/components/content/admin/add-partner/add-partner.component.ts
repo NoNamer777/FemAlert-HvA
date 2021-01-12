@@ -66,6 +66,7 @@ export class AddPartnerComponent implements OnInit {
       response => {
         alert(`Lid ${response.id} is succesvol geregistreerd`);
         this.addMemberFrom.reset();
+        this.addMemberFrom.controls.admin.setValue(false);
       },
       error => console.log(error)
     );
