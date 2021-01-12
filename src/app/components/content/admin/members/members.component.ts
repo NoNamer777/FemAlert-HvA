@@ -22,6 +22,19 @@ export class MembersComponent implements OnInit {
 
   constructor(private userService: UserService) {}
 
+  deleteUser(index: number): void {
+    const id = this.users[index].id;
+    this.isLoading = true;
+
+    this.userService.deleteUser(id).subscribe(
+      next => {
+        this.users.splice(index, 1);
+        this.isLoading = false;
+      },
+      error => this.getUserError = true
+    );
+  }
+
   ngOnInit(): void {
     this.userService.getUsers().subscribe(
       (users: User[]) => {

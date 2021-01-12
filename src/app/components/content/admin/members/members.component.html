@@ -17,7 +17,7 @@
         <td>{{u.admin}}</td>
         <td>
           <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
-          <fa-icon [icon]="deleteIcon" class="m-2"></fa-icon>
+          <fa-icon [icon]="deleteIcon" class="m-2" (click)="deleteUser(i)"></fa-icon>
         </td>
       </tr>
     </table>
