@@ -6,6 +6,7 @@
       class="form-control"
       placeholder="Email"
       formControlName="email" >
+    <span class="text-danger" *ngIf="emailIsInvalid">Ongeldig E-mailadres</span>
   </div>
 
   <div class="form-group">
@@ -15,6 +16,7 @@
       class="form-control"
       placeholder="Wachtwoord"
       formControlName="password">
+    <span class="text-danger" *ngIf="passwordIsInvalid">Wachtwoord moet minstens 6 karakters lang zijn</span>
   </div>
 
   <div class="form-group">
@@ -24,6 +26,7 @@
       class="form-control"
       placeholder="Herhaal wachtwoord"
       formControlName="confirmPassword">
+    <span class="text-danger" *ngIf="confirmPasswordIsInvalid">Wachtwoorden niet het zelfde</span>
   </div>
 
   <div class="form-group">
@@ -33,6 +36,7 @@
       class="form-control"
       placeholder="Bedrijf naam"
       formControlName="companyName">
+    <span class="text-danger" *ngIf="companyNameIsInvalid">Geen bedrijfsnaam ingevuld</span>
   </div>
 
   <div class="form-group">

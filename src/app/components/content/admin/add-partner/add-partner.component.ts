@@ -10,10 +10,16 @@ import { User } from '../../../../models/User';
 })
 export class AddPartnerComponent implements OnInit {
 
+  /** Invalid form values bools */
+  emailIsInvalid = false;
+  passwordIsInvalid = false;
+  confirmPasswordIsInvalid = false;
+  companyNameIsInvalid = false;
+
   // todo: add [ based: new FormControl(null, [Validators.required]) ]
   addMemberFrom = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl(null, [Validators.required]),
     companyName: new FormControl(null, [Validators.required]),
     admin: new FormControl(false),
@@ -40,8 +46,13 @@ export class AddPartnerComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.emailIsInvalid = this.addMemberFrom.controls.email.invalid;
+    this.passwordIsInvalid = this.addMemberFrom.controls.password.invalid;
+    this.confirmPasswordIsInvalid = this.addMemberFrom.controls.confirmPassword.invalid ||
+      this.addMemberFrom.controls.password.value !== this.addMemberFrom.controls.confirmPassword.value;
+    this.companyNameIsInvalid = this.addMemberFrom.controls.companyName.invalid;
+
     if (this.addMemberFrom.invalid) {
-      console.log(this.addMemberFrom);
       return;
     }
 
