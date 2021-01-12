@@ -65,7 +65,7 @@ export class AddPartnerComponent implements OnInit {
     this.authenticateService.register(newUser).subscribe(
       response => {
         console.log(response);
-        alert(`User ${response.id} successfully registered`);
+        alert(`Lid ${response.id} is succesvol geregistreerd`);
         this.addMemberFrom.reset();
       },
       error => console.log(error)
