@@ -30,6 +30,13 @@ export class SessionStorageService {
     sessionStorage.setItem('fem-alert', JSON.stringify(this.serialize(this._data)));
   }
 
+  /**
+   * Clears session storage
+   */
+  clearSessionData(): void {
+    sessionStorage.clear();
+  }
+
   getSessionData(key: string): any{
     let storageData = JSON.parse(sessionStorage.getItem('fem-alert'));
 

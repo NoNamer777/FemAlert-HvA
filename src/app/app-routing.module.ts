@@ -24,11 +24,11 @@ const routes: Routes = [
   { path: 'formulier', component: QuestionComponent },
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'statistics', component: StatisticsComponent },
-      { path: 'members', component: MembersComponent },
-      { path: 'add-member', component: AddPartnerComponent },
-      { path: 'edit-rapport', component: EditRapportComponent }
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard]},
+      { path: 'statistics', component: StatisticsComponent, canActivate: [AuthenticationGuard] },
+      { path: 'members', component: MembersComponent, canActivate: [AuthenticationGuard] },
+      { path: 'add-member', component: AddPartnerComponent, canActivate: [AuthenticationGuard] },
+      { path: 'edit-rapport', component: EditRapportComponent, canActivate: [AuthenticationGuard] }
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
