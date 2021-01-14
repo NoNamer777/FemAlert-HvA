@@ -26,7 +26,7 @@ import { SidebarComponent } from './components/content/admin/sidebar/sidebar.com
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
-import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
+import { ServerManagementComponent } from './components/content/admin/server-management/server-management.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
     DashboardComponent,
     StatisticsComponent,
     MembersComponent,
-    EditRapportComponent,
+    ServerManagementComponent,
   ],
   imports: [
     AppRoutingModule,
