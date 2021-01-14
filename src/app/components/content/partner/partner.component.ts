@@ -44,6 +44,7 @@ export class PartnerComponent implements OnInit {
     this.authenticateService.login(user).subscribe((loggedInUser: User) => {
         // if good
         this.showInvalidCredentials = false;
+        this.authenticateService.currentUser = loggedInUser;
 
         alert(`Welcome back ${loggedInUser.name}`);
         this.router.navigate(['/partner/dashboard']);
