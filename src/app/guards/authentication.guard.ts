@@ -15,7 +15,7 @@ export class AuthenticationGuard implements CanActivate {
    * todo: Proper version
    */
   canActivate(): boolean {
-    if (!this.authenticateService.isAuthenticated) {
+    if (!this.authenticateService.checkAuthentication()) {
       this.router.navigate(['/login']);
       return false;
     } else return true;

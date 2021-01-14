@@ -4,6 +4,7 @@ import { SessionStorageService } from './session-storage.service';
 import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { BACK_END_URL } from './questions.service';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class AuthenticateService{
    */
   set token(value: string) {
     this._token = value;
+
     this._sessionStorageService.updateSessionData(this.KEY_TOKEN, value);
   }
 
@@ -63,6 +65,28 @@ export class AuthenticateService{
     this._currentUser = value;
     this._sessionStorageService.updateSessionData(this.KEY_USER, value);
   }
+
+  /**
+   * Checks if jwt token is not expired
+   * @return boolean if true jwt not expired if false jwt token is expired
+   */
+  checkAuthentication(): boolean {
+    const expDate = this.getTokenExpirationDate();
+    const currentTime = new Date();
+
+    return currentTime < expDate;
+  }
+
+  /**
+   * Gets token expiration date
+   * @return Date expiration date of token
+   */
+  private getTokenExpirationDate(): Date {
+    const decodedToken: JwtPayload = jwtDecode(this.token);
+    const expDate = new Date(0);
+    expDate.setUTCSeconds(decodedToken.exp);
+
+    return expDate;
   }
 
   /**
@@ -76,6 +100,10 @@ export class AuthenticateService{
     );
   }
 
+  /**
+   * Sends register request to backend and return User object
+   * @param user is user to add to database
+   */
   register(user: User): Observable<User> {
     return this._httpClient.post<User>(
       `${BACK_END_URL}/authenticate/register`,
