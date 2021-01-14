@@ -11,11 +11,11 @@ export class AuthenticationGuard implements CanActivate {
               private authenticateService: AuthenticateService) { }
 
   /**
-   * Check if user is authenticated if not redirect to login page
-   * todo: Proper version
+   * Check if user is authenticated if not redirect to login page and logout user
    */
   canActivate(): boolean {
     if (!this.authenticateService.checkAuthentication()) {
+      this.authenticateService.logout();
       this.router.navigate(['/login']);
       return false;
     } else return true;

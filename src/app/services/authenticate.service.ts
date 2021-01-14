@@ -101,6 +101,16 @@ export class AuthenticateService{
   }
 
   /**
+   * Logs user out
+   */
+  logout(): void {
+    this.token = null;
+    this.currentUser = null;
+
+    this._sessionStorageService.clearSessionData();
+  }
+
+  /**
    * Sends register request to backend and return User object
    * @param user is user to add to database
    */
