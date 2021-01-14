@@ -1,0 +1,18 @@
+<div class="container py-5 px-4 h-90">
+  <div class="d-flex flex-row-reverse mb-4">
+    <button (click)="onStop()" class="btn btn-light px-4 shadow rounded-pill" id="btn-stop-report">
+      <fa-icon class="h5" [icon]="iconQuit"></fa-icon>
+    </button>
+  </div>
+  <div class="d-flex flex-column align-items-center justify-content-between h-100">
+    <h1 class="font-weight-bold mt-0 mb-5">Bedankt!</h1>
+    <h2 class="font-weight-bold mb-5 text-center">Je Vraag is verstuurd.</h2>
+    <p class="text-center px-5">
+      Wij proberen binnen 3 werkdagen te reageren op uw beicht.
+    </p>
+    <div class="text-center justify-content-end mt-5">
+    <h4 class="font-weight-bold mb-3 mt-5 text-center">Wil je een melding maken?</h4>
+    <h5><a href="#" class="font-weight-bold mt-2 " routerLink="/home"><u>Klik dan hier</u></a></h5>
+    </div>
+  </div>
+</div>

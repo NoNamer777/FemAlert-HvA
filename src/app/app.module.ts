@@ -25,6 +25,7 @@ import { ConfirmSendDialogComponent } from './components/content/question/confir
 import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
 
 import { ContactComponent } from './components/content/contact/contact.component';
+import { ContactConfirmationComponent } from './components/content/contact/contact-confirmation/contact-confirmation.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ContactComponent } from './components/content/contact/contact.component
     NotFoundComponent,
     ConfirmSendDialogComponent,
     ContactComponent,
+    ContactConfirmationComponent,
   ],
   imports: [
     AppRoutingModule,

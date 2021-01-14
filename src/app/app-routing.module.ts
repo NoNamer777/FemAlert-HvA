@@ -10,6 +10,7 @@ import { AboutComponent } from './components/content/about/about.component';
 import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { ContactComponent } from './components/content/contact/contact.component';
+import { ContactConfirmationComponent } from './components/content/contact/contact-confirmation/contact-confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'contact-bevestiging', component: ContactConfirmationComponent },
+
   { path: '**', redirectTo: 'not-found' },
 ];
 
