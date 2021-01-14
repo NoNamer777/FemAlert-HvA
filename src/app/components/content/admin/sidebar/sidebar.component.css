@@ -1,0 +1,38 @@
+.sidebar {
+  background-color: var(--secondary-background);
+  position: fixed;
+  height: 100vh;
+  width: 15vw;
+  min-width: 50px;
+  padding: 0;
+}
+.sidebar a {
+  color: var(--primary-text);
+  display: block;
+  padding: 15px;
+}
+.sidebar a fa-icon {
+  margin-right: 1vh;
+  font-size: 20px;
+}
+.sidebar a p {
+  display: inline;
+}
+.sidebar a:hover {
+  background-color: var(--secondary-background-hover);
+}
+.sidebar button {
+  color: var(--primary-text);
+  font-size: 4vh;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.sidebar button:focus {
+  box-shadow: none;
+}
+.sidebar .active {
+  background-color: var(--secondary-background-hover);
+}
+
+/*# sourceMappingURL=sidebar.component.css.map */

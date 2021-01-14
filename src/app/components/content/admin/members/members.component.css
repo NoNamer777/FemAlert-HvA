@@ -1,0 +1,17 @@
+table tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+table tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+table th {
+  border: none;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-txt-color);
+}
+table td fa-icon:hover {
+  color: darkgrey;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=members.component.css.map */
