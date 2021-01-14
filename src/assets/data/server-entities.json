@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Incident",
+    "value": "Event"
+  },
+  {
+    "name": "Vraag & Antwoord",
+    "value": "Question"
+  },
+  {
+    "name": "Organisatie",
+    "value": "Organisation"
+  },
+  {
+    "name": "Dataset",
+    "value": "Dataset"
+  }
+]
