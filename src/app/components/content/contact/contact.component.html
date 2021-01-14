@@ -11,9 +11,13 @@
   <div>
   <form [formGroup]="contactForm">
   <div class="form-group bg-grey1 rounded-corner p-3">
-    <label for="name" class="font-weight-bold">Naam</label>
+    <label for="name" class="font-weight-bold">
+      Naam <span class="text-danger pl-1">*</span>
+    </label>
     <input type="text" id="name" class="form-control" formControlName="name">
-    <label for="subject" class="font-weight-bold">Onderwerp</label>
+    <label for="subject" class="font-weight-bold">
+      Onderwerp <span class="text-danger pl-1">*</span>
+    </label>
     <input type="text" id="subject" class="form-control" formControlName="subject">
     <label for="email" class="font-weight-bold d-flex">
         <span>E-mailadres</span>
@@ -21,7 +25,9 @@
         <small style="transform: translate(0, -3px); text-decoration: underline" (click)="onMIEmail()">Meer info</small>
       </label>
       <input type="email" id="email" class="form-control" formControlName="email">
-    <label for="question" class="font-weight-bold">Wat is je vraag?</label>
+    <label for="question" class="font-weight-bold">
+      Wat is je vraag? <span class="text-danger pl-1">*</span>
+    </label>
     <textarea
       type="text"
       id="question"
@@ -32,13 +38,15 @@
     </textarea>
   </div>
   </form></div>
-  <div class="d-flex flex-row-reverse mb-4">
+  <div class="d-flex flex-row-reverse align-items-center mb-4">
   <button
     class=" btn btn-light btn-lg rounded-pill font-weight-bold border border-dark"
     id="btn-send"
     [disabled]="contactForm.invalid"
+    (click)="onSubmitMessage()"
   >
     Verstuur
   </button>
+    <div class="spinner-border mr-3" *ngIf="waitingForResponse"></div>
   </div>
 </div>
