@@ -28,7 +28,9 @@ export class PartnerComponent implements OnInit {
   constructor(private authenticateService: AuthenticateService,
               private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authenticateService.checkAuthentication()) this.router.navigate(['/partner/dashboard']);
+  }
 
   onSubmit(): void{
     if (this.loginForm.invalid === true) {
