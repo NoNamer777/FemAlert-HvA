@@ -1,10 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactComponent } from './contact.component';
+import { RapportsService } from '../../../services/rapports.service';
+import { Router } from '@angular/router';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
+  let rapportsService: RapportsService;
+  let testRouter: Router;
+  let element: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,5 +26,20 @@ describe('ContactComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should navigate to contact confirmation page', () => {
+    const button: HTMLButtonElement = element.querySelector('button');
+    const navigationSpy = spyOn(testRouter, 'navigate');
+
+    expect(navigationSpy).not.toHaveBeenCalled();
+    expect(rapportsService.isCreatingRapport).toBe(false);
+
+    expect(button.innerText).toBe('Verstuur');
+
+    button.click();
+    fixture.detectChanges();
+
+    expect(navigationSpy).toHaveBeenCalledWith([ '/contact-bevestiging' ]);
+    expect(rapportsService.isCreatingRapport).toBe(true);
   });
 });
