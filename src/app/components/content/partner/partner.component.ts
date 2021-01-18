@@ -47,8 +47,6 @@ export class PartnerComponent implements OnInit {
         // if good
         this.showInvalidCredentials = false;
         this.authenticateService.currentUser = loggedInUser;
-
-        alert(`Welcome back ${loggedInUser.name}`);
         this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );
