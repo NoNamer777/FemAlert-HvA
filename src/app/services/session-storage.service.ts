@@ -11,7 +11,7 @@ export class SessionStorageService {
     return this._data;
   }
 
-  private readonly _data: any = null;
+  private _data: any = null;
 
   constructor() {
     const dataRaw: string = sessionStorage.getItem('fem-alert');
@@ -34,18 +34,13 @@ export class SessionStorageService {
    * Clears session storage
    */
   clearSessionData(): void {
-    sessionStorage.clear();
+    this._data = {};
+
+    sessionStorage.setItem('fem-alert', this.serialize(this._data));
   }
 
   getSessionData(key: string): any{
-    let storageData = JSON.parse(sessionStorage.getItem('fem-alert'));
-
-    if (storageData == null){
-      return null;
-    }
-
-    storageData = storageData[key];
-    return storageData;
+    return this._data[key];
   }
 
   serialize(data: any): any {
