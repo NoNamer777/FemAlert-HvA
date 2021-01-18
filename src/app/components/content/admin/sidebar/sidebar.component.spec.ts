@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidebarComponent } from './sidebar.component';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -12,7 +13,8 @@ describe('SidebarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ SidebarComponent ],
       imports: [
-        FontAwesomeTestingModule
+        FontAwesomeTestingModule,
+        HttpClientTestingModule
       ],
       schemas: [
         NO_ERRORS_SCHEMA,

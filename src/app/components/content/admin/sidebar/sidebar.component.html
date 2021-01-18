@@ -12,26 +12,26 @@
         <p *ngIf="IsOpen">Statistieken</p>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="IsAdmin">
       <a routerLink="/partner/members" class="nav-link font-weight-bold" routerLinkActive="active">
         <fa-icon [icon]="iconMembers"></fa-icon>
         <p *ngIf="IsOpen">Leden</p>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="IsAdmin">
       <a routerLink="/partner/add-member" class="nav-link font-weight-bold" routerLinkActive="active">
         <fa-icon [icon]="iconAddUser"></fa-icon>
         <p *ngIf="IsOpen">Partner toevoegen</p>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="IsAdmin">
       <a routerLink="/partner/edit-rapport" class="nav-link font-weight-bold" routerLinkActive="active">
         <fa-icon [icon]="iconEditRapport"></fa-icon>
         <p *ngIf="IsOpen">Wijzig Rapport</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link font-weight-bold">
+      <a class="nav-link font-weight-bold">
         <fa-icon [icon]="iconSignOut"></fa-icon>
         <p *ngIf="IsOpen">Log uit</p>
       </a>
