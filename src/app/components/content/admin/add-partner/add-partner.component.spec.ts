@@ -47,6 +47,13 @@ describe('AddPartnerComponent', () => {
     fixture.detectChanges();
   });
 
+  function fillInForm(): void {
+    component.addMemberForm.controls.email.setValue(TEST_USER.emailAddress);
+    component.addMemberForm.controls.password.setValue(TEST_USER.password);
+    component.addMemberForm.controls.confirmPassword.setValue(TEST_USER.password);
+    component.addMemberForm.controls.companyName.setValue(TEST_USER.name);
+  }
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -107,10 +114,7 @@ describe('AddPartnerComponent', () => {
   });
 
   it('should check if form is valid', () => {
-    component.addMemberForm.controls.email.setValue(TEST_USER.emailAddress);
-    component.addMemberForm.controls.password.setValue(TEST_USER.password);
-    component.addMemberForm.controls.confirmPassword.setValue(TEST_USER.password);
-    component.addMemberForm.controls.companyName.setValue(TEST_USER.name);
+    fillInForm();
 
     component.onSubmit();
 
@@ -120,10 +124,7 @@ describe('AddPartnerComponent', () => {
   it('should add user when form is valid', () => {
     const IsReset = spyOn(component.addMemberForm, 'reset');
 
-    component.addMemberForm.controls.email.setValue(TEST_USER.emailAddress);
-    component.addMemberForm.controls.password.setValue(TEST_USER.password);
-    component.addMemberForm.controls.confirmPassword.setValue(TEST_USER.password);
-    component.addMemberForm.controls.companyName.setValue(TEST_USER.name);
+    fillInForm();
 
     component.onSubmit();
 
@@ -136,10 +137,7 @@ describe('AddPartnerComponent', () => {
   });
 
   it('should get error when response has error', () => {
-    component.addMemberForm.controls.email.setValue(TEST_USER.emailAddress);
-    component.addMemberForm.controls.password.setValue(TEST_USER.password);
-    component.addMemberForm.controls.confirmPassword.setValue(TEST_USER.password);
-    component.addMemberForm.controls.companyName.setValue(TEST_USER.name);
+    fillInForm();
 
     component.onSubmit();
 
