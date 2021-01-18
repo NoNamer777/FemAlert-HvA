@@ -51,7 +51,6 @@ describe('AuthenticationInterceptor', () => {
   });
 
   afterEach( () => {
-    mockSessionStorage.clear();
     mockHttpClient.verify();
   });
 
