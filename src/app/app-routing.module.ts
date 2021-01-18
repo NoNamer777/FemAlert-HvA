@@ -17,7 +17,7 @@ import { EditRapportComponent } from './components/content/admin/edit-rapport/ed
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
-export const routes: Routes = [
+const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'locatie', component: LocationPickerComponent },

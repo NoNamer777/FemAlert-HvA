@@ -6,7 +6,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { AuthenticateService } from '../services/authenticate.service';
 import { PartnerComponent } from '../components/content/partner/partner.component';
-import { routes } from '../app-routing.module';
 import { DashboardComponent } from '../components/content/admin/dashboard/dashboard.component';
 import { HomeComponent } from '../components/content/home/home.component';
 
@@ -27,7 +26,7 @@ describe('AuthenticationGuard', () => {
         HomeComponent
       ],
       imports: [
-        RouterTestingModule.withRoutes(routes),
+        RouterTestingModule,
         HttpClientTestingModule,
       ],
     });
