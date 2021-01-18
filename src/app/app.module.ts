@@ -21,7 +21,14 @@ import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmSendDialogComponent } from './components/content/question/confirm-send-dialog/confirm-send-dialog.component';
-import { AuthHeaderInterceptorService } from './services/auth-header-interceptor.service';
+import { AdminComponent } from './components/content/admin/admin.component';
+import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
+import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
+import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
+import { MembersComponent } from './components/content/admin/members/members.component';
+import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
+import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +45,13 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
+    AdminComponent,
+    SidebarComponent,
+    DashboardComponent,
+    StatisticsComponent,
+    MembersComponent,
+    EditRapportComponent,
+    AddPartnerComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -52,7 +66,7 @@ import { AuthHeaderInterceptorService } from './services/auth-header-interceptor
     HttpClientModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptorService, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
   ],
   bootstrap: [
     AppComponent,

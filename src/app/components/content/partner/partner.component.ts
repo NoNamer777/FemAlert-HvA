@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-
-import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/User';
+import { AuthenticateService } from '../../../services/authenticate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-partner',
@@ -25,9 +25,12 @@ export class PartnerComponent implements OnInit {
     password: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private authenticateService: AuthenticateService,
+              private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authenticateService.checkAuthentication()) this.router.navigate(['/partner/dashboard']);
+  }
 
   onSubmit(): void{
     if (this.loginForm.invalid === true) {
@@ -40,11 +43,11 @@ export class PartnerComponent implements OnInit {
     user.emailAddress = this.loginForm.controls.email.value;
     user.password = this.loginForm.controls.password.value;
 
-    this.userService.login(user).subscribe((loggedInUser: User) => {
+    this.authenticateService.login(user).subscribe((loggedInUser: User) => {
         // if good
         this.showInvalidCredentials = false;
-
-        alert(`Welcome back ${loggedInUser.name}`);
+        this.authenticateService.currentUser = loggedInUser;
+        this.router.navigate(['/partner/dashboard']);
       }, error => this.showInvalidCredentials = true
     );
   }

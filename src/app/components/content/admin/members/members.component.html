@@ -1,0 +1,36 @@
+<div class="container">
+  <form>
+    <input type="text" placeholder="Search" class="form-control m-2 w-25 float-right"/>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Place</th>
+        <th>Admin</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let u of users; let i = index">
+        <td>{{u.name}}</td>
+        <td>den Helder</td>
+        <td>{{u.admin}}</td>
+        <td>
+          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
+          <fa-icon [icon]="deleteIcon" class="m-2" (click)="deleteUser(i)"></fa-icon>
+        </td>
+      </tr>
+    </table>
+
+    <!-- error message and no users found message -->
+    <span class="text-danger" *ngIf="getUserError">Er is een fout opgetreden</span>
+    <span *ngIf="noUserFound">Geen leden gevonden</span>
+
+    <!-- Spinner -->
+    <div class="container py-5 d-flex justify-content-center align-items-center" *ngIf="isLoading">
+      <div class="spinner-border mr-3"></div>
+      <span>Even geduld AUB...</span>
+    </div>
+
+  </div>
+</div>
