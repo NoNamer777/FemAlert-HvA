@@ -31,10 +31,10 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link font-weight-bold">
+      <button (click)="logOut()" class="logout-button font-weight-bold">
         <fa-icon [icon]="iconSignOut"></fa-icon>
         <p *ngIf="IsOpen">Log uit</p>
-      </a>
+      </button>
     </li>
   </ul>
 

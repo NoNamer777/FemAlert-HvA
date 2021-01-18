@@ -5,6 +5,7 @@ import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { BACK_END_URL } from './questions.service';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class AuthenticateService{
   private _currentUser: User;
 
   constructor(private _httpClient: HttpClient,
-              private _sessionStorageService: SessionStorageService) { }
+              private _sessionStorageService: SessionStorageService,
+              private router: Router) { }
 
   /**
    * Sets token and saves token in storage
@@ -103,13 +105,14 @@ export class AuthenticateService{
   }
 
   /**
-   * Logs user out
+   * Logs user out and navigates to home component
    */
   logout(): void {
     this.token = null;
     this.currentUser = null;
 
     this._sessionStorageService.clearSessionData();
+    this.router.navigate(['']);
   }
 
   /**
