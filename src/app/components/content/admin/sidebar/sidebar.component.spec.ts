@@ -5,10 +5,19 @@ import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testi
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticateService } from '../../../../services/authenticate.service';
+import { User } from '../../../../models/User';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
+  let service: AuthenticateService;
+
+  const TEST_USER = new User();
+  TEST_USER.emailAddress = 'TestUser@hotmail.com';
+  TEST_USER.password = 'testPassword';
+  TEST_USER.name = 'testName';
+  TEST_USER.admin = true;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,7 +36,10 @@ describe('SidebarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent);
+    service = TestBed.inject(AuthenticateService);
     component = fixture.componentInstance;
+
+    service.currentUser = TEST_USER;
     fixture.detectChanges();
   });
 
