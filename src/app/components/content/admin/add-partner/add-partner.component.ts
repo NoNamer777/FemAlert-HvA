@@ -15,9 +15,10 @@ export class AddPartnerComponent implements OnInit {
   passwordIsInvalid = false;
   confirmPasswordIsInvalid = false;
   companyNameIsInvalid = false;
+  gotNetworkError = false;
 
   // todo: add [ based: new FormControl(null, [Validators.required]) ]
-  addMemberFrom = new FormGroup({
+  addMemberForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl(null, [Validators.required]),
@@ -32,7 +33,7 @@ export class AddPartnerComponent implements OnInit {
 
   /** Toggles a form value between true <=> false. */
   toggleCheckboxValue(value: boolean): void {
-    const control = this.addMemberFrom.controls.admin;
+    const control = this.addMemberForm.controls.admin;
 
     if (control.value === value) return;
 
@@ -46,29 +47,29 @@ export class AddPartnerComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.emailIsInvalid = this.addMemberFrom.controls.email.invalid;
-    this.passwordIsInvalid = this.addMemberFrom.controls.password.invalid;
-    this.confirmPasswordIsInvalid = this.addMemberFrom.controls.confirmPassword.invalid ||
-      this.addMemberFrom.controls.password.value !== this.addMemberFrom.controls.confirmPassword.value;
-    this.companyNameIsInvalid = this.addMemberFrom.controls.companyName.invalid;
+    this.emailIsInvalid = this.addMemberForm.controls.email.invalid;
+    this.passwordIsInvalid = this.addMemberForm.controls.password.invalid;
+    this.confirmPasswordIsInvalid = this.addMemberForm.controls.confirmPassword.invalid ||
+      this.addMemberForm.controls.password.value !== this.addMemberForm.controls.confirmPassword.value;
+    this.companyNameIsInvalid = this.addMemberForm.controls.companyName.invalid;
 
-    if (this.addMemberFrom.invalid) {
+    if (this.addMemberForm.invalid) {
       return;
     }
 
     const newUser = new User();
-    newUser.emailAddress = this.addMemberFrom.controls.email.value;
-    newUser.password = this.addMemberFrom.controls.password.value;
-    newUser.name = this.addMemberFrom.controls.companyName.value;
-    newUser.admin = this.addMemberFrom.controls.admin.value;
+    newUser.emailAddress = this.addMemberForm.controls.email.value;
+    newUser.password = this.addMemberForm.controls.password.value;
+    newUser.name = this.addMemberForm.controls.companyName.value;
+    newUser.admin = this.addMemberForm.controls.admin.value;
 
     this.authenticateService.register(newUser).subscribe(
       response => {
         alert(`Lid ${response.id} is succesvol geregistreerd`);
-        this.addMemberFrom.reset();
-        this.addMemberFrom.controls.admin.setValue(false);
+        this.addMemberForm.reset();
+        this.addMemberForm.controls.admin.setValue(false);
       },
-      error => console.log(error)
+      error => this.gotNetworkError = true
     );
   }
 

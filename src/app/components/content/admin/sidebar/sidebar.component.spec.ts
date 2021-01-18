@@ -30,4 +30,24 @@ describe('SidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should toggle between false and true', () => {
+    component.IsOpen = false;
+
+    component.toggleSidebar();
+
+    expect(component.IsOpen).toEqual(true);
+
+    component.toggleSidebar();
+
+    expect(component.IsOpen).toEqual(false);
+  });
+
+  it('should detect if window is smaller than 760 pixels', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(760);
+    window.dispatchEvent(new Event('resize'));
+
+    expect(component.IsOpen).toEqual(false);
+    expect(component.toggleButtonIsVisible).toEqual(false);
+  });
 });

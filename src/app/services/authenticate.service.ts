@@ -71,6 +71,8 @@ export class AuthenticateService{
    * @return boolean if true jwt not expired if false jwt token is expired
    */
   checkAuthentication(): boolean {
+    if (this.token == null) return false;
+
     const expDate = this.getTokenExpirationDate();
     const currentTime = new Date();
 

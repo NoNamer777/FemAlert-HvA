@@ -43,6 +43,7 @@ export class MembersComponent implements OnInit {
         if (this.users.length === 0) this.noUserFound = true;
       },
       error => {
+        this.users = [];
         this.getUserError = true;
         this.isLoading = false;
       }

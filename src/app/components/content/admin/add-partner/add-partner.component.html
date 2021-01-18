@@ -1,4 +1,4 @@
-<form [formGroup]="addMemberFrom" class="formContainer">
+<form [formGroup]="addMemberForm" class="formContainer">
   <div class="form-group">
     <label class="font-weight-bold">E-mailadres</label>
     <input
@@ -47,19 +47,22 @@
       formControlName="admin">
 
     <button
+      id="onButton"
       class="btn rounded-corner mr-2 toggleButton"
       (click)="toggleCheckboxValue(true)"
-      [ngClass]="buttonClass(addMemberFrom.value.admin)">
+      [ngClass]="buttonClass(addMemberForm.value.admin)">
       Aan
     </button>
 
     <button
+      id="offButton"
       class="btn rounded-corner toggleButton"
       (click)="toggleCheckboxValue(false)"
-      [ngClass]="buttonClass(!addMemberFrom.value.admin)">
+      [ngClass]="buttonClass(!addMemberForm.value.admin)">
       Uit
     </button>
   </div>
 
   <input type="button" class="btn confirmButton w-40 mt-5" value="Toevoegen" (click)="onSubmit()">
+  <span class="text-danger">Er is een netwerkfout opgetreden</span>
 </form>
