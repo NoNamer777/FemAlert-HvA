@@ -6,6 +6,7 @@ import { User } from '../../../../models/User';
 import { BACK_END_URL } from '../../../../services/questions.service';
 import { UserService } from '../../../../services/user.service';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
@@ -25,7 +26,8 @@ describe('MembersComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        FontAwesomeTestingModule
+        FontAwesomeTestingModule,
+        RouterTestingModule
       ],
       declarations: [ MembersComponent ]
     })

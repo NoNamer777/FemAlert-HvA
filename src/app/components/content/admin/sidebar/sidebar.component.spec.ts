@@ -4,6 +4,7 @@ import { SidebarComponent } from './sidebar.component';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -14,7 +15,8 @@ describe('SidebarComponent', () => {
       declarations: [ SidebarComponent ],
       imports: [
         FontAwesomeTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
