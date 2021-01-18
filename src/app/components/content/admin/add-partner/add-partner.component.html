@@ -64,5 +64,5 @@
   </div>
 
   <input type="button" class="btn confirmButton w-40 mt-5" value="Toevoegen" (click)="onSubmit()">
-  <span class="text-danger">Er is een netwerkfout opgetreden</span>
+  <span class="text-danger" *ngIf="gotNetworkError">Er is een netwerkfout opgetreden</span>
 </form>
