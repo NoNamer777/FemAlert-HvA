@@ -10,6 +10,7 @@ describe('ContactComponent', () => {
   let rapportsService: RapportsService;
   let testRouter: Router;
   let element: HTMLElement;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,5 +42,14 @@ describe('ContactComponent', () => {
 
     expect(navigationSpy).toHaveBeenCalledWith([ '/contact-bevestiging' ]);
     expect(rapportsService.isCreatingRapport).toBe(true);
+  });
+
+  it('should stop button send to home page ', () => {
+    const button: HTMLButtonElement = element.querySelector('#btn-stop-report');
+    const navigationSpy = spyOn(router, 'navigate');
+
+    button.click();
+
+    expect(navigationSpy).toHaveBeenCalledWith([ '/home' ]);
   });
 });
