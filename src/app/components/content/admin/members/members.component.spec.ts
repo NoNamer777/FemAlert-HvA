@@ -7,12 +7,23 @@ import { BACK_END_URL } from '../../../../services/questions.service';
 import { UserService } from '../../../../services/user.service';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AuthenticateService } from '../../../../services/authenticate.service';
+import { augmentIndexHtml } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/index-file/augment-index-html';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
   let fixture: ComponentFixture<MembersComponent>;
   let service: UserService;
+  let authService: AuthenticateService;
   let mockHttpClient: HttpTestingController;
+
+  const TEST_USER = new User();
+  TEST_USER.emailAddress = 'TestUser@hotmail.com';
+  TEST_USER.id = 'USR-001';
+  TEST_USER.name = 'testName';
+  TEST_USER.admin = false;
 
   const dummyUsers = [
     new User('USR-1'),
@@ -27,7 +38,9 @@ describe('MembersComponent', () => {
       imports: [
         HttpClientTestingModule,
         FontAwesomeTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MatDialogModule,
+        BrowserAnimationsModule
       ],
       declarations: [ MembersComponent ]
     })
@@ -39,6 +52,7 @@ describe('MembersComponent', () => {
     component = fixture.componentInstance;
     mockHttpClient = TestBed.inject(HttpTestingController);
     service = TestBed.inject(UserService);
+    authService = TestBed.inject(AuthenticateService);
     fixture.detectChanges();
   });
 
@@ -111,5 +125,23 @@ describe('MembersComponent', () => {
 
     expect(component.users.length).toEqual(0);
     expect(component.getUserError).toEqual(true);
+  });
+
+  it('should be same user', () => {
+    component.users = [ TEST_USER ];
+    spyOnProperty(authService, 'currentUser').and.returnValue(TEST_USER);
+
+    component.editUser(0);
+
+    expect(component.userIsSameError).toBeTruthy();
+  });
+
+  it('should be same user', () => {
+    component.users = [ new User('USR-004') ];
+    spyOnProperty(authService, 'currentUser').and.returnValue(TEST_USER);
+
+    component.editUser(0);
+
+    expect(component.userIsSameError).toBeFalsy();
   });
 });
