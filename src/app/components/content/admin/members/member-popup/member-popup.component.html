@@ -1,1 +1,53 @@
-<p>member-popup works!</p>
+<button type="button" class="close close-btn" aria-label="Close" [matDialogClose]="true">
+  <span aria-hidden="true">&times;</span>
+</button>
+
+<h1 class="mat-dialog-title">Bewerk Gebruiker</h1>
+<form [formGroup]="memberForm">
+  <div class="form-group">
+    <label class="font-weight-bold">E-mailadres</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Email"
+      formControlName="email">
+    <span class="text-danger" *ngIf="emailIsInvalid">Ongeldige email adres</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Bedrijf naam</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bedrijf naam"
+      formControlName="companyName">
+    <span class="text-danger" *ngIf="companyNameIsInvalid">Geen bedrijfsnaam ingevuld</span>
+  </div>
+
+  <div class="form-group">
+    <label class="mr-3 font-weight-bold">Admin:</label>
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      formControlName="admin">
+
+    <button
+      id="onButtonEdit"
+      class="btn rounded-corner mr-2 toggleButton"
+      (click)="toggleCheckboxValue(true)"
+      [ngClass]="buttonClass(memberForm.value.admin)">
+      Aan
+    </button>
+
+    <button
+      id="offButtonEdit"
+      class="btn rounded-corner toggleButton"
+      (click)="toggleCheckboxValue(false)"
+      [ngClass]="buttonClass(!memberForm.value.admin)">
+      Uit
+    </button>
+  </div>
+
+  <button class="btn confirmButton mt-5" (click)="onSubmit()">Update Gebruiker</button>
+  <span class="text-danger" *ngIf="gotNetworkError">Netwerk error</span>
+</form>
