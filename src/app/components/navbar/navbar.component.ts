@@ -41,8 +41,7 @@ export class NavbarComponent implements OnInit {
   /** The internal collapsed state of the component. */
   collapsed: boolean = null;
 
-  constructor(private reportsService: RapportsService,
-              private authenticateService: AuthenticateService,
+  constructor(private authenticateService: AuthenticateService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -50,18 +49,14 @@ export class NavbarComponent implements OnInit {
     this.collapsed = this.collapseState;
   }
 
-  /** Hides the Header component when an User is creating a Rapport. */
+  /** Hides the Header component when an User is creating a Rapport or User is using partner section. */
   @HostBinding('hidden')
   get hidden(): boolean {
-    if (this.reportsService.isCreatingRapport === true || this.checkPartner()){
+    if (this.router.url.includes('/rapporteren') || this.router.url.includes('/partner')){
       return true;
     } else {
       return false;
     }
-  }
-
-  private checkPartner(): boolean {
-    return this.router.url.includes('/partner');
   }
 
   /** Toggles the component collapsed state. */
