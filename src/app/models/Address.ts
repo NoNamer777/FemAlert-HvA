@@ -4,13 +4,21 @@ export class Address {
     return this._businessName;
   }
 
-  private readonly _businessName: string = null;
+  set businessName(businessName: string) {
+    this._businessName = businessName;
+  }
+
+  private _businessName: string = null;
 
   get formattedAddress(): string {
     return this._formattedAddress;
   }
 
-  private readonly _formattedAddress: string = null;
+  set formattedAddress(formattedAddress: string) {
+    this._formattedAddress = formattedAddress;
+  }
+
+  private _formattedAddress: string = null;
 
   constructor(formattedAddress: string, businessName?: string) {
 

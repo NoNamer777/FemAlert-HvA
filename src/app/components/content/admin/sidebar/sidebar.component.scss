@@ -1,0 +1,69 @@
+.sidebar {
+  background-color: var(--secondary-bg-color);
+  position: fixed;
+  height: 100vh;
+  width: 15vw;
+  min-width: 50px;
+  padding: 0;
+
+  a {
+    color: var(--primary-txt-color);
+    display: block;
+    padding: 15px;
+
+    fa-icon {
+      margin-right: 1vh;
+      font-size: 20px;
+    }
+
+    p {
+      display: inline;
+    }
+  }
+
+  a:hover {
+    background-color: var(--secondary-bg-hover-color);
+  }
+
+  .logout-button{
+    position: relative;
+    border: none;
+    width: 100%;
+    background: none;
+    color: var(--primary-txt-color);
+    display: block;
+    padding: 15px;
+    font-size: 16px;
+    font-family: "Open Sans", sans-serif;
+    text-align: left;
+
+    fa-icon {
+      margin-right: 1vh;
+      font-size: 20px;
+    }
+
+    p {
+      display: inline;
+    }
+  }
+
+  .logout-button:hover {
+    background-color: var(--secondary-bg-hover-color);
+  }
+
+  button{
+    color: var(--primary-txt-color);
+    font-size: 4vh;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  button:focus{
+    box-shadow: none;
+  }
+
+  .active {
+    background-color: var(--secondary-bg-hover-color);
+  }
+}

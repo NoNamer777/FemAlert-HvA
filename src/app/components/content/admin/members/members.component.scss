@@ -1,0 +1,25 @@
+table {
+  tr:first-child {
+    th:first-child {
+      border-top-left-radius: 10px;
+    }
+
+    th:last-child {
+      border-top-right-radius: 10px;
+    }
+  }
+
+  th {
+    border: none;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-txt-color);
+  }
+
+  td fa-icon:hover{
+    color: darkgrey;
+    cursor: pointer;
+  }
+}
+
+
+
