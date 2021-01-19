@@ -19,7 +19,9 @@ describe('NavbarComponent', () => {
       imports: [
         HttpClientTestingModule,
         NoopAnimationsModule,
-        RouterTestingModule
+        RouterTestingModule.withRoutes( [
+          {path: 'faq', redirectTo: ''}
+        ])
       ],
       declarations: [
         NavbarComponent
@@ -81,7 +83,7 @@ describe('NavbarComponent', () => {
   it('should toggle collapsed on anchor click', async () => {
     const collapseBtn: HTMLButtonElement = element.querySelector('button.navbar-toggler');
     const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
-    // const anchorElement: HTMLElement = element.querySelector(`a[routerlink='/faq']`); <------ moet veranderen
+    const anchorElement: HTMLElement = element.querySelector(`a[routerlink='/faq']`);
 
     collapseBtn.click();
     fixture.detectChanges();
@@ -91,7 +93,7 @@ describe('NavbarComponent', () => {
 
     expect(collapsableContent.classList.contains('collapse')).toBe(false);
 
-    // anchorElement.click();
+    anchorElement.click();
     fixture.detectChanges();
 
     await fixture.whenStable();
@@ -100,20 +102,19 @@ describe('NavbarComponent', () => {
     expect(collapsableContent.classList.contains('show')).toBe(false);
   });
 
-  // it('should not toggle collapsed when document is to wide to be toggleable.', () => {
-  //   const faqLink: HTMLAnchorElement = element.querySelector(`a[routerLink='/faq']`);
-  //   const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
-  //
-  //   document.documentElement.style.width = '800px';
-  //   fixture.detectChanges();
-  //
-  //   expect(collapsableContent.classList.contains('collapse')).toBe(true);
-  //
-  //   faqLink.click();
-  //   fixture.detectChanges();
-  //
-  //   expect(collapsableContent.classList.contains('collapse')).toBe(true);
-  // });
+  it('should not toggle collapsed when document is to wide to be toggleable.', () => {
+    const faqLink: HTMLAnchorElement = element.querySelector(`a[routerLink='/faq']`);
+    const collapsableContent: HTMLElement = element.querySelector('#navbarCollapse');
 
+    document.documentElement.style.width = '800px';
+    fixture.detectChanges();
+
+    expect(collapsableContent.classList.contains('collapse')).toBe(true);
+
+    faqLink.click();
+    fixture.detectChanges();
+
+    expect(collapsableContent.classList.contains('collapse')).toBe(true);
+  });
 
 });
