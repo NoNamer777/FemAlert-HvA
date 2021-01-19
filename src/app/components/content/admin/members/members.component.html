@@ -16,14 +16,15 @@
         <td>den Helder</td>
         <td>{{u.admin}}</td>
         <td>
-          <fa-icon [icon]="editIcon" class="m-2"></fa-icon>
+          <fa-icon [icon]="editIcon" class="m-2" (click)="editUser(i)"></fa-icon>
           <fa-icon [icon]="deleteIcon" class="m-2" (click)="deleteUser(i)"></fa-icon>
         </td>
       </tr>
     </table>
 
-    <!-- error message and no users found message -->
+    <!-- error messages -->
     <span class="text-danger" *ngIf="getUserError">Er is een fout opgetreden</span>
+    <span class="text-danger" *ngIf="userIsSameError">Je kan niet je zelf wijzigen of verwijderen</span>
     <span *ngIf="noUserFound">Geen leden gevonden</span>
 
     <!-- Spinner -->

@@ -29,6 +29,7 @@ import { MembersComponent } from './components/content/admin/members/members.com
 import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
+import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
     MembersComponent,
     EditRapportComponent,
     AddPartnerComponent,
+    MemberPopupComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -71,5 +73,6 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
   bootstrap: [
     AppComponent,
   ],
+  entryComponents: [MemberPopupComponent]
 })
 export class AppModule { }
