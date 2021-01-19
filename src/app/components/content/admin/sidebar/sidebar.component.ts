@@ -3,8 +3,6 @@ import {
   faAddressCard,
   faAngleLeft,
   faAngleRight,
-  faChartBar,
-  faEdit,
   faHome,
   faSignOutAlt,
   faUserPlus
@@ -28,9 +26,7 @@ export class SidebarComponent implements OnInit {
 
   /** Sidebar icons */
   iconDashboard = faHome;
-  iconStatistics = faChartBar;
   iconMembers = faAddressCard;
-  iconEditRapport = faEdit;
   iconAddUser = faUserPlus;
   iconSignOut = faSignOutAlt;
   iconOpen = faAngleRight;
