@@ -28,4 +28,12 @@ body {
   width: 40% !important;
 }
 
+:root {
+  --primary-bg-color: #750C00;
+  --secondary-bg-color: #a01101;
+  --secondary-bg-hover-color: #881103;
+  --primary-txt-color: #ffff;
+  --primary-hover-txt-color: #D3D3D3;
+}
+
 /*# sourceMappingURL=styles.css.map */

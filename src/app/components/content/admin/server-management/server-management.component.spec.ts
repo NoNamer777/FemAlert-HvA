@@ -1,21 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditRapportComponent } from './edit-rapport.component';
+import { ServerManagementComponent } from './server-management.component';
 
-describe('EditRapportComponent', () => {
-  let component: EditRapportComponent;
-  let fixture: ComponentFixture<EditRapportComponent>;
+describe('ServerManagementComponent', () => {
+
+  let component: ServerManagementComponent;
+  let fixture: ComponentFixture<ServerManagementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditRapportComponent ]
+      declarations: [
+        ServerManagementComponent,
+      ],
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditRapportComponent);
+    fixture = TestBed.createComponent(ServerManagementComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

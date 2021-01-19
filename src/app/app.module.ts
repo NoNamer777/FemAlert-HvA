@@ -28,6 +28,8 @@ import { StatisticsComponent } from './components/content/admin/statistics/stati
 import { MembersComponent } from './components/content/admin/members/members.component';
 import { ServerManagementComponent } from './components/content/admin/server-management/server-management.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { EntityEditorComponent } from './components/content/admin/server-management/entity-editor/entity-editor.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
     StatisticsComponent,
     MembersComponent,
     ServerManagementComponent,
+    EntityEditorComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -60,6 +63,7 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
     FormsModule,
     GoogleMapsModule,
     MatDialogModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
