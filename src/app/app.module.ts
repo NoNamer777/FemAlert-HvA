@@ -24,9 +24,7 @@ import { ConfirmSendDialogComponent } from './components/content/question/confir
 import { AdminComponent } from './components/content/admin/admin.component';
 import { SidebarComponent } from './components/content/admin/sidebar/sidebar.component';
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
-import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
-import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
@@ -49,9 +47,7 @@ import { MemberPopupComponent } from './components/content/admin/members/member-
     AdminComponent,
     SidebarComponent,
     DashboardComponent,
-    StatisticsComponent,
     MembersComponent,
-    EditRapportComponent,
     AddPartnerComponent,
     MemberPopupComponent,
   ],

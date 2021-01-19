@@ -11,9 +11,7 @@ import { FaqComponent } from './components/content/faq/faq.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
 import { AdminComponent } from './components/content/admin/admin.component';
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
-import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
-import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
@@ -25,10 +23,8 @@ const routes: Routes = [
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard]},
-      { path: 'statistics', component: StatisticsComponent, canActivate: [AuthenticationGuard] },
       { path: 'members', component: MembersComponent, canActivate: [AuthenticationGuard] },
-      { path: 'add-member', component: AddPartnerComponent, canActivate: [AuthenticationGuard] },
-      { path: 'edit-rapport', component: EditRapportComponent, canActivate: [AuthenticationGuard] }
+      { path: 'add-member', component: AddPartnerComponent, canActivate: [AuthenticationGuard] }
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
