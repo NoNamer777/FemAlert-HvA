@@ -1,0 +1,68 @@
+<form [formGroup]="addMemberForm" class="formContainer">
+  <div class="form-group">
+    <label class="font-weight-bold">E-mailadres</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Email"
+      formControlName="email" >
+    <span class="text-danger" *ngIf="emailIsInvalid">Ongeldig E-mailadres</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Wachtwoord</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Wachtwoord"
+      formControlName="password">
+    <span class="text-danger" *ngIf="passwordIsInvalid">Wachtwoord moet minstens 6 karakters lang zijn</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Herhaal wachtwoord</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Herhaal wachtwoord"
+      formControlName="confirmPassword">
+    <span class="text-danger" *ngIf="confirmPasswordIsInvalid">Wachtwoorden niet het zelfde</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">Bedrijf naam</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Bedrijf naam"
+      formControlName="companyName">
+    <span class="text-danger" *ngIf="companyNameIsInvalid">Geen bedrijfsnaam ingevuld</span>
+  </div>
+
+  <div class="form-group">
+    <label class="mr-3 font-weight-bold">Admin:</label>
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      formControlName="admin">
+
+    <button
+      id="onButton"
+      class="btn rounded-corner mr-2 toggleButton"
+      (click)="toggleCheckboxValue(true)"
+      [ngClass]="buttonClass(addMemberForm.value.admin)">
+      Aan
+    </button>
+
+    <button
+      id="offButton"
+      class="btn rounded-corner toggleButton"
+      (click)="toggleCheckboxValue(false)"
+      [ngClass]="buttonClass(!addMemberForm.value.admin)">
+      Uit
+    </button>
+  </div>
+
+  <input type="button" class="btn confirmButton w-40 mt-5" value="Toevoegen" (click)="onSubmit()">
+  <span class="text-danger" *ngIf="gotNetworkError">Er is een netwerkfout opgetreden</span>
+</form>

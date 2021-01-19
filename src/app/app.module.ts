@@ -30,6 +30,7 @@ import { ServerManagementComponent } from './components/content/admin/server-man
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { EntityEditorComponent } from './components/content/admin/server-management/entity-editor/entity-editor.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MembersComponent,
     ServerManagementComponent,
     EntityEditorComponent,
+    AddPartnerComponent,
   ],
   imports: [
     AppRoutingModule,

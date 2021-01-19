@@ -4,6 +4,8 @@ import { SessionStorageService } from './session-storage.service';
 import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { BACK_END_URL } from './questions.service';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +16,14 @@ export class AuthenticateService{
 
   /** Constant key for saving in storage */
   private KEY_TOKEN = 'token';
+  private KEY_USER = 'user';
 
-  /** Boolean to see if user is authenticated */
-  public isAuthenticated = true;
-
+  /** Current logged in user */
+  private _currentUser: User;
 
   constructor(private _httpClient: HttpClient,
-              private _sessionStorageService: SessionStorageService) { }
+              private _sessionStorageService: SessionStorageService,
+              private router: Router) { }
 
   /**
    * Sets token and saves token in storage
@@ -28,6 +31,7 @@ export class AuthenticateService{
    */
   set token(value: string) {
     this._token = value;
+
     this._sessionStorageService.updateSessionData(this.KEY_TOKEN, value);
   }
 
@@ -39,7 +43,54 @@ export class AuthenticateService{
   get token(): string{
     if (this._token != null) return this._token;
 
-    return this._sessionStorageService.getSessionData(this.KEY_TOKEN);
+    this._token = this._sessionStorageService.getSessionData(this.KEY_TOKEN);
+    return this._token;
+  }
+
+  /**
+   * Gets current user
+   * @return _currentUser if not null
+   * @return _currentUser from storage if null in service
+   */
+  get currentUser(): User {
+    if (this._currentUser != null) return this._currentUser;
+
+    this._currentUser =  this._sessionStorageService.getSessionData(this.KEY_USER);
+    return this._currentUser;
+  }
+
+  /**
+   * Sets current user and saves current user in storage
+   * @param value is current user to add to storage and service
+   */
+  set currentUser(value: User) {
+    this._currentUser = value;
+    this._sessionStorageService.updateSessionData(this.KEY_USER, value);
+  }
+
+  /**
+   * Checks if jwt token is not expired
+   * @return boolean if true jwt not expired if false jwt token is expired
+   */
+  checkAuthentication(): boolean {
+    if (this.token == null) return false;
+
+    const expDate = this.getTokenExpirationDate();
+    const currentTime = new Date();
+
+    return currentTime < expDate;
+  }
+
+  /**
+   * Gets token expiration date
+   * @return Date expiration date of token
+   */
+  private getTokenExpirationDate(): Date {
+    const decodedToken: JwtPayload = jwtDecode(this.token);
+    const expDate = new Date(0);
+    expDate.setUTCSeconds(decodedToken.exp);
+
+    return expDate;
   }
 
   /**
@@ -49,6 +100,28 @@ export class AuthenticateService{
   login(user: User): Observable<User> {
     return this._httpClient.post<User>(
       `${BACK_END_URL}/authenticate/login`,
+      this._sessionStorageService.serialize(user)
+    );
+  }
+
+  /**
+   * Logs user out and navigates to home component
+   */
+  logout(): void {
+    this.token = null;
+    this.currentUser = null;
+
+    this._sessionStorageService.clearSessionData();
+    this.router.navigate(['']);
+  }
+
+  /**
+   * Sends register request to backend and return User object
+   * @param user is user to add to database
+   */
+  register(user: User): Observable<User> {
+    return this._httpClient.post<User>(
+      `${BACK_END_URL}/authenticate/register`,
       this._sessionStorageService.serialize(user)
     );
   }

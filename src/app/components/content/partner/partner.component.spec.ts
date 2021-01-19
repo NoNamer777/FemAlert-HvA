@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PartnerComponent } from './partner.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/User';
 import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BACK_END_URL } from '../../../services/questions.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { AuthenticateService } from '../../../services/authenticate.service';
 
 describe('PartnerComponent', () => {
   let component: PartnerComponent;
   let fixture: ComponentFixture<PartnerComponent>;
+  let service: AuthenticateService;
   let mockHttpClient: HttpTestingController;
-  let service: UserService;
   let element: HTMLElement;
 
   const TEST_USER = new User();
@@ -46,9 +46,9 @@ describe('PartnerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PartnerComponent);
     mockHttpClient = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(AuthenticateService);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
-    service = TestBed.inject(UserService);
     fixture.detectChanges();
   });
 

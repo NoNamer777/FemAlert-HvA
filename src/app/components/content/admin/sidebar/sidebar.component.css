@@ -21,6 +21,28 @@
 .sidebar a:hover {
   background-color: var(--secondary-bg-hover-color);
 }
+.sidebar .logout-button {
+  position: relative;
+  border: none;
+  width: 100%;
+  background: none;
+  color: var(--primary-txt-color);
+  display: block;
+  padding: 15px;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  text-align: left;
+}
+.sidebar .logout-button fa-icon {
+  margin-right: 1vh;
+  font-size: 20px;
+}
+.sidebar .logout-button p {
+  display: inline;
+}
+.sidebar .logout-button:hover {
+  background-color: var(--secondary-bg-hover-color);
+}
 .sidebar button {
   color: var(--primary-txt-color);
   font-size: 4vh;

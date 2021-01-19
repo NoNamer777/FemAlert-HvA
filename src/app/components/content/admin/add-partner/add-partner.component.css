@@ -1,0 +1,21 @@
+.formContainer {
+  width: 90%;
+}
+.formContainer .toggleButton {
+  width: 80px;
+}
+.formContainer .bg-darkgrey {
+  background-color: darkgrey;
+}
+.formContainer .confirmButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-txt-color);
+}
+.formContainer .confirmButton:hover {
+  background-color: var(--secondary-bg-hover-color);
+}
+
+/*# sourceMappingURL=add-partner.component.css.map */

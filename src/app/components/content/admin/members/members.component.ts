@@ -13,18 +13,40 @@ export class MembersComponent implements OnInit {
   deleteIcon = faTrashAlt;
   editIcon = faPencilAlt;
 
+  /** booleans for errors and loading */
+  getUserError = false;
+  noUserFound = false;
+  isLoading = true;
+
   users: User[];
 
   constructor(private userService: UserService) {}
 
+  deleteUser(index: number): void {
+    const id = this.users[index].id;
+    this.isLoading = true;
+
+    this.userService.deleteUser(id).subscribe(
+      next => {
+        this.users.splice(index, 1);
+        this.isLoading = false;
+      },
+      error => this.getUserError = true
+    );
+  }
+
   ngOnInit(): void {
     this.userService.getUsers().subscribe(
       (users: User[]) => {
-        console.log(users);
         this.users = users;
-        console.log(this.users);
+        this.isLoading = false;
+        if (this.users.length === 0) this.noUserFound = true;
       },
-      error => console.log(error)
+      error => {
+        this.users = [];
+        this.getUserError = true;
+        this.isLoading = false;
+      }
     );
   }
 

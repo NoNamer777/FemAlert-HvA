@@ -1,0 +1,23 @@
+.formContainer {
+  width: 90%;
+
+  .toggleButton {
+    width: 80px;
+  }
+
+  .bg-darkgrey {
+    background-color: darkgrey;
+  }
+
+  .confirmButton {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-txt-color);
+  }
+
+  .confirmButton:hover {
+    background-color: var(--secondary-bg-hover-color);
+  }
+}

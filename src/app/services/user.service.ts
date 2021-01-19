@@ -21,4 +21,8 @@ export class UserService {
       `${BACK_END_URL}/user`
     );
   }
+
+  deleteUser(id: string): Observable<any> {
+    return this._httpClient.delete(`${BACK_END_URL}/user/${id}`);
+  }
 }

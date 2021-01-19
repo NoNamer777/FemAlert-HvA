@@ -14,6 +14,8 @@ import { DashboardComponent } from './components/content/admin/dashboard/dashboa
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
 import { ServerManagementComponent } from './components/content/admin/server-management/server-management.component';
+import { AuthenticationGuard } from './guards/authentication.guard';
+import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,10 +24,11 @@ const routes: Routes = [
   { path: 'formulier', component: QuestionComponent },
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'statistics', component: StatisticsComponent },
-      { path: 'members', component: MembersComponent },
-      { path: 'server-management', component: ServerManagementComponent }
+      { path: 'server-management', component: ServerManagementComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard]},
+      { path: 'statistics', component: StatisticsComponent, canActivate: [AuthenticationGuard] },
+      { path: 'members', component: MembersComponent, canActivate: [AuthenticationGuard] },
+      { path: 'add-member', component: AddPartnerComponent, canActivate: [AuthenticationGuard] },
     ]},
   { path: 'bevestiging-melding', component: ConfirmationComponent },
   { path: 'over-ons', component: AboutComponent },
