@@ -172,6 +172,7 @@
     <ngx-recaptcha2 #captchaElem
                     [siteKey]="siteKey"
                     (reset)="handleReset()"
+                    (expire)="handleExpire()"
                     (load)="handleLoad()"
                     (success)="handleSuccess($event)"
                     [useGlobalDomain]="false"
@@ -196,7 +197,7 @@
     <button
       class="btn btn-light btn-lg rounded-pill font-weight-bold border border-dark"
       id="btn-next"
-      [disabled]="questionsForm.invalid || !questionsForm.value.acceptedTerms || questionsForm.value.captchaElem || questionsForm.value.events.length < 1"
+      [disabled]="questionsForm.invalid || !questionsForm.value.acceptedTerms || questionsForm.value.recaptcha==false || questionsForm.value.events.length < 1"
       (click)="onSendRapport()"
     >
       Verstuur melding
