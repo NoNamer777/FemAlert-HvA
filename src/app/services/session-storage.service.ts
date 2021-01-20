@@ -31,7 +31,7 @@ export class SessionStorageService {
   }
 
   /**
-   * Clears session storage
+   * Clears session storage and _data
    */
   clearSessionData(): void {
     this._data = {};
@@ -39,6 +39,10 @@ export class SessionStorageService {
     sessionStorage.setItem('fem-alert', this.serialize(this._data));
   }
 
+  /**
+   * Gets needed data searched with key
+   * @param key is key to search data with
+   */
   getSessionData(key: string): any{
     return this._data[key];
   }

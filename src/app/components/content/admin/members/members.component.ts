@@ -40,11 +40,11 @@ export class MembersComponent implements OnInit {
     this.isLoading = true;
 
     this.userService.deleteUser(id).subscribe(
-      next => {
+      () => {
         this.users.splice(index, 1);
         this.isLoading = false;
       },
-      error => this.getUserError = true
+      () => this.getUserError = true
     );
   }
 
@@ -66,20 +66,33 @@ export class MembersComponent implements OnInit {
     );
   }
 
+  /**
+   * Creates popup to edit user
+   * @param index is index of User in table
+   */
   editUser(index: number): void {
+    // Checks if user is same if yes nothing happens
     if (this.checkIfUserIsSame(index)) return;
 
+    // Creating dialog config with chosen User
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false;
     dialogConfig.disableClose = true;
     dialogConfig.data = this.users[index];
 
     this.dialog.open(MemberPopupComponent, dialogConfig);
+
+    // Subscribe on dialog closing if closed than refresh page
     this.dialog.afterAllClosed.subscribe(
       () => this.ngOnInit()
     );
   }
 
+  /**
+   * Check if chosen User is same as current logged in User
+   * Show userIsSame Error when true
+   * @param index is index of User in table
+   */
   checkIfUserIsSame(index: number): boolean {
     if (this.users[index].id === this.authenticateService.currentUser.id) {
       this.userIsSameError = true;

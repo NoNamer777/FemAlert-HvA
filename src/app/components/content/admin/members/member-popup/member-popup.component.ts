@@ -27,6 +27,9 @@ export class MemberPopupComponent implements OnInit {
               private userService: UserService,
               private dialogRef: MatDialogRef<MemberPopupComponent>) { }
 
+  /**
+   * Set value of chosen User on initialize
+   */
   ngOnInit(): void {
     this.memberForm.controls.email.setValue(this.data.emailAddress);
     this.memberForm.controls.companyName.setValue(this.data.name);
@@ -48,19 +51,24 @@ export class MemberPopupComponent implements OnInit {
     return !!formValue ? 'btn-success' : 'bg-darkgrey';
   }
 
+  /**
+   * On submitting form check if user is valid if so send backend request to edit user
+   */
   onSubmit(): void {
+    // Check if user is valid
     this.emailIsInvalid = this.memberForm.controls.email.invalid;
     this.companyNameIsInvalid = this.memberForm.controls.companyName.invalid;
 
     if (this.memberForm.invalid) return;
 
+    // Create new user to give updated information to
     const updatedUser: User = new User();
-
     updatedUser.id = this.data.id;
     updatedUser.emailAddress = this.memberForm.controls.email.value;
     updatedUser.name = this.memberForm.controls.companyName.value;
     updatedUser.admin = this.memberForm.controls.admin.value;
 
+    // Send backend request with updated User information
     this.userService.updateUser(updatedUser).subscribe(
       () => this.dialogRef.close(),
       () => this.gotNetworkError = true
