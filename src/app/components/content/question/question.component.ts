@@ -12,6 +12,7 @@ import { SessionStorageService } from '../../../services/session-storage.service
 import { Event } from '../../../models/Event';
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmSendDialogComponent } from './confirm-send-dialog/confirm-send-dialog.component';
+import { ReCaptcha2Component } from 'ngx-captcha';
 
 @Component({
   selector: 'app-question',
@@ -40,7 +41,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   public captchaIsLoaded = false;
   public captchaSuccess = false;
-  public captchaIsReady = false;
+  public captchaIsExpired = false;
   public captchaResponse?: string;
 
   siteKey: string;
@@ -87,6 +88,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   // Captcha functions
 
+  // Unsets global script & reloads captcha
+  // The checkbox has been clicked and a challenge is loading.
+  // You are instantly verified if the status changes to “You are verified”.
+  // Otherwise, you are required to complete a verification challenge.
+  handleLoad(): void {
+    this.captchaIsLoaded = true;
+    this.cdr.detectChanges();
+  }
   // Reset the captcha
   handleReset(): void {
     this.captchaSuccess = false;
@@ -94,19 +103,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  // Unsets global script & reloads captcha
-  handleLoad(): void {
-    this.captchaIsLoaded = true;
+  // The verification expired due to timeout or inactivity.
+  // Click the checkbox again for a new challenge.
+  handleExpire(): void {
+    this.captchaSuccess = false;
+    this.captchaIsExpired = true;
     this.cdr.detectChanges();
   }
 
-  // Checking if the captcha is ready
-  handleReady(): void {
-    this.captchaIsReady = true;
-    this.cdr.detectChanges();
-  }
-
-  // Handles succes
+  // You have been verified. You can now proceed on the website.
   handleSuccess(captchaResponse: string): void {
     this.captchaSuccess = true;
     this.captchaResponse = captchaResponse;
@@ -119,11 +124,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       events => this.incidentTypes = events,
       () => this.incidentTypes = MOCK_EVENTS
     );
-
-    this.captchaIsLoaded = true;
-    this.cdr.detectChanges();
      }
-
 
   ngOnDestroy(): void {
     this.dialogClosed$.next();
