@@ -30,6 +30,9 @@ import { EditRapportComponent } from './components/content/admin/edit-rapport/ed
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
+import { ContactComponent } from './components/content/contact/contact.component';
+import { ContactConfirmationComponent } from './components/content/contact/contact-confirmation/contact-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
+    ContactComponent,
+    ContactConfirmationComponent,
     AdminComponent,
     SidebarComponent,
     DashboardComponent,
@@ -53,6 +58,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     MembersComponent,
     EditRapportComponent,
     AddPartnerComponent,
+    MemberPopupComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -73,5 +79,6 @@ import { NgxCaptchaModule } from 'ngx-captcha';
   bootstrap: [
     AppComponent,
   ],
+  entryComponents: [MemberPopupComponent]
 })
 export class AppModule { }

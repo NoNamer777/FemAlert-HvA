@@ -65,10 +65,23 @@
               Partners
             </a>
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-target="#navbarCollapse"
+              routerLink="/contact"
+              [attr.data-toggle]="shouldCollapse ? 'collapse' : ''"
+              (click)="toggleCollapsed()"
+            >
+              Contact
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
   <div class="curve"></div>
 </div>
+
+<!--Extra space for content not going underneath the navbar-->
 <div class="spacer"></div>

@@ -15,6 +15,7 @@ export class AuthenticationGuard implements CanActivate {
    */
   canActivate(): boolean {
     if (!this.authenticateService.checkAuthentication()) {
+      // Logout user for cleaning expired jwt token and User data
       this.authenticateService.logout();
       this.router.navigate(['/login']);
       return false;
