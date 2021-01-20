@@ -1,0 +1,21 @@
+.toggleButton {
+  width: 80px;
+}
+
+.bg-darkgrey {
+  background-color: darkgrey;
+}
+
+.close-btn {
+  outline: none;
+}
+
+.confirmButton {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-txt-color);
+}
+
+/*# sourceMappingURL=member-popup.component.css.map */

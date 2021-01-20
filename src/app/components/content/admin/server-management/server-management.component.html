@@ -1,0 +1,63 @@
+<div>
+  <h3 class="border-bottom pb-3 mb-3">Server Beheer</h3>
+  <div class="d-flex">
+    <div class="col-3 pl-0 border-right">
+
+<!--      Entity Selection      -->
+      <select
+        class="form-control"
+        #typeSelect
+        (change)="serverManagementService.selectTypeByName(typeSelect.value)"
+      >
+        <option
+          *ngFor="let entity of serverManagementService.serverEntities"
+          [selected]="serverManagementService.type.name === entity.name"
+          [ngValue]="entity.value"
+        >
+          {{ entity.name }}
+        </option>
+      </select>
+      <hr>
+
+<!--      Entities List     -->
+      <div class="list-group">
+        <button
+          class="list-group-item list-group-item-action"
+          [class.list-group-item-success]="!hasChanged"
+          [disabled]="hasChanged || serverManagementService.isNewEntity()"
+          (click)="onCreateNewEntity()"
+        >
+          Nieuwe {{ serverManagementService.type.name }}
+        </button>
+        <button
+          class="list-group-item"
+          disabled
+          *ngIf="!hasEntities; else entitiesList"
+        >
+          Geen data beschikbaar
+        </button>
+        <ng-template #entitiesList>
+          <button
+            class="list-group-item list-group-item-action"
+            *ngFor="let entity of serverManagementService.entities"
+            [class.list-group-item-primary]="serverManagementService.hasSelected(entity) && !hasChanged"
+            [class.list-group-item-warning]="(serverManagementService.hasSelected(entity) && hasChanged) || serverManagementService.isNewEntity(entity)"
+            (click)="onSelectEntity(entity)"
+          >
+            {{ entityName(entity) }}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+
+<!--    Editor Container    -->
+    <div class="col-9 pr-0">
+      <p class="font-weight-bold" *ngIf="!serverManagementService.hasSelected(); else editorContainer">
+        Selecteer een item aan de linker zijde om de details daarvan te bekijken of wijzingen.
+      </p>
+      <ng-template #editorContainer>
+        <app-entity-editor></app-entity-editor>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -94,6 +94,8 @@ export class MembersComponent implements OnInit {
    * @param index is index of User in table
    */
   checkIfUserIsSame(index: number): boolean {
+    if (this.users[index] == null || this.authenticateService.currentUser == null) return false;
+
     if (this.users[index].id === this.authenticateService.currentUser.id) {
       this.userIsSameError = true;
       return true;

@@ -1,0 +1,121 @@
+<form #entityEditorForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="d-flex">
+    <button
+      type="submit"
+      class="btn btn-success mr-2"
+      matTooltip="Veranderingen opslaan"
+      [disabled]="!hasChanged"
+    >
+      <fa-icon [icon]="iconSave"></fa-icon>
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger mr-2"
+      matTooltip="Verwijderen"
+      [disabled]="!isRemovable"
+      (click)="onDelete()"
+    >
+      <fa-icon [icon]="iconDelete"></fa-icon>
+    </button>
+    <button
+      type="reset"
+      class="btn btn-primary mr-2"
+      matTooltip="Veranderingen ongedaan maken"
+      [disabled]="!hasChanged"
+      (click)="onResetForm()"
+    >
+      <fa-icon [icon]="iconReset"></fa-icon>
+    </button>
+    <button
+      type="button"
+      class="btn btn-warning"
+      matTooltip="Formulier leeg maken"
+      [disabled]="!hasValue"
+      (click)="onResetForm(true)"
+    >
+      <fa-icon [icon]="iconClear"></fa-icon>
+    </button>
+  </div>
+  <hr>
+  <h4 class="font-weight-bold mb-3">{{ entity.name || entity.question || serverManagementService.type.name }}</h4>
+
+<!--  Entity ID  -->
+  <div class="form-group" *ngIf="serverManagementService.hasProperty('id')">
+    <label for="id-input">ID</label>
+    <input class="form-control" id="id-input" name="id" type="text" [(ngModel)]="entity.id" disabled>
+    <small class="text-muted font-italic">
+      De ID wordt gegenereerd door de back-end server en hoeft dus niet ingevuld te worden.
+    </small>
+  </div>
+
+<!--  Name  -->
+  <div class="form-group" *ngIf="serverManagementService.hasProperty('name')">
+    <label for="name-input">Naam</label>
+    <input class="form-control" id="name-input" name="name" type="text" [(ngModel)]="entity.name">
+  </div>
+
+<!--  Active  -->
+  <div class="form-check" *ngIf="serverManagementService.hasProperty('active')">
+    <input class="form-check-input" id="active-checkbock" name="active" type="checkbox" [(ngModel)]="entity.active">
+    <label class="form-check-label" for="active-checkbock">Actief</label>
+  </div>
+
+<!--  Removable  -->
+  <div class="form-check" *ngIf="serverManagementService.hasProperty('removable')">
+    <input
+      class="form-check-input"
+      id="removable-checkbock"
+      name="removable"
+      type="checkbox"
+      [(ngModel)]="entity.removable"
+    >
+    <label class="form-check-label" for="removable-checkbock">Verwijderbaar</label>
+  </div>
+
+<!--  Question  -->
+  <div class="form-group" *ngIf="serverManagementService.hasProperty('question')">
+    <label for="question-input">Vraag</label>
+    <input class="form-control" id="question-input" name="question" type="text" [(ngModel)]="entity.question">
+  </div>
+
+<!--  Answer  -->
+  <div class="form-group" *ngIf="serverManagementService.hasProperty('answer')">
+    <label for="answer-textarea">Antwoord</label>
+    <textarea class="form-control" id="answer-textarea" name="answer" [(ngModel)]="entity.answer"></textarea>
+  </div>
+
+<!--  Description  -->
+  <div class="form-group" *ngIf="serverManagementService.hasProperty('description')">
+    <label for="description-textarea">Omschrijving</label>
+    <textarea
+      class="form-control"
+      id="description-textarea"
+      name="description"
+      placeholder="Optioneel"
+      [(ngModel)]="entity.description"
+    >
+    </textarea>
+  </div>
+
+  <!--  Basis and Value  -->
+  <div class="form-group d-flex" *ngIf="serverManagementService.hasProperty('basis') && serverManagementService.hasProperty('discriminator')">
+    <div class="w-25">
+      <label for="basis-select">Op basis van</label>
+      <select class="form-control" name="basis" id="basis-select" [(ngModel)]="entity.basis">
+        <option value="district">Provincie</option>
+        <option value="city">Stad</option>
+        <option value="bussinesName">Bedrijfsnaam</option>
+      </select>
+    </div>
+    <div class="w-75 ml-3">
+      <label for="discriminator-input">Onderscheider</label>
+      <input
+        class="form-control"
+        id="discriminator-input"
+        name="discriminator"
+        type="text"
+        [(ngModel)]="entity.discriminator"
+      >
+    </div>
+  </div>
+</form>

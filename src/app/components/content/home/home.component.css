@@ -6,4 +6,13 @@ a[routerlink="/partner"] {
   text-decoration: underline #343a40;
 }
 
+.btn-meld-hier {
+  background-color: var(--alert-button-bg-color);
+  color: var(--primary-txt-color);
+}
+
+.btn-meld-hier:hover {
+  background-color: var(--alert-button-bg-hover-color);
+}
+
 /*# sourceMappingURL=home.component.css.map */

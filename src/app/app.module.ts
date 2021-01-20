@@ -26,8 +26,10 @@ import { SidebarComponent } from './components/content/admin/sidebar/sidebar.com
 import { DashboardComponent } from './components/content/admin/dashboard/dashboard.component';
 import { StatisticsComponent } from './components/content/admin/statistics/statistics.component';
 import { MembersComponent } from './components/content/admin/members/members.component';
-import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
+import { ServerManagementComponent } from './components/content/admin/server-management/server-management.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { EntityEditorComponent } from './components/content/admin/server-management/entity-editor/entity-editor.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
 
@@ -57,7 +59,8 @@ import { ContactConfirmationComponent } from './components/content/contact/conta
     DashboardComponent,
     StatisticsComponent,
     MembersComponent,
-    EditRapportComponent,
+    ServerManagementComponent,
+    EntityEditorComponent,
     AddPartnerComponent,
     MemberPopupComponent,
   ],
@@ -70,6 +73,7 @@ import { ContactConfirmationComponent } from './components/content/contact/conta
     FormsModule,
     GoogleMapsModule,
     MatDialogModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
