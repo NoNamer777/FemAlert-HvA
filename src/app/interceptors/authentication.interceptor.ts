@@ -26,25 +26,29 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     let newRequest: HttpRequest<any>;
 
     if (this.authenticateService.token != null){
+      // If has jwt token create new request with token added to Authorization header
       authToken = 'Bearer ' + this.authenticateService.token;
+
       const headers = new HttpHeaders({
         Authorization : authToken
       });
+
       newRequest = request.clone({headers});
     }
     else {
+      // If has no jwt token new request is same als old request
       newRequest = request;
     }
 
     return next.handle(newRequest).pipe(map((response: HttpEvent<any>) => {
       if (response instanceof HttpResponse) {
+        // If response has a jwt token get token and add it to authentication service
         if (response.headers.get(this.AUTH_KEY) != null){
           let token = response.headers.get(this.AUTH_KEY);
           token = token.replace('Bearer ', '');
           this.authenticateService.token = token;
         }
       }
-
       return response;
     }));
   }
