@@ -31,6 +31,7 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
 import { EntityEditorComponent } from './components/content/admin/server-management/entity-editor/entity-editor.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
+import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
     ServerManagementComponent,
     EntityEditorComponent,
     AddPartnerComponent,
+    MemberPopupComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -75,5 +77,6 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
   bootstrap: [
     AppComponent,
   ],
+  entryComponents: [MemberPopupComponent]
 })
 export class AppModule { }

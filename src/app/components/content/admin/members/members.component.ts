@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../models/User';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MemberPopupComponent } from './member-popup/member-popup.component';
+import { AuthenticateService } from '../../../../services/authenticate.service';
 
 @Component({
   selector: 'app-members',
@@ -17,12 +20,22 @@ export class MembersComponent implements OnInit {
   getUserError = false;
   noUserFound = false;
   isLoading = true;
+  userIsSameError = false;
 
+  /** List of Users from database */
   users: User[];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private dialog: MatDialog,
+              private authenticateService: AuthenticateService) {}
 
+  /**
+   * Deletes chosen user in database
+   * @param index is index in table
+   */
   deleteUser(index: number): void {
+    if (this.checkIfUserIsSame(index)) return;
+
     const id = this.users[index].id;
     this.isLoading = true;
 
@@ -35,6 +48,9 @@ export class MembersComponent implements OnInit {
     );
   }
 
+  /**
+   * On init add all users from database
+   */
   ngOnInit(): void {
     this.userService.getUsers().subscribe(
       (users: User[]) => {
@@ -50,4 +66,27 @@ export class MembersComponent implements OnInit {
     );
   }
 
+  editUser(index: number): void {
+    if (this.checkIfUserIsSame(index)) return;
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = false;
+    dialogConfig.disableClose = true;
+    dialogConfig.data = this.users[index];
+
+    this.dialog.open(MemberPopupComponent, dialogConfig);
+    this.dialog.afterAllClosed.subscribe(
+      () => this.ngOnInit()
+    );
+  }
+
+  checkIfUserIsSame(index: number): boolean {
+    if (this.users[index].id === this.authenticateService.currentUser.id) {
+      this.userIsSameError = true;
+      return true;
+    } else {
+      this.userIsSameError = false;
+      return false;
+    }
+  }
 }

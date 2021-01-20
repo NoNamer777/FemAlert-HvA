@@ -20,8 +20,10 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'locatie', component: LocationPickerComponent },
-  { path: 'formulier', component: QuestionComponent },
+  { path: 'rapporteren', children: [
+      { path: 'locatie', component: LocationPickerComponent },
+      { path: 'formulier', component: QuestionComponent }
+    ]},
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
       { path: 'server-management', component: ServerManagementComponent },
