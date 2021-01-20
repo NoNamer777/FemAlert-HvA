@@ -16,14 +16,13 @@ import { Rapport } from '../../../models/Rapport';
 import { Address } from '../../../models/Address';
 import { RapportsService } from '../../../services/rapports.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
+import { NgxCaptchaModule, ReCaptchaV3Service } from 'ngx-captcha';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
   let fixture: ComponentFixture<QuestionComponent>;
   let element: HTMLElement;
-
   let rapportsService: RapportsService;
-
   let router: Router;
   let mockHttpClient: HttpTestingController;
   let store: any;
@@ -43,6 +42,7 @@ describe('QuestionComponent', () => {
         FontAwesomeTestingModule,
         MatDialogModule,
         NoopAnimationsModule,
+        NgxCaptchaModule
       ],
       declarations: [
         QuestionComponent,
@@ -142,6 +142,7 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+    component.questionsForm.controls.captcha.setValue(false);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -330,4 +331,16 @@ describe('QuestionComponent', () => {
     const popupDialogContainer = document.documentElement.querySelector('app-email-more-info-dialog');
     expect(popupDialogContainer).not.toBe(null);
   });
+
+  // RECAPTCHA TEST
+  // TC1: try to enter the captcha right, expected: you are allowed
+  it('when the captcha is right, it is expected that you are then allowed ', async () => {
+    await getEvents();
+
+
+  });
+  // TC2: try to enter the captcha wrong, expected: you are not allowed
+  // TC3: try to enter the captcha with Upper/Lower Case Mix, expected (depends on reqs, mostly): you are allowed
+  // TC4: try to proceed without entering, expected: you are not allowed.
+
 });
