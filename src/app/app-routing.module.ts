@@ -28,7 +28,7 @@ const routes: Routes = [
     ]},
   { path: 'login', component: PartnerComponent },
   { path: 'partner', component: AdminComponent, children: [
-      { path: 'server-management', component: ServerManagementComponent },
+      { path: 'server-management', component: ServerManagementComponent, canActivate: [AuthenticationGuard] },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard]},
       { path: 'statistics', component: StatisticsComponent, canActivate: [AuthenticationGuard] },
       { path: 'members', component: MembersComponent, canActivate: [AuthenticationGuard] },
