@@ -1,19 +1,13 @@
 <div class="container">
-  <form>
-    <input type="text" placeholder="Search" class="form-control m-2 w-25 float-right"/>
-  </form>
-
   <div class="table-responsive">
     <table class="table">
       <tr>
         <th>Name</th>
-        <th>Place</th>
         <th>Admin</th>
         <th>Actions</th>
       </tr>
       <tr *ngFor="let u of users; let i = index">
         <td>{{u.name}}</td>
-        <td>den Helder</td>
         <td>{{u.admin}}</td>
         <td>
           <fa-icon [icon]="editIcon" class="m-2" (click)="editUser(i)"></fa-icon>

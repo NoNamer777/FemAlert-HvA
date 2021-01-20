@@ -1,7 +1,5 @@
 import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-
-import { RapportsService } from '../../services/rapports.service';
 import { AuthenticateService } from '../../services/authenticate.service';
 import { Router } from '@angular/router';
 
