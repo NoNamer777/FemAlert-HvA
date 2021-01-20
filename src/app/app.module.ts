@@ -31,6 +31,10 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
 import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
 
+import { ContactComponent } from './components/content/contact/contact.component';
+import { ContactConfirmationComponent } from './components/content/contact/contact-confirmation/contact-confirmation.component';
+
+
 @NgModule({
   declarations: [
     AddressInputDirective,
@@ -46,6 +50,8 @@ import { MemberPopupComponent } from './components/content/admin/members/member-
     FaqComponent,
     NotFoundComponent,
     ConfirmSendDialogComponent,
+    ContactComponent,
+    ContactConfirmationComponent,
     AdminComponent,
     SidebarComponent,
     DashboardComponent,
