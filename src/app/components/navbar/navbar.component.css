@@ -4,11 +4,11 @@
 :host .header {
   height: 100px;
   width: 100%;
-  background-color: var(--primary-bg-color);
+  background-color: var(--nav-bar-bg-color);
 }
 :host .header nav {
   padding-top: 1rem;
-  background-color: var(--primary-bg-color);
+  background-color: var(--nav-bar-bg-color);
 }
 :host .header nav .navbar-toggler-icon {
   background-image: url("https://mdbootstrap.com/img/svg/hamburger7.svg?color=FFFFFF");

@@ -29,9 +29,13 @@ body {
 }
 
 :root {
-  --primary-bg-color: #750C00;
-  --secondary-bg-color: #a01101;
-  --secondary-bg-hover-color: #881103;
+  --alert-button-bg-color: #a01101;
+  --alert-button-bg-hover-color: #881103;
+  --nav-bar-bg-color: #9C9C9C;
+  --nav-bar-bg-hover-color: #787878;
+  --primary-bg-color: #0A13B6;
+  --secondary-bg-color: #0911B0;
+  --secondary-bg-hover-color: #0B16E3;
   --primary-txt-color: #ffff;
   --primary-hover-txt-color: #D3D3D3;
 }
