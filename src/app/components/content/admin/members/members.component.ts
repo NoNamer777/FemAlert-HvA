@@ -30,6 +30,24 @@ export class MembersComponent implements OnInit {
               private authenticateService: AuthenticateService) {}
 
   /**
+   * On init add all users from database
+   */
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe(
+      (users: User[]) => {
+        this.users = users;
+        this.isLoading = false;
+        if (this.users.length === 0) this.noUserFound = true;
+      },
+      error => {
+        this.users = [];
+        this.getUserError = true;
+        this.isLoading = false;
+      }
+    );
+  }
+
+  /**
    * Deletes chosen user in database
    * @param index is index in table
    */
@@ -45,24 +63,6 @@ export class MembersComponent implements OnInit {
         this.isLoading = false;
       },
       () => this.getUserError = true
-    );
-  }
-
-  /**
-   * On init add all users from database
-   */
-  ngOnInit(): void {
-    this.userService.getUsers().subscribe(
-      (users: User[]) => {
-        this.users = users;
-        this.isLoading = false;
-        if (this.users.length === 0) this.noUserFound = true;
-      },
-      error => {
-        this.users = [];
-        this.getUserError = true;
-        this.isLoading = false;
-      }
     );
   }
 

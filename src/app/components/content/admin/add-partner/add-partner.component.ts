@@ -70,11 +70,12 @@ export class AddPartnerComponent implements OnInit {
 
     // Backend request for registering with new User attached
     this.authenticateService.register(newUser).subscribe(
-      response => {
+      () => {
+        alert(`Lid is succesvol geregistreerd`);
         this.addMemberForm.reset();
         this.addMemberForm.controls.admin.setValue(false);
       },
-      error => this.gotNetworkError = true
+      () => this.gotNetworkError = true
     );
   }
 
