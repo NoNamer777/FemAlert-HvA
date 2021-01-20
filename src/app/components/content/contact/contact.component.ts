@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { EmailMoreInfoDialogComponent } from '../question/email-more-info-dialog/email-more-info-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { BACK_END_URL } from '../../../services/questions.service';
 
@@ -29,7 +27,6 @@ export class ContactComponent implements OnInit {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
-    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {}
@@ -39,17 +36,6 @@ export class ContactComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  /** Opens the dialog that provides information about why we need the email address of an User. */
-  onMIEmail(): void {
-    this.dialog.open(EmailMoreInfoDialogComponent, {
-      hasBackdrop: true,
-      closeOnNavigation: true,
-      position: {
-        top: '40%',
-        left: '10%',
-      },
-    });
-  }
 
   /** Handles requesting the contact form to be send to the back-end server. */
   onSubmitMessage(): void {
