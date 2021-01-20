@@ -219,6 +219,9 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+
+    // try to proceed without entering or the captcha is entered wrong, expected: you are not allowed.
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -331,16 +334,5 @@ describe('QuestionComponent', () => {
     const popupDialogContainer = document.documentElement.querySelector('app-email-more-info-dialog');
     expect(popupDialogContainer).not.toBe(null);
   });
-
-  // RECAPTCHA TEST
-  // TC1: try to enter the captcha right, expected: you are allowed
-  it('when the captcha is right, it is expected that you are then allowed ', async () => {
-    await getEvents();
-
-
-  });
-  // TC2: try to enter the captcha wrong, expected: you are not allowed
-  // TC3: try to enter the captcha with Upper/Lower Case Mix, expected (depends on reqs, mostly): you are allowed
-  // TC4: try to proceed without entering, expected: you are not allowed.
 
 });
