@@ -9,7 +9,6 @@ import { FontAwesomeTestingModule } from '@fortawesome/angular-fontawesome/testi
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthenticateService } from '../../../../services/authenticate.service';
-import { augmentIndexHtml } from '@angular-devkit/build-angular/src/angular-cli-files/utilities/index-file/augment-index-html';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('MembersComponent', () => {
