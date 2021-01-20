@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { RapportsService } from '../../../services/rapports.service';
 import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { Event } from '../../../models/Event';
-
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmSendDialogComponent } from './confirm-send-dialog/confirm-send-dialog.component';
 
@@ -36,28 +35,83 @@ export class QuestionComponent implements OnInit, OnDestroy {
    */
   dataReady = false;
 
-  /** The questions form */
-  questionsForm = new FormGroup({
-    dateTime: new FormControl(null, Validators.required),
-    events: new FormControl([]),
-    story: new FormControl(),
-    name: new FormControl(),
-    email: new FormControl(null, [ Validators.required, Validators.email]),
-    victimSupport: new FormControl(true, Validators.required),
-    extraInfo: new FormControl(true, Validators.required),
-    acceptedTerms: new FormControl(false, Validators.required)
-  });
-
   /** Subject that notifies when this component is destroyed. */
   dialogClosed$ = new Subject<void>();
 
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaIsReady = false;
+  public captchaResponse?: string;
+
+  siteKey: string;
+  public theme: 'light' | 'dark' = 'light';
+  public size: 'compact' | 'normal' = 'normal';
+  public lang = 'en';
+  public type: 'image' | 'audio';
+  public recaptcha: any = null;
+  public questionsForm: FormGroup;
+
+  // CDR: Base class that provides change detection functionality.
+  // A change-detection tree collects all views that are to be checked for changes.
   constructor(
     private router: Router,
     private rapportsService: RapportsService,
     private sessionStorageService: SessionStorageService,
     private eventsService: EventsService,
     private dialog: MatDialog,
-  ) {}
+    private cdr: ChangeDetectorRef,
+  ) {
+    /** The questions form */
+
+    // The API client key
+    this.siteKey = '6LcrLf4ZAAAAAAPXDwB519lt11ENgbbdW75JBhfX';
+
+    // optional light or dark
+    this.theme = 'light';
+    this.size = 'normal';
+    this.lang = 'nl';
+    this.type = 'image';
+
+    this.questionsForm = new FormGroup({
+      dateTime: new FormControl(null, Validators.required),
+      events: new FormControl([]),
+      story: new FormControl(),
+      name: new FormControl(),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      victimSupport: new FormControl(true, Validators.required),
+      extraInfo: new FormControl(true, Validators.required),
+      acceptedTerms: new FormControl(false, Validators.required),
+      recaptcha: new FormControl(false, Validators.required)
+    });
+  }
+
+  // Captcha functions
+
+  // Reset the captcha
+  handleReset(): void {
+    this.captchaSuccess = false;
+    this.captchaResponse = undefined;
+    this.cdr.detectChanges();
+  }
+
+  // Unsets global script & reloads captcha
+  handleLoad(): void {
+    this.captchaIsLoaded = true;
+    this.cdr.detectChanges();
+  }
+
+  // Checking if the captcha is ready
+  handleReady(): void {
+    this.captchaIsReady = true;
+    this.cdr.detectChanges();
+  }
+
+  // Handles succes
+  handleSuccess(captchaResponse: string): void {
+    this.captchaSuccess = true;
+    this.captchaResponse = captchaResponse;
+    this.cdr.detectChanges();
+  }
 
   ngOnInit(): void {
     // Get the incident types from the back-end server.
@@ -65,7 +119,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
       events => this.incidentTypes = events,
       () => this.incidentTypes = MOCK_EVENTS
     );
-  }
+
+    this.captchaIsLoaded = true;
+    this.cdr.detectChanges();
+     }
+
 
   ngOnDestroy(): void {
     this.dialogClosed$.next();
@@ -163,7 +221,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.rapportsService.rapport.emailAddress = this.questionsForm.value.email;
     this.rapportsService.rapport.story = this.questionsForm.value.story;
     this.rapportsService.rapport.name = this.questionsForm.value.name;
-
     for (const event of this.questionsForm.value.events) this.rapportsService.rapport.addEvent(event);
   }
 
@@ -177,4 +234,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     // Acknowledge that the data is ready.
     this.dataReady = true;
   }
+
+
 }
