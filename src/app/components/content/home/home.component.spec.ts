@@ -75,7 +75,7 @@ describe('HomeComponent', () => {
     button.click();
     fixture.detectChanges();
 
-    expect(navigationSpy).toHaveBeenCalledWith([ '/locatie' ]);
+    expect(navigationSpy).toHaveBeenCalledWith([ '/rapporteren/locatie' ]);
     expect(rapportsService.isCreatingRapport).toBe(true);
   });
 

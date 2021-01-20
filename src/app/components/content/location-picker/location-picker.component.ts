@@ -108,14 +108,14 @@ export class LocationPickerComponent implements OnInit {
   /** Stops the creation of the rapport. */
   onPrevious(): void {
     this.router.navigate(['/home']);
-    
+
     this.rapportsService.isCreatingRapport = false;
   }
 
   /** Continues to the Rapport form. */
   onNext(): void {
-    this.router.navigate(['/formulier']);
-    
+    this.router.navigate(['/rapporteren/formulier']);
+
     // Instantiate a new Rapport object, provided with the set Address location.
     const rapport =  new Rapport();
     rapport.address = new Address(this.placeResult.formatted_address, this.placeResult.name);
@@ -152,7 +152,7 @@ export class LocationPickerComponent implements OnInit {
       lat: placeResult.geometry.location.lat(),
       lng: placeResult.geometry.location.lng()
     };
-    
+
     this.marker.setPosition(this.center);
     this.marker.setOptions({
       visible: true,
