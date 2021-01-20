@@ -7,7 +7,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthenticateService } from '../../../../services/authenticate.service';
 import { User } from '../../../../models/User';
 import { BACK_END_URL } from '../../../../services/questions.service';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AddPartnerComponent', () => {

@@ -28,23 +28,27 @@ export class PartnerComponent implements OnInit {
   constructor(private authenticateService: AuthenticateService,
               private router: Router) { }
 
+  /** Checks if User is already authenticated */
   ngOnInit(): void {
     if (this.authenticateService.checkAuthentication()) this.router.navigate(['/partner/dashboard']);
   }
 
-  onSubmit(): void{
+  /**
+   * If form is valid try to login and make login request to the backend
+   */
+  onSubmit(): void {
+    // Check if form is valid
     if (this.loginForm.invalid === true) {
       this.showInvalidCredentials = true;
       return;
     }
 
+    // Create new User with form information
     const user = new User();
-
     user.emailAddress = this.loginForm.controls.email.value;
     user.password = this.loginForm.controls.password.value;
 
     this.authenticateService.login(user).subscribe((loggedInUser: User) => {
-        // if good
         this.showInvalidCredentials = false;
         this.authenticateService.currentUser = loggedInUser;
         this.router.navigate(['/partner/dashboard']);
