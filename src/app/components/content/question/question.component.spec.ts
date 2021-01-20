@@ -17,6 +17,7 @@ import { Address } from '../../../models/Address';
 import { RapportsService } from '../../../services/rapports.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { NgxCaptchaModule, ReCaptchaV3Service } from 'ngx-captcha';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
@@ -42,7 +43,8 @@ describe('QuestionComponent', () => {
         FontAwesomeTestingModule,
         MatDialogModule,
         NoopAnimationsModule,
-        NgxCaptchaModule
+        NgxCaptchaModule,
+        ReactiveFormsModule
       ],
       declarations: [
         QuestionComponent,
@@ -142,7 +144,7 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
-    component.questionsForm.controls.captcha.setValue(false);
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -174,6 +176,7 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -219,7 +222,6 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
-
     // try to proceed without entering or the captcha is entered wrong, expected: you are not allowed.
     component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
