@@ -29,6 +29,7 @@ import { MembersComponent } from './components/content/admin/members/members.com
 import { EditRapportComponent } from './components/content/admin/edit-rapport/edit-rapport.component';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AddPartnerComponent } from './components/content/admin/add-partner/add-
     MatDialogModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxCaptchaModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
