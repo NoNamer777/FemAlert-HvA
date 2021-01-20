@@ -8,11 +8,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./server-management.component.scss'],
   providers: [ServerManagementService],
 })
-export class ServerManagementComponent implements OnInit {
+export class ServerManagementComponent {
 
   constructor(public serverManagementService: ServerManagementService, private _route: ActivatedRoute) {}
-
-  ngOnInit(): void {}
 
   onSelectEntity(entity: any): void {
     this.serverManagementService.entity = entity;
