@@ -34,8 +34,8 @@ describe('ConfirmationComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ConfirmationComponent);
-    component = fixture.debugElement.componentInstance;
-    element = fixture.debugElement.nativeElement;
+    component = fixture.componentInstance;
+    element = fixture.nativeElement;
 
     router = TestBed.inject(Router);
     mockHttpClient = TestBed.inject(HttpTestingController);
