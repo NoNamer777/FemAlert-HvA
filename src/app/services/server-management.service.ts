@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BACK_END_URL } from './questions.service';
 import { Subject } from 'rxjs';
 import EntityProperties from '../../assets/data/entity-properties.json';
+import { isNewLine } from '@angular/compiler/src/chars';
 
 export interface ServerEntity {
 
@@ -20,18 +21,21 @@ export interface EntityProperty {
   type: string;
 }
 
-const TYPE_STORAGE_KEY = 'sm-type';
-const ENTITY_STORAGE_KEY = 'sm-entity';
+export const TYPE_STORAGE_KEY = 'sm-type';
+export const ENTITY_STORAGE_KEY = 'sm-entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServerManagementService {
 
+  /** A list of Entities that are managed by the server. */
   serverEntities: ServerEntity[] = ServerEntities;
 
+  /** A map of properties that a type of Entity has. */
   entityProperties: { [p: string ]: (string | EntityProperty)[] } = EntityProperties;
 
+  /** Notifies listeners that the selected Entity has changed. */
   entityChange = new Subject<any>();
 
   get type(): ServerEntity {
@@ -63,6 +67,7 @@ export class ServerManagementService {
   set entities(entities: any[]) {
     this._entities = entities;
 
+    // Adds new Entities to the list of Entities on initialization.
     if (this.entity != null && this.entity.id == null) {
       this.entities.push(this.entity);
     }
@@ -75,9 +80,10 @@ export class ServerManagementService {
   }
 
   set entity(entity: any) {
+    // Type the incoming value to the appropriate Entity Type.
     entity = this._sessionStorageService.deserialize(entity, this.type.value);
 
-    if (this.entity != null && entity === this._entity) return;
+    if (this.entity != null && entity?.id === this._entity?.id) return;
 
     this._entity = entity;
     this.entityChange.next(this.entity);
@@ -91,6 +97,7 @@ export class ServerManagementService {
     private _sessionStorageService: SessionStorageService,
     private _httpClient: HttpClient
   ) {
+    // Tries to restore data from the session storage.
     const sessionType = _sessionStorageService.getSessionData(TYPE_STORAGE_KEY);
     const sessionEntity = _sessionStorageService.getSessionData(ENTITY_STORAGE_KEY);
 
@@ -98,15 +105,17 @@ export class ServerManagementService {
       this.serverEntities[0] :
       sessionType;
 
-    if (sessionEntity) this.entity = sessionEntity;
+    if (!(sessionEntity == null)) this.entity = sessionEntity;
   }
 
+  /** Checks if the provided Entity is the same Entity based on the ID. */
   hasSelected(entity?: any): boolean {
     if (entity == null) return !(this.entity == null);
 
     return this.entity?.id === entity.id;
   }
 
+  /** Checks if the Entity has the provided named property. */
   hasProperty(attribute: string): boolean {
     const properties = this.entityProperties[this.type.value];
 
@@ -119,14 +128,17 @@ export class ServerManagementService {
     return false;
   }
 
+  /** Checks if the selected Entity or the provided entity is a newly created Entity based on the ID. */
   isNewEntity(entity?: any): boolean {
     return entity == null ? this.entity != null && this.entity.id == null : entity.id == null;
   }
 
+  /** Finds a property name. */
   propertyName(property: string | EntityProperty): string {
     return this._isSimpleProperty(property) ? property as string : (property as EntityProperty).name;
   }
 
+  /** Tries to selects an Entity Type by its name property.  */
   selectTypeByName(typeName: string): void {
     for (const typeEntry of this.serverEntities) {
       if (typeName === typeEntry.name) {
@@ -136,6 +148,7 @@ export class ServerManagementService {
     }
   }
 
+  /** Creates a new Entity from the selected Type, adds that to the list and selects it. */
   createNewEntity(): void {
     const entity = this._sessionStorageService.deserialize({}, this.type.value);
 
@@ -143,18 +156,24 @@ export class ServerManagementService {
     this.entity = entity;
   }
 
+  /**
+   * Removes the selected Entity from the local list of Entities.
+   * Should another Entity be provided, then the currently selected Entity is replaced with that Entity.
+   */
   deleteOrReplaceLocally(replaceWith?: any): void {
     let index = -1;
 
     for (let idx = 0; idx < this.entities.length; idx++) {
       const entry = this.entities[idx];
 
-      if (entry.id === this.entity.id) {
+      if (this.entity != null && entry.id === this.entity.id) {
         index = idx;
 
         break;
       }
     }
+
+    if (index === -1) return;
 
     if (!!replaceWith) {
       this.entities.splice(index, 1, replaceWith);
@@ -170,6 +189,7 @@ export class ServerManagementService {
     this._sessionStorageService.updateSessionData(ENTITY_STORAGE_KEY, null);
   }
 
+  /** Requests the Entity to be removed from the server. */
   deleteFromRemote(): void {
     this._httpClient.delete(`${BACK_END_URL}/${this.type.value.toLocaleLowerCase()}/${this.entity.id}`).subscribe(
       () => this.deleteOrReplaceLocally(),
@@ -180,6 +200,7 @@ export class ServerManagementService {
     });
   }
 
+  /** Requests the Entity to be saved on the server. */
   saveEntity(entityToSave: any): void {
     this._httpClient.post(
       `${BACK_END_URL}/${this.type.value.toLocaleLowerCase()}`,
@@ -193,6 +214,7 @@ export class ServerManagementService {
       });
   }
 
+  /** Requests the Entity to be update on the server. */
   updateEntity(entityToUpdate: any): void {
     this._httpClient.put(
       `${BACK_END_URL}/${this.type.value.toLocaleLowerCase()}/${this.entity.id}`,
@@ -206,6 +228,7 @@ export class ServerManagementService {
     });
   }
 
+  /** Tries to find a specific type of Entity, returns whether the search was successful. */
   private _findEntityType(type: ServerEntity): boolean {
     for (const typeEntry of this.serverEntities) {
       if (type.name === typeEntry.name) return true;
@@ -214,6 +237,7 @@ export class ServerManagementService {
     return false;
   }
 
+  /** Checks if the application needs to find a simple or a complex entity property. */
   private _isSimpleProperty(property: string | EntityProperty): boolean {
     return typeof property === 'string';
   }
