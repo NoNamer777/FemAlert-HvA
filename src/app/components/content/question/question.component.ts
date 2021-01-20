@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
-
 import { RapportsService } from '../../../services/rapports.service';
 import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
@@ -118,7 +115,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     // Get the incident types from the back-end server.
     this.eventsService.getEvents().subscribe(
       events => this.incidentTypes = events,
