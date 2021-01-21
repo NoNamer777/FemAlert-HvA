@@ -16,14 +16,14 @@ import { Rapport } from '../../../models/Rapport';
 import { Address } from '../../../models/Address';
 import { RapportsService } from '../../../services/rapports.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
+import { NgxCaptchaModule, ReCaptchaV3Service } from 'ngx-captcha';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
   let fixture: ComponentFixture<QuestionComponent>;
   let element: HTMLElement;
-
   let rapportsService: RapportsService;
-
   let router: Router;
   let mockHttpClient: HttpTestingController;
   let store: any;
@@ -43,6 +43,8 @@ describe('QuestionComponent', () => {
         FontAwesomeTestingModule,
         MatDialogModule,
         NoopAnimationsModule,
+        NgxCaptchaModule,
+        ReactiveFormsModule
       ],
       declarations: [
         QuestionComponent,
@@ -142,6 +144,7 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -173,6 +176,7 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -218,6 +222,8 @@ describe('QuestionComponent', () => {
     component.questionsForm.controls.events.setValue([ MOCK_EVENTS[0] ]);
     component.questionsForm.controls.extraInfo.setValue(false);
     component.questionsForm.controls.victimSupport.setValue(false);
+    // try to proceed without entering or the captcha is entered wrong, expected: you are not allowed.
+    component.questionsForm.controls.recaptcha.setValue(true);
     fixture.detectChanges();
 
     expect(button.disabled).toBe(false);
@@ -330,4 +336,5 @@ describe('QuestionComponent', () => {
     const popupDialogContainer = document.documentElement.querySelector('app-email-more-info-dialog');
     expect(popupDialogContainer).not.toBe(null);
   });
+
 });

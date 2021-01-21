@@ -1,18 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { faCalendarAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import { RapportsService } from '../../../services/rapports.service';
 import { EventsService, MOCK_EVENTS } from '../../../services/events.service';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { Event } from '../../../models/Event';
-
 import { EmailMoreInfoDialogComponent } from './email-more-info-dialog/email-more-info-dialog.component';
 import { ConfirmSendDialogComponent } from './confirm-send-dialog/confirm-send-dialog.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-question',
@@ -36,36 +34,95 @@ export class QuestionComponent implements OnInit, OnDestroy {
    */
   dataReady = false;
 
-  /** The questions form */
-  questionsForm = new FormGroup({
-    dateTime: new FormControl(null, Validators.required),
-    events: new FormControl([]),
-    story: new FormControl(),
-    name: new FormControl(),
-    email: new FormControl(null, [ Validators.required, Validators.email]),
-    victimSupport: new FormControl(true, Validators.required),
-    extraInfo: new FormControl(true, Validators.required),
-    acceptedTerms: new FormControl(false, Validators.required)
-  });
-
   /** Subject that notifies when this component is destroyed. */
   dialogClosed$ = new Subject<void>();
 
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaIsExpired = false;
+  public captchaResponse?: string;
+
+  siteKey: string;
+  public theme: 'light' | 'dark' = 'light';
+  public size: 'compact' | 'normal' = 'normal';
+  public lang = 'en';
+  public type: 'image' | 'audio';
+  public recaptcha: any = null;
+  public questionsForm: FormGroup;
+
+  // CDR: Base class that provides change detection functionality.
+  // A change-detection tree collects all views that are to be checked for changes.
   constructor(
     private router: Router,
     private rapportsService: RapportsService,
     private sessionStorageService: SessionStorageService,
     private eventsService: EventsService,
     private dialog: MatDialog,
-  ) {}
+    private cdr: ChangeDetectorRef,
+  ) {
+    /** The questions form */
 
-  ngOnInit(): void {
+    // The API client key
+    this.siteKey = '6LcrLf4ZAAAAAAPXDwB519lt11ENgbbdW75JBhfX';
+
+    // optional light or dark
+    this.theme = 'light';
+    this.size = 'normal';
+    this.lang = 'nl';
+    this.type = 'image';
+
+    this.questionsForm = new FormGroup({
+      dateTime: new FormControl(null, Validators.required),
+      events: new FormControl([]),
+      story: new FormControl(),
+      name: new FormControl(),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      victimSupport: new FormControl(true, Validators.required),
+      extraInfo: new FormControl(true, Validators.required),
+      acceptedTerms: new FormControl(false, Validators.required),
+      recaptcha: new FormControl(false, Validators.required)
+    });
+  }
+
+  // Captcha functions
+
+  // Unsets global script & reloads captcha
+  // The checkbox has been clicked and a challenge is loading.
+  // You are instantly verified if the status changes to “You are verified”.
+  // Otherwise, you are required to complete a verification challenge.
+  handleLoad(): void {
+    this.captchaIsLoaded = true;
+    this.cdr.detectChanges();
+  }
+  // Reset the captcha
+  handleReset(): void {
+    this.captchaSuccess = false;
+    this.captchaResponse = undefined;
+    this.cdr.detectChanges();
+  }
+
+  // The verification expired due to timeout or inactivity.
+  // Click the checkbox again for a new challenge.
+  handleExpire(): void {
+    this.captchaSuccess = false;
+    this.captchaIsExpired = true;
+    this.cdr.detectChanges();
+  }
+
+  // You have been verified. You can now proceed on the website.
+  handleSuccess(captchaResponse: string): void {
+    this.captchaSuccess = true;
+    this.captchaResponse = captchaResponse;
+    this.cdr.detectChanges();
+  }
+
+    ngOnInit(): void {
     // Get the incident types from the back-end server.
     this.eventsService.getEvents().subscribe(
       events => this.incidentTypes = events,
       () => this.incidentTypes = MOCK_EVENTS
     );
-  }
+     }
 
   ngOnDestroy(): void {
     this.dialogClosed$.next();
@@ -163,7 +220,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.rapportsService.rapport.emailAddress = this.questionsForm.value.email;
     this.rapportsService.rapport.story = this.questionsForm.value.story;
     this.rapportsService.rapport.name = this.questionsForm.value.name;
-
     for (const event of this.questionsForm.value.events) this.rapportsService.rapport.addEvent(event);
   }
 
@@ -177,4 +233,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     // Acknowledge that the data is ready.
     this.dataReady = true;
   }
+
+
 }

@@ -31,11 +31,10 @@ import { AuthenticationInterceptor } from './interceptors/authentication.interce
 import { EntityEditorComponent } from './components/content/admin/server-management/entity-editor/entity-editor.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AddPartnerComponent } from './components/content/admin/add-partner/add-partner.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { MemberPopupComponent } from './components/content/admin/members/member-popup/member-popup.component';
-
 import { ContactComponent } from './components/content/contact/contact.component';
 import { ContactConfirmationComponent } from './components/content/contact/contact-confirmation/contact-confirmation.component';
-
 
 @NgModule({
   declarations: [
@@ -76,6 +75,7 @@ import { ContactConfirmationComponent } from './components/content/contact/conta
     MatTooltipModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxCaptchaModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true},
